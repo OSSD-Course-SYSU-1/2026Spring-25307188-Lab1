@@ -1,0 +1,296 @@
+Ôr@Ÿªassertions¤code´customTransformCache¬dependencies¢id¤meta±moduleSideEffects¬originalCode±originalSourcemap«resolvedIds®sourcemapChainµsyntheticNamedExportsµtransformDependencies®transformFiles¨cacheAstÔrAÚ#.if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { VideoPlayView } from './VideoPlayView';
+import { BottomView } from '../views/BottomView';
+import { RelatedListView } from '../views/RelatedListView';
+import { CommentsView } from '../views/CommentsView';
+import { WindowUtils } from '../utils/WindowUtils';
+import window from "@ohos.window";
+export function VideoDetailBuilder(parent = null) {
+    {
+        (parent ? parent : this).observeComponentCreation2((elmtId, isInitialRender) => {
+            if (isInitialRender) {
+                let componentCall = new VideoDetail(parent ? parent : this, {}, undefined, elmtId, () => { }, { page: "entry/src/main/ets/transitioninpage/VideoDetail.ets", line: 25, col: 3 });
+                ViewPU.create(componentCall);
+                let paramsLambda = () => {
+                    return {};
+                };
+                componentCall.paramsGenerator_ = paramsLambda;
+            }
+            else {
+                (parent ? parent : this).updateStateVarsOfChildByElmtId(elmtId, {});
+            }
+        }, { name: "VideoDetail" });
+    }
+}
+class VideoDetail extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__navBarHeight = this.createStorageLink('navBarHeight', 0, "navBarHeight");
+        this.__navStack = new ObservedPropertyObjectPU(null, this, "navStack");
+        this.addProvidedVar("navStack", this.__navStack, false);
+        this.__isLandscape = this.createStorageLink('isLandscape', false, "isLandscape");
+        this.__isVideoLock = this.createStorageLink('isVideoLock', false, "isVideoLock");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.navStack !== undefined) {
+            this.navStack = params.navStack;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__navBarHeight.purgeDependencyOnElmtId(rmElmtId);
+        this.__navStack.purgeDependencyOnElmtId(rmElmtId);
+        this.__isLandscape.purgeDependencyOnElmtId(rmElmtId);
+        this.__isVideoLock.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__navBarHeight.aboutToBeDeleted();
+        this.__navStack.aboutToBeDeleted();
+        this.__isLandscape.aboutToBeDeleted();
+        this.__isVideoLock.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get navBarHeight() {
+        return this.__navBarHeight.get();
+    }
+    set navBarHeight(newValue) {
+        this.__navBarHeight.set(newValue);
+    }
+    get navStack() {
+        return this.__navStack.get();
+    }
+    set navStack(newValue) {
+        this.__navStack.set(newValue);
+    }
+    get isLandscape() {
+        return this.__isLandscape.get();
+    }
+    set isLandscape(newValue) {
+        this.__isLandscape.set(newValue);
+    }
+    get isVideoLock() {
+        return this.__isVideoLock.get();
+    }
+    set isVideoLock(newValue) {
+        this.__isVideoLock.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            NavDestination.create(() => {
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Column.create();
+                    Column.height('100%');
+                    Column.width('100%');
+                }, Column);
+                {
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        if (isInitialRender) {
+                            let componentCall = new VideoPlayView(this, {}, undefined, elmtId, () => { }, { page: "entry/src/main/ets/transitioninpage/VideoDetail.ets", line: 38, col: 9 });
+                            ViewPU.create(componentCall);
+                            let paramsLambda = () => {
+                                return {};
+                            };
+                            componentCall.paramsGenerator_ = paramsLambda;
+                        }
+                        else {
+                            this.updateStateVarsOfChildByElmtId(elmtId, {});
+                        }
+                    }, { name: "VideoPlayView" });
+                }
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Scroll.create();
+                    Scroll.backgroundColor({ "id": 125831061, "type": 10001, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" });
+                    Scroll.layoutWeight(1);
+                    Scroll.scrollBar(BarState.Off);
+                    Scroll.padding({ bottom: 16 });
+                }, Scroll);
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Column.create();
+                }, Column);
+                RelatedListView.bind(this)();
+                CommentsView.bind(this)();
+                Column.pop();
+                Scroll.pop();
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    __Common__.create();
+                    __Common__.margin({ bottom: this.navBarHeight });
+                }, __Common__);
+                {
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        if (isInitialRender) {
+                            let componentCall = new BottomView(this, {}, undefined, elmtId, () => { }, { page: "entry/src/main/ets/transitioninpage/VideoDetail.ets", line: 51, col: 9 });
+                            ViewPU.create(componentCall);
+                            let paramsLambda = () => {
+                                return {};
+                            };
+                            componentCall.paramsGenerator_ = paramsLambda;
+                        }
+                        else {
+                            this.updateStateVarsOfChildByElmtId(elmtId, {});
+                        }
+                    }, { name: "BottomView" });
+                }
+                __Common__.pop();
+                Column.pop();
+            }, { moduleName: "entry", pagePath: "entry/src/main/ets/transitioninpage/VideoDetail" });
+            NavDestination.backgroundColor({ "id": 125831061, "type": 10001, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" });
+            NavDestination.hideTitleBar(true);
+            NavDestination.ignoreLayoutSafeArea();
+            NavDestination.enableNavigationIndicator(!this.isLandscape);
+            NavDestination.onAppear(() => {
+                WindowUtils.setStatusbarAndContentColor('#000000', '#F1F3F5');
+            });
+            NavDestination.onWillDisappear(() => {
+                WindowUtils.setStatusbarAndContentColor('#F1F3F5', '#000000');
+            });
+            NavDestination.onBackPressed(() => {
+                if (this.isVideoLock) {
+                    return true;
+                }
+                if (this.isLandscape) {
+                    this.isLandscape = false;
+                    if (!WindowUtils.isExpandedOrHalfFolded()) {
+                        WindowUtils.setOrientation(window.Orientation.PORTRAIT);
+                    }
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            });
+            NavDestination.onReady((ctx) => {
+                if (ctx.navDestinationId) {
+                    this.navStack = ctx.pathStack;
+                }
+            });
+        }, NavDestination);
+        NavDestination.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+(function () {
+    if (typeof NavigationBuilderRegister === "function") {
+        NavigationBuilderRegister("VideoDetail", wrapBuilder(VideoDetailBuilder));
+    }
+})();
+//# sourceMappingURL=VideoDetail.js.mapÂ–ÙWC:\LandscapePortraitToggle-master\entry\src\main\ets\transitioninpage\VideoPlayView.etsÙIC:\LandscapePortraitToggle-master\entry\src\main\ets\views\BottomView.etsÙNC:\LandscapePortraitToggle-master\entry\src\main\ets\views\RelatedListView.etsÙKC:\LandscapePortraitToggle-master\entry\src\main\ets\views\CommentsView.etsÙJC:\LandscapePortraitToggle-master\entry\src\main\ets\utils\WindowUtils.etsÙf hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.window.d.tsÙUC:\LandscapePortraitToggle-master\entry\src\main\ets\transitioninpage\VideoDetail.etsÔrB›ªmoduleName±isLocalDependency¯isNodeEntryFile§pkgPath±belongProjectPath§pkgNameªpkgVersion±dependencyPkgInfo°belongModulePath§checker¬shouldEmitJs¥entryÃÂÙ'C:\LandscapePortraitToggle-master\entryÙ!C:\LandscapePortraitToggle-master¥entry¥1.0.0Ô  Ù'C:\LandscapePortraitToggle-master\entryÔrCÜ ®¬getNodeCount²getIdentifierCount®getSymbolCount¬getTypeCountµgetInstantiationCountµgetRelationCacheSizes±isUndefinedSymbol±isArgumentsSymbol¯isUnknownSymbol¯getMergedSymbol®getDiagnostics´getGlobalDiagnostics´getRecursionIdentity¶getUnmatchedProperties¹getTypeOfSymbolAtLocation¯getTypeOfSymbolÙ(getSymbolsOfParameterPropertyDeclaration·getDeclaredTypeOfSymbol³getPropertiesOfType±getPropertyOfTypeÙ"getPrivateIdentifierPropertyOfType·getTypeOfPropertyOfType²getIndexInfoOfType³getIndexInfosOfTypeºgetIndexInfosOfIndexSymbol³getSignaturesOfType²getIndexTypeOfType¬getIndexType¬getBaseTypes¸getBaseTypeOfLiteralType®getWidenedType³getTypeFromTypeNode°getParameterTypeÙ$getParameterIdentifierNameAtPosition¸getPromisedTypeOfPromise®getAwaitedType¸getReturnTypeOfSignature®isNullableType¯getNullableType²getNonNullableType²getNonOptionalType°getTypeArguments®typeToTypeNodeÙ$indexInfoToIndexSignatureDeclaration¿signatureToSignatureDeclaration²symbolToEntityName²symbolToExpression¬symbolToNodeÙ!symbolToTypeParameterDeclarations¼symbolToParameterDeclarationºtypeParameterToDeclaration±getSymbolsInScope³getSymbolAtLocation·getIndexInfosAtLocationÙ!getShorthandAssignmentValueSymbolÙ#getExportSpecifierLocalTargetSymbol·getExportSymbolOfSymbol±getTypeAtLocationºgetTypeAtLocationForLinterÙ tryGetTypeAtLocationWithoutCheckºgetTypeOfAssignmentPatternÙ*getPropertySymbolOfDestructuringAssignment±signatureToString¬typeToString®symbolToStringµtypePredicateToString®writeSignature©writeType«writeSymbol²writeTypePredicate¼getAugmentedPropertiesOfType®getRootSymbols²getSymbolOfExpando±getContextualTypeÙ(getContextualTypeForObjectLiteralElementÙ#getContextualTypeForArgumentAtIndexÙ getContextualTypeForJsxAttribute²isContextSensitiveÙ!getTypeOfPropertyOfContextualTypeµgetFullyQualifiedNameÙ#tryGetResolvedSignatureWithoutCheck´getResolvedSignatureÙ/getResolvedSignatureForStringLiteralCompletionsÙ$getResolvedSignatureForSignatureHelpµgetExpandedParameters¹hasEffectiveRestParameterºcontainsArgumentsReference°getConstantValueµisValidPropertyAccessÙ#isValidPropertyAccessForCompletions»getSignatureFromDeclarationºisImplementationOfOverload¹getImmediateAliasedSymbol°getAliasedSymbol¯getEmitResolver²getExportsOfModule¿getExportsAndPropertiesOfModuleÙ forEachExportAndPropertyOfModule¯getSymbolWalker±getAmbientModules¹getJsxIntrinsicTagNamesAt³isOptionalParameter»tryGetMemberInModuleExportsÙ(tryGetMemberInModuleExportsAndProperties´tryFindAmbientModuleÙ(tryFindAmbientModuleWithoutAugmentations¯getApparentType¬getUnionType²isTypeAssignableTo³createAnonymousType¯createSignature¬createSymbol¯createIndexInfoªgetAnyType­getStringType­getNumberType±createPromiseType¯createArrayType¹getElementTypeOfArrayType®getBooleanType¬getFalseType«getTrueType«getVoidType°getUndefinedType«getNullType¯getESSymbolType¬getNeverType¯getOptionalType®getPromiseType²getPromiseLikeType´getAsyncIterableType²isSymbolAccessible«isArrayType«isTupleType¯isArrayLikeTypeÙ#isTypeInvalidDueToUnionDiscriminantºgetExactOptionalProperties¿getAllPossiblePropertiesOfTypesÙ(getSuggestedSymbolForNonexistentPropertyÙ#getSuggestionForNonexistentPropertyÙ,getSuggestedSymbolForNonexistentJSXAttributeÙ&getSuggestedSymbolForNonexistentSymbolÙ!getSuggestionForNonexistentSymbolÙ&getSuggestedSymbolForNonexistentModuleÙ!getSuggestionForNonexistentExportÙ+getSuggestedSymbolForNonexistentClassMember·getBaseConstraintOfType»getDefaultFromTypeParameter«resolveName¯getJsxNamespaceµgetJsxFragmentFactory¸getAccessibleSymbolChain»getTypePredicateOfSignature¹resolveExternalModuleName»resolveExternalModuleSymbol°tryGetThisTypeAt¹getTypeArgumentConstraint¸getSuggestionDiagnostics¸runWithCancellationTokenÙ3getLocalTypeParametersOfClassOrInterfaceOrTypeAlias´isDeclarationVisible´isPropertyAccessible»getTypeOnlyAliasDeclaration¿getMemberOverrideModifierStatusÙ!isTypeParameterPossiblyReferenced²getConstEnumRelate´clearConstEnumRelateµdeleteConstEnumRelateÙ$getTypeArgumentsForResolvedSignatureµgetCheckedSourceFilesÙ"collectHaveTsNoCheckFilesForLinter·clearQualifiedNameCache®isStaticRecord²isStaticSourceFileÔ  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  ÃÃÚ
+
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { VideoPlayView } from './VideoPlayView';
+import { BottomView } from '../views/BottomView';
+import { RelatedListView } from '../views/RelatedListView';
+import { CommentsView } from '../views/CommentsView';
+import { WindowUtils } from '../utils/WindowUtils';
+import { window } from '@kit.ArkUI';
+
+@Builder
+export function VideoDetailBuilder() {
+  VideoDetail();
+}
+
+@Component
+struct VideoDetail {
+  @StorageLink('navBarHeight') navBarHeight: number = 0;
+  @Provide navStack: NavPathStack | null = null;
+  @StorageLink('isLandscape') isLandscape: boolean = false;
+  @StorageLink('isVideoLock') isVideoLock: boolean = false;
+
+  build() {
+    NavDestination() {
+      Column() {
+        VideoPlayView()
+
+        Scroll() {
+          Column() {
+            RelatedListView()
+            CommentsView()
+          }
+        }
+        .backgroundColor($r('sys.color.background_primary'))
+        .layoutWeight(1)
+        .scrollBar(BarState.Off)
+        .padding({ bottom: 16 })
+
+        BottomView()
+          .margin({ bottom: this.navBarHeight })
+      }
+      .height('100%')
+      .width('100%')
+    }
+    .backgroundColor($r('sys.color.background_primary'))
+    .hideTitleBar(true)
+    .ignoreLayoutSafeArea()
+    .enableNavigationIndicator(!this.isLandscape)
+    .onAppear(() => {
+      WindowUtils.setStatusbarAndContentColor('#000000', '#F1F3F5');
+    })
+    .onWillDisappear(() => {
+      WindowUtils.setStatusbarAndContentColor('#F1F3F5', '#000000');
+    })
+    .onBackPressed(() => {
+      if (this.isVideoLock) {
+        return true;
+      }
+      if (this.isLandscape) {
+        this.isLandscape = false;
+        if (!WindowUtils.isExpandedOrHalfFolded()) {
+          WindowUtils.setOrientation(window.Orientation.PORTRAIT);
+        }
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .onReady((ctx: NavDestinationContext) => {
+      if (ctx.navDestinationId) {
+        this.navStack = ctx.pathStack;
+      }
+    })
+  }
+}ÀÔrD–¬@ohos.window¯./VideoPlayView´../utils/WindowUtils³../views/BottomView¸../views/RelatedListViewµ../views/CommentsViewÔrE—ªassertions¨external¢id¤meta±moduleSideEffectsªresolvedByµsyntheticNamedExportsAÃÙf hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.window.d.tsAÃªoh-resolveÂEAÂÙWC:\LandscapePortraitToggle-master\entry\src\main\ets\transitioninpage\VideoPlayView.etsAÃªoh-resolveÂEAÂÙJC:\LandscapePortraitToggle-master\entry\src\main\ets\utils\WindowUtils.etsAÃªoh-resolveÂEAÂÙIC:\LandscapePortraitToggle-master\entry\src\main\ets\views\BottomView.etsAÃªoh-resolveÂEAÂÙNC:\LandscapePortraitToggle-master\entry\src\main\ets\views\RelatedListView.etsAÃªoh-resolveÂEAÂÙKC:\LandscapePortraitToggle-master\entry\src\main\ets\views\CommentsView.etsAÃªoh-resolveÂ“ÔrF–§version¤fileªsourceRoot§sources¥names¨mappings®VideoDetail.js ‘¯VideoDetail.etsÜ ¿‘”    ‘” ˜”   ” ”	 	” ” ” ”/ /”0 0˜”   ” ”	 	” ” ” ”0 0”1 1˜”   ” ”	 	” ” ”   ”: :”; ;˜”   ” ”	 	” ” ” ”4 4”5 5˜”   ” ”	 	” ” ” ”2 2”3 3–”   ” 	” ” ”! #”" $””   ” ” ”" "’”( ”3 ‘” ’” ” ‘”  ””5 ”ÌC ”ÌE 6”ÌF 7’”7 +”; /””4 ”ÌA ”ÌC 5”ÌH :””4  ”ÌA  ”ÌC  5”ÌH  :‘” ’” ” +’” ” +’” ” ’” ” ’” ” )’” ” )’”  ”  )’”  ”  )‘” "’” $” $–” $” $” 5”! 5”" 5”( 5–” $” $” 6”  6”! 6”' 6’”4 %”ÌA %’” '” '”” '” '” -	”* -–” '” '” .	”' .”( .”) .˜” '” '” /	”$ /”% /”- /”. /”1 /š” '” '” 0	”" 0”# 0”% 0”+ 0”- 0”/ 0”1 0’” (
+” (“” )” )”, )“” *” *”) *’” (
+” (’” '” 'š” 3”% 3”& 3”( 3”. 3”0 3”4 3 ”5 3!”ÌA 3-”ÌC 3/’”4 2”> 2’” $” $’” 8”* 8”” 9”' 9”( 9”, 9’” :”/ :—” ;”4 ;”5 ;”6 ; ”: ;$”; ;%”ÌF ;0•” <”# <”$ <”' <”) <š” =” =” =”7 =-”8 =.”ÌA =7”ÌC =9”ÌL =ÌB”ÌM =ÌC”ÌN =ÌD’” >” >•” ?”* ?”+ ?”. ?”0 ?š” Ì@” Ì@” Ì@”7 Ì@-”8 Ì@.”ÌA Ì@7”ÌC Ì@9”ÌL Ì@ÌB”ÌM Ì@ÌC”ÌN Ì@ÌD’” ÌA” ÌA•” ÌB”( ÌB”) ÌB”, ÌB”. ÌB–” ÌC” ÌC
+” ÌC” ÌC”$ ÌC”& ÌC”” ÌD” ÌD” ÌD”  ÌD‘” ÌE–” ÌF” ÌF
+” ÌF” ÌF”$ ÌF”& ÌF—” ÌG” ÌG” ÌG”$ ÌG”' ÌG”, ÌG ”- ÌG!˜” ÌH” ÌH” ÌH”$ ÌH”% ÌH”; ÌH/”= ÌH1”? ÌH3œ” ÌI
+”# ÌI”$ ÌI”2 ÌI$”3 ÌI%”9 ÌI+”: ÌI,”ÌE ÌI7”ÌF ÌI8”ÌN ÌIÌ@”ÌO ÌIÌA”ÌP ÌIÌB‘” ÌJ	”” ÌK” ÌK” ÌK”  ÌK‘” ÌL‘” ÌL”” ÌM” ÌM”  ÌM”! ÌM‘” ÌN’” ÌO” ÌO—” ÌP”" ÌP”# ÌP”$ ÌP”' ÌP(”) ÌP*”+ ÌP,–” ÌQ” ÌQ
+” ÌQ” ÌQ”( ÌQ”* ÌQ ™” ÌR” ÌR” ÌR”! ÌR”$ ÌR”' ÌR”( ÌR”1 ÌR%”2 ÌR&‘” ÌS’” ÌT” ÌT‘” ÌUÔrG–§version¤file§sources®sourcesContent¥names¨mappingsÀ‘À‘ÀÜ É‘”    ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”  	 ‘”  
+ ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”    ‘”  ! ‘”  " ‘”  # ‘”  $ ‘”  % ‘”  & ‘”  ' ‘”  ( ‘”  ) ‘”  * ‘”  + ‘”  , ‘”  - ‘”  . ‘”  / ‘”  0 ‘”  1 ‘”  2 ‘”  3 ‘”  4 ‘”  5 ‘”  6 ‘”  7 ‘”  8 ‘”  9 ‘”  : ‘”  ; ‘”  < ‘”  = ‘”  > ‘”  ? ‘”  Ì@ ‘”  ÌA ‘”  ÌB ‘”  ÌC ‘”  ÌD ‘”  ÌE ‘”  ÌF ‘”  ÌG ‘”  ÌH ‘”  ÌI ‘”  ÌJ ‘”  ÌK ‘”  ÌL ‘”  ÌM ‘”  ÌN ‘”  ÌO ‘”  ÌP ‘”  ÌQ ‘”  ÌR ‘”  ÌS ‘”  ÌT ‘”  ÌU ‘”  ÌV ‘”  ÌW ‘”  ÌX ‘”  ÌY ‘”  ÌZ ‘”  Ì[ ‘”  Ì\ ‘”  Ì] ‘”  Ì^ ‘”  Ì_ ‘”  Ì` ‘”  Ìa ‘”  Ìb ‘”  Ìc ‘”  Ìd ‘”  Ìe ‘”  Ìf ‘”  Ìg ‘”  Ìh ‘”  Ìi ‘”  Ìj ‘”  Ìk ‘”  Ìl ‘”  Ìm ‘”  Ìn ‘”  Ìo ‘”  Ìp ‘”  Ìq ‘”  Ìr ‘”  Ìs ‘”  Ìt ‘”  Ìu ‘”  Ìv ‘”  Ìw ‘”  Ìx ‘”  Ìy ‘”  Ìz ‘”  Ì{ ‘”  Ì| ‘”  Ì} ‘”  Ì~ ‘”  Ì ‘”  Ì€ ‘”  Ì ‘”  Ì‚ ‘”  Ìƒ ‘”  Ì„ ‘”  Ì… ‘”  Ì† ‘”  Ì‡ ‘”  Ìˆ ‘”  Ì‰ ‘”  ÌŠ ‘”  Ì‹ ‘”  ÌŒ ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì‘ ‘”  Ì’ ‘”  Ì“ ‘”  Ì” ‘”  Ì• ‘”  Ì– ‘”  Ì— ‘”  Ì˜ ‘”  Ì™ ‘”  Ìš ‘”  Ì› ‘”  Ìœ ‘”  Ì ‘”  Ì ‘”  ÌŸ ‘”  Ì  ‘”  Ì¡ ‘”  Ì¢ ‘”  Ì£ ‘”  Ì¤ ‘”  Ì¥ ‘”  Ì¦ ‘”  Ì§ ‘”  Ì¨ ‘”  Ì© ‘”  Ìª ‘”  Ì« ‘”  Ì¬ ‘”  Ì­ ‘”  Ì® ‘”  Ì¯ ‘”  Ì° ‘”  Ì± ‘”  Ì² ‘”  Ì³ ‘”  Ì´ ‘”  Ìµ ‘”  Ì¶ ‘”  Ì· ‘”  Ì¸ ‘”  Ì¹ ‘”  Ìº ‘”  Ì» ‘”  Ì¼ ‘”  Ì½ ‘”  Ì¾ ‘”  Ì¿ ‘”  ÌÀ ‘”  ÌÁ ‘”  ÌÂ ‘”  ÌÃ ‘”  ÌÄ ‘”  ÌÅ ‘”  ÌÆ ‘”  ÌÇ ‘”  ÌÈ ÔrH’§missing¦pluginÃ¦genAbcÂÔ  ÔrI”²dynamicImportCache¹exportAllDeclarationCache»exportNamedDeclarationCache«importCache‘ÔrJ–¤type¥start£end«declarationªspecifiers¦source¶ExportNamedDeclarationÍ Í#ÔrK™¤type¥start£end¢idªexpression©generator¥async¦params¤body³FunctionDeclarationÍ'Í#ÔrL”¤type¥start£end¤nameªIdentifierÍ0ÍB²VideoDetailBuilderÂÂÂ‘ÔrM•¤type¥start£end¤left¥right±AssignmentPatternÍCÍPLªIdentifierÍCÍI¦parentÔrN•¤type¥start£end¥value£raw§LiteralÍLÍPÀ¤nullÔrO”¤type¥start£end¤body®BlockStatementÍRÍ#‘O®BlockStatementÍYÍ ‘ÔrP”¤type¥start£endªexpression³ExpressionStatementÍdÍÔrQ–¤type¥start£end¦callee©arguments¨optional®CallExpressionÍdÍÔrR—¤type¥start£end¦object¨property¨computed¨optional°MemberExpressionÍdÍ–ÔrS–¤type¥start£end¤testªconsequent©alternateµConditionalExpressionÍeÍ{LªIdentifierÍeÍk¦parentLªIdentifierÍnÍt¦parentÔrT“¤type¥start£end®ThisExpressionÍwÍ{LªIdentifierÍ}Í–¹observeComponentCreation2ÂÂ’K·ArrowFunctionExpressionÍ—ÍşÀÂÂÂ’LªIdentifierÍ˜Í¦elmtIdLªIdentifierÍ Í¯¯isInitialRenderO®BlockStatementÍ´Íş‘S«IfStatementÍÃÍóLªIdentifierÍÇÍÖ¯isInitialRenderO®BlockStatementÍØÍz”ÔrU•¤type¥start£end¬declarations¤kind³VariableDeclarationÍëÍœ‘ÔrV•¤type¥start£end¢id¤init²VariableDeclaratorÍïÍ›LªIdentifierÍïÍü­componentCallÔrW•¤type¥start£end¦callee©arguments­NewExpressionÍÿÍ›LªIdentifierÍÍ«VideoDetail–SµConditionalExpressionÍÍ%LªIdentifierÍÍ¦parentLªIdentifierÍÍ¦parentT®ThisExpressionÍ!Í%ÔrX”¤type¥start£endªproperties°ObjectExpressionÍ'Í)LªIdentifierÍ+Í4©undefinedLªIdentifierÍ6Í<¦elmtIdK·ArrowFunctionExpressionÍ>ÍGÀÂÂÂO®BlockStatementÍDÍGX°ObjectExpressionÍIÍš“ÔrY™¤type¥start£end¦method©shorthand¨computed£key¥value¤kind¨PropertyÍKÍ†ÂÂÂLªIdentifierÍKÍO¤pageN§LiteralÍQÍ†Ù3entry/src/main/ets/transitioninpage/VideoDetail.etsÙ5"entry/src/main/ets/transitioninpage/VideoDetail.ets"¤initY¨PropertyÍˆÍÂÂÂLªIdentifierÍˆÍŒ¤lineN§LiteralÍÍ¢25¤initY¨PropertyÍ’Í˜ÂÂÂLªIdentifierÍ’Í•£colN§LiteralÍ—Í˜¡3¤init£letP³ExpressionStatementÍ®ÍËQ®CallExpressionÍ®ÍÊR°MemberExpressionÍ®Í»LªIdentifierÍ®Í´¦ViewPULªIdentifierÍµÍ»¦createÂÂ‘LªIdentifierÍ¼ÍÉ­componentCallÂU³VariableDeclarationÍİÍ+‘V²VariableDeclaratorÍáÍ*LªIdentifierÍáÍí¬paramsLambdaK·ArrowFunctionExpressionÍğÍ*ÀÂÂÂO®BlockStatementÍöÍ*‘ÔrZ”¤type¥start£end¨argument¯ReturnStatementÍÍX°ObjectExpressionÍÍ£letP³ExpressionStatementÍ=ÍkÔr[–¤type¥start£end¨operator¤left¥right´AssignmentExpressionÍ=Íj¡=R°MemberExpressionÍ=Í[LªIdentifierÍ=ÍJ­componentCallLªIdentifierÍKÍ[°paramsGenerator_ÂÂLªIdentifierÍ^Íj¬paramsLambdaO®BlockStatementÍÍó‘P³ExpressionStatementÍ ÍäQ®CallExpressionÍ ÍãR°MemberExpressionÍ Í×SµConditionalExpressionÍ¡Í·LªIdentifierÍ¡Í§¦parentLªIdentifierÍªÍ°¦parentT®ThisExpressionÍ³Í·LªIdentifierÍ¹Í×¾updateStateVarsOfChildByElmtIdÂÂ’LªIdentifierÍØÍŞ¦elmtIdX°ObjectExpressionÍàÍâÂX°ObjectExpressionÍ Í‘Y¨PropertyÍÍÂÂÂLªIdentifierÍÍ¤nameN§LiteralÍÍ«VideoDetail­"VideoDetail"¤initÂÀ–Ôr\•¤type¥start£endªspecifiers¦source±ImportDeclarationÍîÍ‘Ôr]•¤type¥start£end¨imported¥local¯ImportSpecifierÍ÷ÍLªIdentifierÍ÷Í­VideoPlayViewLªIdentifierÍ÷Í­VideoPlayViewN§LiteralÍÍ¯./VideoPlayView±'./VideoPlayView'\±ImportDeclarationÍ ÍQ‘]¯ImportSpecifierÍ)Í3LªIdentifierÍ)Í3ªBottomViewLªIdentifierÍ)Í3ªBottomViewN§LiteralÍ;ÍP³../views/BottomViewµ'../views/BottomView'\±ImportDeclarationÍSÍ‘]¯ImportSpecifierÍ\ÍkLªIdentifierÍ\Ík¯RelatedListViewLªIdentifierÍ\Ík¯RelatedListViewN§LiteralÍsÍ¸../views/RelatedListViewº'../views/RelatedListView'\±ImportDeclarationÍÍÅ‘]¯ImportSpecifierÍ™Í¥LªIdentifierÍ™Í¥¬CommentsViewLªIdentifierÍ™Í¥¬CommentsViewN§LiteralÍ­ÍÄµ../views/CommentsView·'../views/CommentsView'\±ImportDeclarationÍÇÍú‘]¯ImportSpecifierÍĞÍÛLªIdentifierÍĞÍÛ«WindowUtilsLªIdentifierÍĞÍÛ«WindowUtilsN§LiteralÍãÍù´../utils/WindowUtils¶'../utils/WindowUtils'\±ImportDeclarationÍüÍ‘Ôr^”¤type¥start£end¥local¶ImportDefaultSpecifierÍÍ	LªIdentifierÍÍ	¦windowN§LiteralÍÍ¬@ohos.window®"@ohos.window"

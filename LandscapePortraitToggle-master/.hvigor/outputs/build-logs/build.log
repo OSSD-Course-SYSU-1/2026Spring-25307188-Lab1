@@ -1,0 +1,1590 @@
+[2026-05-12T16:39:54.487] [DEBUG] debug-file - env: nodejsVersion=v18.20.1
+[2026-05-12T16:39:55.190] [DEBUG] debug-file - Hvigor init with startParameters:{
+  hvigorfileTypeCheck: false,
+  parallelExecution: true,
+  incrementalExecution: true,
+  printStackTrace: false,
+  daemon: false,
+  analyze: 0,
+  logLevel: Level { level: 20000, levelStr: 'INFO', colour: 'green' },
+  optimizationStrategy: 'memory',
+  hotCompile: undefined,
+  hotReloadBuild: undefined,
+  customizedParam: undefined
+}
+[2026-05-12T16:39:59.138] [DEBUG] debug-file - hvigorfile, require result:  { default: { system: [Function: appTasks], plugins: [] } }
+[2026-05-12T16:39:59.142] [DEBUG] debug-file - Starting plugin build process
+[2026-05-12T16:39:59.327] [DEBUG] debug-file - App plugin register hook start...
+[2026-05-12T16:39:59.336] [DEBUG] debug-file - Obtain build option for product 'default'in this build.
+[2026-05-12T16:39:59.353] [DEBUG] debug-file - Start recording SDK configuration permission data.
+[2026-05-12T16:39:59.330] [DEBUG] debug-file - Start initialize project's product build option map with build mode debug.
+[2026-05-12T16:39:59.400] [DEBUG] debug-file - Project task initialization takes 10 ms 
+[2026-05-12T16:39:59.413] [DEBUG] debug-file - failed to load cangjie to dynamically generate schemas: Error: Cannot find module '@ohos/cangjie-build-support/index'
+Require stack:
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\hooks\cangjie-register.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\strategy\stage-init-strategy.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\builder\abstract-plugin-builder.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\builder\app-plugin-builder.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\factory\plugin-factory.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\index.js
+- C:\LandscapePortraitToggle-master\hvigorfile.ts
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\internal\lifecycle\configuration.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\boot\index.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\cli\main\cli.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\bin\hvigor.js
+[2026-05-12T16:39:59.430] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=debug
+[2026-05-12T16:39:59.443] [DEBUG] debug-file - start to load updatedOhPackageInfo to the disk
+[2026-05-12T16:39:54.488] [DEBUG] debug-file - env: hvigor-config.json5 content = {
+  modelVersion: '5.0.0',
+  dependencies: {},
+  execution: {},
+  logging: {},
+  debugging: {},
+  nodeOptions: {}
+}
+[2026-05-12T16:39:59.440] [DEBUG] debug-file - project has submodules:entry
+[2026-05-12T16:39:59.456] [DEBUG] debug-file - Start to initialize dependency information.
+[2026-05-12T16:39:59.470] [DEBUG] debug-file - entry : clean cost memory 0.1070709228515625
+[2026-05-12T16:39:55.191] [DEBUG] debug-file - Since current hvigor version 6.22.4 differs from last hvigor version 
+      undefined, delete file-cache.json and task-cache.json.
+[2026-05-12T16:39:59.506] [DEBUG] debug-file - Create  resident worker with id: 0.
+[2026-05-12T16:39:59.139] [DEBUG] debug-file - hvigorfile, binding system plugins [Function: appTasks]
+[2026-05-12T16:39:59.142] [DEBUG] debug-file - App plugin prepare start...
+[2026-05-12T16:39:59.327] [DEBUG] debug-file - App plugin register hook end...
+[2026-05-12T16:39:59.338] [DEBUG] debug-file - No signingConfig found, initRemoteHspCache failed.
+[2026-05-12T16:39:59.388] [DEBUG] debug-file - Sdk init in 49 ms 
+[2026-05-12T16:39:59.400] [DEBUG] debug-file - hvigorfile, binding custom plugins []
+[2026-05-12T16:39:59.330] [DEBUG] debug-file - Picking option from product 'default' with build mode 'debug'.
+[2026-05-12T16:39:59.431] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-12T16:39:59.449] [DEBUG] debug-file - load to the disk finished
+[2026-05-12T16:39:54.491] [DEBUG] debug-file - env: daemon=false
+[2026-05-12T16:39:59.461] [DEBUG] debug-file - Module entry Collected Dependency: 
+[2026-05-12T16:39:59.470] [DEBUG] debug-file - runTaskFromQueue task cost before running: 4 s 293 ms 
+[2026-05-12T16:39:55.192] [DEBUG] debug-file - Cache service initialization finished in 1 ms 
+[2026-05-12T16:39:59.509] [DEBUG] debug-file - Create  resident worker with id: 1.
+[2026-05-12T16:39:59.142] [DEBUG] debug-file - App plugin prepare end...
+[2026-05-12T16:39:59.328] [DEBUG] debug-file - Plugin build process completed
+[2026-05-12T16:39:59.341] [DEBUG] debug-file - Local scan or download HarmonyOS sdk components toolchains,ets,js,native,previewer
+[2026-05-12T16:39:59.331] [DEBUG] debug-file - Product 'default' build option initialized
+[2026-05-12T16:39:59.431] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-12T16:39:59.451] [DEBUG] debug-file - Start to initialize dependency information.
+[2026-05-12T16:39:54.491] [DEBUG] debug-file - no-daemon, use the parent process.execArgv --max-old-space-size=8192,--max-semi-space-size=16,--expose-gc
+[2026-05-12T16:39:59.400] [DEBUG] debug-file - hvigorfile, no custom plugins were found in C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-12T16:39:59.461] [DEBUG] debug-file - Module entry's total dependency: 0
+[2026-05-12T16:39:59.471] [INFO] debug-file - Finished :entry:clean... after 3 ms 
+[2026-05-12T16:39:55.194] [DEBUG] debug-file - hvigorfile, resolving C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-12T16:39:59.347] [DEBUG] debug-file - Local scan or download hmscore sdk components toolchains,ets,native
+[2026-05-12T16:39:59.142] [DEBUG] debug-file - App plugin creating...
+[2026-05-12T16:39:59.431] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-12T16:39:59.511] [DEBUG] debug-file - Current worker pool is stopped or closed.
+[2026-05-12T16:39:59.331] [DEBUG] debug-file - End initialize project's product build option map with build mode 'debug'.
+[2026-05-12T16:39:59.454] [DEBUG] debug-file - Module LandscapePortraitToggle-master Collected Dependency: 
+[2026-05-12T16:39:59.400] [DEBUG] debug-file - hvigorfile, resolve finished C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-12T16:39:59.464] [DEBUG] debug-file - Configuration phase cost:4 s 272 ms 
+[2026-05-12T16:39:59.471] [DEBUG] debug-file - Executing task ::clean
+[2026-05-12T16:39:59.431] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=release
+[2026-05-12T16:39:59.511] [DEBUG] debug-file - Clear worker 0.
+[2026-05-12T16:39:59.401] [DEBUG] debug-file - hvigorfile, resolving C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-12T16:39:59.454] [DEBUG] debug-file - Module LandscapePortraitToggle-master's total dependency: 0
+[2026-05-12T16:39:59.466] [DEBUG] debug-file - Configuration task cost before running: 4 s 289 ms 
+[2026-05-12T16:39:59.472] [DEBUG] debug-file - clean: Worker pool is inactive.
+[2026-05-12T16:39:59.431] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-12T16:39:59.511] [DEBUG] debug-file - Worker 0 has been cleared.
+[2026-05-12T16:39:59.472] [DEBUG] debug-file - LandscapePortraitToggle-master : clean cost memory 0.2650299072265625
+[2026-05-12T16:39:59.467] [DEBUG] debug-file - Executing task :entry:clean
+[2026-05-12T16:39:59.409] [DEBUG] debug-file - hvigorfile, require result:  { default: { system: [Function: hapTasks], plugins: [] } }
+[2026-05-12T16:39:59.432] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-12T16:39:59.511] [DEBUG] debug-file - Current idle worker size: 1.
+[2026-05-12T16:39:59.472] [DEBUG] debug-file - runTaskFromQueue task cost before running: 4 s 295 ms 
+[2026-05-12T16:39:59.467] [DEBUG] debug-file - clean: Worker pool is inactive.
+[2026-05-12T16:39:59.511] [DEBUG] debug-file - Current busy worker size: 0.
+[2026-05-12T16:39:59.432] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-12T16:39:59.472] [INFO] debug-file - Finished ::clean... after 1 ms 
+[2026-05-12T16:39:59.409] [DEBUG] debug-file - hvigorfile, binding system plugins [Function: hapTasks]
+[2026-05-12T16:39:59.511] [DEBUG] debug-file - Clear worker 1.
+[2026-05-12T16:39:59.432] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=debug
+[2026-05-12T16:39:59.473] [DEBUG] debug-file - Executing task :entry:init
+[2026-05-12T16:39:59.409] [DEBUG] debug-file - Starting plugin build process
+[2026-05-12T16:39:59.511] [DEBUG] debug-file - Worker 1 has been cleared.
+[2026-05-12T16:39:59.473] [DEBUG] debug-file - entry : init cost memory 0.01265716552734375
+[2026-05-12T16:39:59.432] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-12T16:39:59.409] [DEBUG] debug-file - Hap plugin creating...
+[2026-05-12T16:39:59.511] [DEBUG] debug-file - Current idle worker size: 0.
+[2026-05-12T16:39:59.473] [DEBUG] debug-file - runTaskFromQueue task cost before running: 4 s 296 ms 
+[2026-05-12T16:39:59.433] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-12T16:39:59.511] [DEBUG] debug-file - Current busy worker size: 0.
+[2026-05-12T16:39:59.473] [INFO] debug-file - Finished :entry:init... after 1 ms 
+[2026-05-12T16:39:59.433] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-12T16:39:59.512] [DEBUG] debug-file - hvigor build process will be closed.
+[2026-05-12T16:39:59.473] [DEBUG] debug-file - Executing task ::init
+[2026-05-12T16:39:59.519] [DEBUG] debug-file - worker[0] exits with exit code 0.
+[2026-05-12T16:39:59.433] [DEBUG] debug-file - Obtain build option for module 'entry' target 'default'in this build.
+[2026-05-12T16:39:59.473] [DEBUG] debug-file - LandscapePortraitToggle-master : init cost memory 0.01141357421875
+[2026-05-12T16:39:59.520] [DEBUG] debug-file - worker[1] exits with exit code 0.
+[2026-05-12T16:39:59.438] [DEBUG] debug-file - Module entry task initialization takes 5 ms 
+[2026-05-12T16:39:59.473] [DEBUG] debug-file - runTaskFromQueue task cost before running: 4 s 297 ms 
+[2026-05-12T16:39:59.520] [DEBUG] debug-file - Current worker pool is terminated.
+[2026-05-12T16:39:59.438] [DEBUG] debug-file - Hap plugin register hook start...
+[2026-05-12T16:39:59.473] [INFO] debug-file - Finished ::init... after 1 ms 
+[2026-05-12T16:39:59.438] [DEBUG] debug-file - Hap plugin register hook end...
+[2026-05-12T16:39:59.491] [DEBUG] debug-file - Obtain build option for module 'entry' target 'default'in this build.
+[2026-05-12T16:39:59.499] [DEBUG] debug-file - Since there is no instance or instance is terminated, create a new worker pool.
+[2026-05-12T16:39:59.438] [DEBUG] debug-file - Plugin build process completed
+[2026-05-12T16:39:59.500] [DEBUG] debug-file - Worker pool is initialized with config:  {
+  minPoolNum: 2,
+  maxPoolNum: undefined,
+  maxCoreSize: undefined,
+  cacheCapacity: undefined,
+  cacheTtl: undefined
+}
+[2026-05-12T16:39:59.438] [DEBUG] debug-file - hvigorfile, binding custom plugins []
+[2026-05-12T16:39:59.438] [DEBUG] debug-file - hvigorfile, no custom plugins were found in C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-12T16:39:59.438] [DEBUG] debug-file - hvigorfile, resolve finished C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-12T16:42:47.320] [DEBUG] debug-file - env: nodejsVersion=v18.20.1
+[2026-05-12T16:42:47.425] [DEBUG] debug-file - env: daemon=true
+[2026-05-12T16:42:47.322] [DEBUG] debug-file - env: hvigor-config.json5 content = {
+  modelVersion: '5.0.0',
+  dependencies: {},
+  execution: {},
+  logging: {},
+  debugging: {},
+  nodeOptions: {}
+}
+[2026-05-12T16:42:48.792] [DEBUG] debug-file - java daemon tryConnect failed Error: connect ECONNREFUSED 127.0.0.1:45050
+[2026-05-12T16:42:48.823] [DEBUG] debug-file - java daemon started at port 45050 pid 69200
+[2026-05-12T16:42:48.856] [DEBUG] debug-file - session manager: set active socket. socketId=mxNKqWbGz61kcJeDAAAB
+[2026-05-12T16:42:50.153] [DEBUG] debug-file - watch worker: worker id should be larger than 0. Nothing will be sent to any worker thread.
+[2026-05-12T16:42:50.160] [DEBUG] debug-file - Since there is no instance or instance is terminated, create a new worker pool.
+[2026-05-12T16:42:50.161] [DEBUG] debug-file - Worker pool is initialized with config:  {
+  minPoolNum: 2,
+  maxPoolNum: undefined,
+  maxCoreSize: undefined,
+  cacheCapacity: undefined,
+  cacheTtl: undefined
+}
+[2026-05-12T16:42:50.162] [DEBUG] debug-file - Create  resident worker with id: 0.
+[2026-05-12T16:42:50.165] [DEBUG] debug-file - Create  resident worker with id: 1.
+[2026-05-12T16:42:50.167] [DEBUG] debug-file - Workers' log level updated to INFO
+[2026-05-12T16:42:50.178] [DEBUG] debug-file - Hvigor init with startParameters:{
+  hvigorfileTypeCheck: false,
+  parallelExecution: true,
+  incrementalExecution: true,
+  printStackTrace: false,
+  daemon: true,
+  analyze: 0,
+  logLevel: Level { level: 20000, levelStr: 'INFO', colour: 'green' },
+  optimizationStrategy: 'memory',
+  hotCompile: undefined,
+  hotReloadBuild: undefined,
+  customizedParam: undefined
+}
+[2026-05-12T16:42:50.180] [DEBUG] debug-file - Cache service initialization finished in 2 ms 
+[2026-05-12T16:42:50.183] [DEBUG] debug-file - hvigorfile, resolving C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-12T16:42:53.478] [DEBUG] debug-file - hvigorfile, require result:  { default: { plugins: [] } }
+[2026-05-12T16:42:53.479] [DEBUG] debug-file - hvigorfile, binding system plugins null
+[2026-05-12T16:42:53.480] [DEBUG] debug-file - Starting plugin build process
+[2026-05-12T16:42:53.480] [DEBUG] debug-file - App plugin prepare start...
+[2026-05-12T16:42:53.480] [DEBUG] debug-file - App plugin prepare end...
+[2026-05-12T16:42:53.481] [DEBUG] debug-file - App plugin creating...
+[2026-05-12T16:42:53.677] [DEBUG] debug-file - App plugin register hook start...
+[2026-05-12T16:42:53.677] [DEBUG] debug-file - App plugin register hook end...
+[2026-05-12T16:42:53.678] [DEBUG] debug-file - Plugin build process completed
+[2026-05-12T16:42:53.679] [DEBUG] debug-file - Start initialize project's product build option map with build mode debug.
+[2026-05-12T16:42:53.679] [DEBUG] debug-file - Picking option from product 'default' with build mode 'debug'.
+[2026-05-12T16:42:53.680] [DEBUG] debug-file - Product 'default' build option initialized
+[2026-05-12T16:42:53.680] [DEBUG] debug-file - End initialize project's product build option map with build mode 'debug'.
+[2026-05-12T16:42:53.683] [DEBUG] debug-file - Obtain build option for product 'default'in this build.
+[2026-05-12T16:42:53.685] [DEBUG] debug-file - No signingConfig found, initRemoteHspCache failed.
+[2026-05-12T16:42:53.689] [DEBUG] debug-file - Local scan or download HarmonyOS sdk components toolchains,ets,js,native,previewer
+[2026-05-12T16:42:53.695] [DEBUG] debug-file - Local scan or download hmscore sdk components toolchains,ets,native
+[2026-05-12T16:42:53.698] [DEBUG] debug-file - Start recording SDK configuration permission data.
+[2026-05-12T16:42:53.739] [DEBUG] debug-file - Sdk init in 52 ms 
+[2026-05-12T16:42:53.747] [DEBUG] debug-file - Project task initialization takes 7 ms 
+[2026-05-12T16:42:53.747] [DEBUG] debug-file - hvigorfile, binding custom plugins []
+[2026-05-12T16:42:53.747] [DEBUG] debug-file - hvigorfile, no custom plugins were found in C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-12T16:42:53.747] [DEBUG] debug-file - hvigorfile, resolve finished C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-12T16:42:53.748] [DEBUG] debug-file - hvigorfile, resolving C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-12T16:42:53.757] [DEBUG] debug-file - hvigorfile, require result:  { default: { plugins: [] } }
+[2026-05-12T16:42:53.757] [DEBUG] debug-file - hvigorfile, binding system plugins null
+[2026-05-12T16:42:53.757] [DEBUG] debug-file - Starting plugin build process
+[2026-05-12T16:42:53.757] [DEBUG] debug-file - Hap plugin creating...
+[2026-05-12T16:42:53.759] [DEBUG] debug-file - failed to load cangjie to dynamically generate schemas: Error: Cannot find module '@ohos/cangjie-build-support/index'
+Require stack:
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\hooks\cangjie-register.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\strategy\stage-init-strategy.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\builder\abstract-plugin-builder.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\builder\app-plugin-builder.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\factory\plugin-factory.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\index.js
+- C:\LandscapePortraitToggle-master\hvigorfile.ts
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\internal\lifecycle\configuration.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\boot\index.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\daemon\cluster\worker-process-lifecycle.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\daemon\process\daemon-process-boot-script.js
+[2026-05-12T16:42:53.777] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=debug
+[2026-05-12T16:42:53.777] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-12T16:42:53.778] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-12T16:42:53.778] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-12T16:42:53.778] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=release
+[2026-05-12T16:42:53.778] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-12T16:42:53.779] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-12T16:42:53.779] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-12T16:42:53.779] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=debug
+[2026-05-12T16:42:53.779] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-12T16:42:53.780] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-12T16:42:53.780] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-12T16:42:53.780] [DEBUG] debug-file - Obtain build option for module 'entry' target 'default'in this build.
+[2026-05-12T16:42:53.787] [DEBUG] debug-file - Module entry task initialization takes 7 ms 
+[2026-05-12T16:42:53.788] [DEBUG] debug-file - Hap plugin register hook start...
+[2026-05-12T16:42:53.788] [DEBUG] debug-file - Hap plugin register hook end...
+[2026-05-12T16:42:53.788] [DEBUG] debug-file - Plugin build process completed
+[2026-05-12T16:42:53.788] [DEBUG] debug-file - hvigorfile, binding custom plugins []
+[2026-05-12T16:42:53.788] [DEBUG] debug-file - hvigorfile, no custom plugins were found in C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-12T16:42:53.788] [DEBUG] debug-file - hvigorfile, resolve finished C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-12T16:42:53.866] [DEBUG] debug-file - hvigorfile, resolve hvigorfile dependencies in 77 ms 
+[2026-05-12T16:42:53.866] [DEBUG] debug-file - project has submodules:entry
+[2026-05-12T16:42:53.869] [DEBUG] debug-file - start to load updatedOhPackageInfo to the disk
+[2026-05-12T16:42:53.902] [DEBUG] debug-file - load to the disk finished
+[2026-05-12T16:42:53.905] [DEBUG] debug-file - Start to initialize dependency information.
+[2026-05-12T16:42:53.909] [DEBUG] debug-file - Module LandscapePortraitToggle-master Collected Dependency: 
+[2026-05-12T16:42:53.909] [DEBUG] debug-file - Module LandscapePortraitToggle-master's total dependency: 0
+[2026-05-12T16:42:53.910] [DEBUG] debug-file - Start to initialize dependency information.
+[2026-05-12T16:42:53.917] [DEBUG] debug-file - Module entry Collected Dependency: 
+[2026-05-12T16:42:53.917] [DEBUG] debug-file - Module entry's total dependency: 0
+[2026-05-12T16:42:53.922] [DEBUG] debug-file - Configuration phase cost:3 s 742 ms 
+[2026-05-12T16:42:53.924] [DEBUG] debug-file - Configuration task cost before running: 3 s 756 ms 
+[2026-05-12T16:42:53.936] [DEBUG] debug-file - Executing task :entry:default@PreBuild
+[2026-05-12T16:42:53.939] [DEBUG] debug-file - Task 'entry:default@PreBuild' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:54.093] [DEBUG] debug-file - current product is not Atomic service.
+[2026-05-12T16:42:54.094] [DEBUG] debug-file - Use tool [win32: JAVA_HOME, CLASSPATH]
+ [
+  { JAVA_HOME: 'C:\\Program Files\\Huawei\\DevEco Studio\\jbr' },
+  { CLASSPATH: undefined }
+]
+[2026-05-12T16:42:54.095] [DEBUG] debug-file - Use tool [win32: NODE_HOME]
+ [
+  {
+    NODE_HOME: 'C:\\Program Files\\Huawei\\DevEco Studio\\tools\\node'
+  }
+]
+[2026-05-12T16:42:54.095] [DEBUG] debug-file - entry : default@PreBuild cost memory 14.32830810546875
+[2026-05-12T16:42:54.096] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 927 ms 
+[2026-05-12T16:42:54.100] [INFO] debug-file - Finished :entry:default@PreBuild... after 160 ms 
+[2026-05-12T16:42:54.101] [DEBUG] debug-file - Executing task :entry:default@CreateModuleInfo
+[2026-05-12T16:42:54.102] [DEBUG] debug-file - Task 'entry:default@CreateModuleInfo' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:54.102] [DEBUG] debug-file - entry : default@CreateModuleInfo cost memory 0.0425567626953125
+[2026-05-12T16:42:54.102] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 934 ms 
+[2026-05-12T16:42:54.102] [INFO] debug-file - Finished :entry:default@CreateModuleInfo... after 2 ms 
+[2026-05-12T16:42:54.104] [DEBUG] debug-file - Executing task :entry:default@GenerateMetadata
+[2026-05-12T16:42:54.105] [DEBUG] debug-file - Task 'entry:default@GenerateMetadata' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:54.108] [DEBUG] debug-file - entry : default@GenerateMetadata cost memory 0.06168365478515625
+[2026-05-12T16:42:54.109] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 940 ms 
+[2026-05-12T16:42:54.109] [INFO] debug-file - Finished :entry:default@GenerateMetadata... after 5 ms 
+[2026-05-12T16:42:54.110] [DEBUG] debug-file - Executing task :entry:default@ConfigureCmake
+[2026-05-12T16:42:54.110] [DEBUG] debug-file - entry : default@ConfigureCmake cost memory 0.0144805908203125
+[2026-05-12T16:42:54.110] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 942 ms 
+[2026-05-12T16:42:54.111] [INFO] debug-file - Finished :entry:default@ConfigureCmake... after 1 ms 
+[2026-05-12T16:42:54.112] [DEBUG] debug-file - Executing task :entry:default@MergeProfile
+[2026-05-12T16:42:54.113] [DEBUG] debug-file - Task 'entry:default@MergeProfile' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:54.114] [DEBUG] debug-file - Change app api release type with 'Release'
+[2026-05-12T16:42:54.114] [DEBUG] debug-file - Change app compile API version with '6.0.2.130'
+[2026-05-12T16:42:54.114] [DEBUG] debug-file - Change app target API version with '60002022'
+[2026-05-12T16:42:54.114] [DEBUG] debug-file - Change app minimum API version with '60002022'
+[2026-05-12T16:42:54.114] [DEBUG] debug-file - Use cli appEnvironment
+[2026-05-12T16:42:54.118] [DEBUG] debug-file - entry : default@MergeProfile cost memory 0.155914306640625
+[2026-05-12T16:42:54.118] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 949 ms 
+[2026-05-12T16:42:54.118] [INFO] debug-file - Finished :entry:default@MergeProfile... after 6 ms 
+[2026-05-12T16:42:54.120] [DEBUG] debug-file - Executing task :entry:default@CreateBuildProfile
+[2026-05-12T16:42:54.121] [DEBUG] debug-file - Task 'entry:default@CreateBuildProfile' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:54.123] [DEBUG] debug-file - entry : default@CreateBuildProfile cost memory 0.0633697509765625
+[2026-05-12T16:42:54.123] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 955 ms 
+[2026-05-12T16:42:54.124] [INFO] debug-file - Finished :entry:default@CreateBuildProfile... after 4 ms 
+[2026-05-12T16:42:54.125] [DEBUG] debug-file - Executing task :entry:default@PreCheckSyscap
+[2026-05-12T16:42:54.125] [DEBUG] debug-file - entry : default@PreCheckSyscap cost memory 0.01471710205078125
+[2026-05-12T16:42:54.125] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 957 ms 
+[2026-05-12T16:42:54.126] [INFO] debug-file - Finished :entry:default@PreCheckSyscap... after 1 ms 
+[2026-05-12T16:42:54.128] [DEBUG] debug-file - Executing task :entry:default@GeneratePkgContextInfo
+[2026-05-12T16:42:54.138] [DEBUG] debug-file - Task 'entry:default@GeneratePkgContextInfo' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:54.139] [DEBUG] debug-file - entry : default@GeneratePkgContextInfo cost memory 0.4537506103515625
+[2026-05-12T16:42:54.139] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 971 ms 
+[2026-05-12T16:42:54.139] [INFO] debug-file - Finished :entry:default@GeneratePkgContextInfo... after 12 ms 
+[2026-05-12T16:42:54.145] [DEBUG] debug-file - Executing task :entry:default@ProcessIntegratedHsp
+[2026-05-12T16:42:54.146] [DEBUG] debug-file - entry : default@ProcessIntegratedHsp cost memory 0.02850341796875
+[2026-05-12T16:42:54.146] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 977 ms 
+[2026-05-12T16:42:54.146] [INFO] debug-file - Finished :entry:default@ProcessIntegratedHsp... after 1 ms 
+[2026-05-12T16:42:54.148] [DEBUG] debug-file - Executing task :entry:default@BuildNativeWithCmake
+[2026-05-12T16:42:54.148] [DEBUG] debug-file - entry : default@BuildNativeWithCmake cost memory 0.014862060546875
+[2026-05-12T16:42:54.148] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 979 ms 
+[2026-05-12T16:42:54.148] [INFO] debug-file - Finished :entry:default@BuildNativeWithCmake... after 1 ms 
+[2026-05-12T16:42:54.149] [DEBUG] debug-file - Executing task :entry:default@MakePackInfo
+[2026-05-12T16:42:54.152] [DEBUG] debug-file - Module Pack Info:  {
+  summary: {
+    app: { bundleName: 'c***e', bundleType: 'app', version: [Object] },
+    modules: [ [Object] ]
+  },
+  packages: [
+    {
+      deviceType: [Array],
+      moduleType: 'entry',
+      deliveryWithInstall: true,
+      name: 'entry-default'
+    }
+  ]
+}
+[2026-05-12T16:42:54.155] [DEBUG] debug-file - entry : default@MakePackInfo cost memory 0.14007568359375
+[2026-05-12T16:42:54.155] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 987 ms 
+[2026-05-12T16:42:54.156] [INFO] debug-file - Finished :entry:default@MakePackInfo... after 6 ms 
+[2026-05-12T16:42:54.158] [DEBUG] debug-file - Executing task :entry:default@SyscapTransform
+[2026-05-12T16:42:54.158] [DEBUG] debug-file - File: 'C:\LandscapePortraitToggle-master\entry\src\main\syscap.json' from 'sysCapJsonPath' is not exists, just ignore.
+[2026-05-12T16:42:54.160] [DEBUG] debug-file - Task 'entry:default@SyscapTransform' cost while wrapping incremental declarations: 2 ms 
+[2026-05-12T16:42:54.160] [DEBUG] debug-file - entry : default@SyscapTransform cost memory 0.05789947509765625
+[2026-05-12T16:42:54.160] [DEBUG] debug-file - runTaskFromQueue task cost before running: 3 s 992 ms 
+[2026-05-12T16:42:54.161] [INFO] debug-file - Finished :entry:default@SyscapTransform... after 3 ms 
+[2026-05-12T16:42:54.163] [DEBUG] debug-file - Executing task :entry:default@ProcessProfile
+[2026-05-12T16:42:54.164] [DEBUG] debug-file - Task 'entry:default@ProcessProfile' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:54.166] [DEBUG] debug-file - [
+  'C:\\Program Files\\Huawei\\DevEco Studio\\tools\\node\\node.exe',
+  'C:\\Program Files\\Huawei\\DevEco Studio\\sdk\\default\\openharmony\\ets\\build-tools\\ets-loader\\bin\\ark\\ts2abc.js',
+  '--target-api-version',
+  '22'
+]
+[2026-05-12T16:42:55.604] [DEBUG] debug-file - 13.0.1.0
+[2026-05-12T16:42:55.607] [DEBUG] debug-file - No need to add fake ui ability because of not in preview process.
+[2026-05-12T16:42:55.609] [DEBUG] debug-file - entry : default@ProcessProfile cost memory -9.743461608886719
+[2026-05-12T16:42:55.609] [DEBUG] debug-file - runTaskFromQueue task cost before running: 5 s 441 ms 
+[2026-05-12T16:42:55.610] [INFO] debug-file - Finished :entry:default@ProcessProfile... after 1 s 447 ms 
+[2026-05-12T16:42:55.612] [DEBUG] debug-file - Executing task :entry:default@ProcessRouterMap
+[2026-05-12T16:42:55.625] [DEBUG] debug-file - entry : default@ProcessRouterMap cost memory 0.182647705078125
+[2026-05-12T16:42:55.625] [DEBUG] debug-file - runTaskFromQueue task cost before running: 5 s 456 ms 
+[2026-05-12T16:42:55.626] [INFO] debug-file - Finished :entry:default@ProcessRouterMap... after 14 ms 
+[2026-05-12T16:42:55.628] [DEBUG] debug-file - Executing task :entry:default@ProcessShareConfig
+[2026-05-12T16:42:55.632] [DEBUG] debug-file - entry : default@ProcessShareConfig cost memory 0.06140899658203125
+[2026-05-12T16:42:55.632] [DEBUG] debug-file - runTaskFromQueue task cost before running: 5 s 463 ms 
+[2026-05-12T16:42:55.633] [INFO] debug-file - Finished :entry:default@ProcessShareConfig... after 4 ms 
+[2026-05-12T16:42:55.634] [DEBUG] debug-file - Executing task :entry:default@ProcessStartupConfig
+[2026-05-12T16:42:55.634] [DEBUG] debug-file - Task 'entry:default@ProcessStartupConfig' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:55.636] [DEBUG] debug-file - entry : default@ProcessStartupConfig cost memory 0.05728912353515625
+[2026-05-12T16:42:55.636] [DEBUG] debug-file - runTaskFromQueue task cost before running: 5 s 467 ms 
+[2026-05-12T16:42:55.636] [INFO] debug-file - Finished :entry:default@ProcessStartupConfig... after 2 ms 
+[2026-05-12T16:42:55.638] [DEBUG] debug-file - Executing task :entry:default@BuildNativeWithNinja
+[2026-05-12T16:42:55.640] [DEBUG] debug-file - entry : default@BuildNativeWithNinja cost memory 0.02610015869140625
+[2026-05-12T16:42:55.640] [DEBUG] debug-file - runTaskFromQueue task cost before running: 5 s 472 ms 
+[2026-05-12T16:42:55.641] [INFO] debug-file - Finished :entry:default@BuildNativeWithNinja... after 3 ms 
+[2026-05-12T16:42:55.643] [DEBUG] debug-file - restool module names: entry; moduleName=entry, taskName=default@ProcessResource
+[2026-05-12T16:42:55.646] [DEBUG] debug-file - Executing task :entry:default@ProcessResource
+[2026-05-12T16:42:55.647] [DEBUG] debug-file - Task 'entry:default@ProcessResource' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:55.650] [DEBUG] debug-file - entry : default@ProcessResource cost memory 0.10803985595703125
+[2026-05-12T16:42:55.652] [DEBUG] debug-file - runTaskFromQueue task cost before running: 5 s 483 ms 
+[2026-05-12T16:42:55.654] [INFO] debug-file - Finished :entry:default@ProcessResource... after 7 ms 
+[2026-05-12T16:42:55.657] [DEBUG] debug-file - Executing task :entry:default@GenerateLoaderJson
+[2026-05-12T16:42:55.658] [DEBUG] debug-file - Task 'entry:default@GenerateLoaderJson' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:55.678] [DEBUG] debug-file - entry : default@GenerateLoaderJson cost memory 0.7752304077148438
+[2026-05-12T16:42:55.678] [DEBUG] debug-file - runTaskFromQueue task cost before running: 5 s 510 ms 
+[2026-05-12T16:42:55.684] [INFO] debug-file - Finished :entry:default@GenerateLoaderJson... after 22 ms 
+[2026-05-12T16:42:55.686] [DEBUG] debug-file - Executing task :entry:default@ProcessLibs
+[2026-05-12T16:42:55.692] [DEBUG] debug-file - Worker dispatch failed, running processLibs on main thread.
+[2026-05-12T16:42:55.694] [DEBUG] debug-file - entry : default@ProcessLibs cost memory 0.262939453125
+[2026-05-12T16:42:55.694] [DEBUG] debug-file - runTaskFromQueue task cost before running: 5 s 526 ms 
+[2026-05-12T16:42:55.696] [INFO] debug-file - Finished :entry:default@ProcessLibs... after 9 ms 
+[2026-05-12T16:42:55.697] [DEBUG] debug-file - restool module names: entry; moduleName=entry, taskName=default@CompileResource
+[2026-05-12T16:42:55.698] [DEBUG] debug-file - Executing task :entry:default@CompileResource
+[2026-05-12T16:42:55.793] [DEBUG] debug-file - Use tool [C:\Program Files\Huawei\DevEco Studio\sdk\default\openharmony\toolchains\restool.exe]
+ [
+  'C:\\Program Files\\Huawei\\DevEco Studio\\sdk\\default\\openharmony\\toolchains\\restool.exe',
+  '-l',
+  'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\res\\default\\resConfig.json'
+]
+[2026-05-12T16:42:55.795] [DEBUG] debug-file - current process  memoryUsage: {
+  rss: 304320512,
+  heapTotal: 183996416,
+  heapUsed: 150110680,
+  external: 14374745,
+  arrayBuffers: 11473526
+} os memoryUsage :17.820911407470703
+[2026-05-12T16:42:56.631] [DEBUG] debug-file - Info: Pack: normal pack mode
+
+[2026-05-12T16:42:56.823] [DEBUG] debug-file - Info: hardware concurrency count is : 24
+Info: thread count is : 24
+
+[2026-05-12T16:42:56.824] [DEBUG] debug-file - Info: thread pool is started
+
+[2026-05-12T16:42:56.827] [DEBUG] debug-file - Info: GenericCompiler::CompileFiles
+
+[2026-05-12T16:42:56.844] [DEBUG] debug-file - Info: GenericCompiler::CompileFiles
+
+[2026-05-12T16:42:56.865] [DEBUG] debug-file - Info: GenericCompiler::CompileFiles
+
+[2026-05-12T16:42:56.877] [DEBUG] debug-file - 05-12 16:42:56.878 66252 84780 E C01400/ImageTranscoderUtils: DecodeToRGBA IN
+05-12 16:42:56.878 66252 84780 E C01400/ImageTranscoderUtils: ImageFilter IN C:\LandscapePortraitToggle-master\AppScope\resources\base\media\app_icon.png
+
+[2026-05-12T16:42:56.878] [DEBUG] debug-file - 05-12 16:42:56.878 66252 84780 E C01400/ImageTranscoder: TranscodeSLR Only zoom-out is supported.
+
+[2026-05-12T16:42:56.878] [DEBUG] debug-file - Warning: ScaleImage failed, error message: INVALID_PARAMETERS, file path = C:\LandscapePortraitToggle-master\AppScope\resources\base\media\app_icon.png
+
+[2026-05-12T16:42:56.880] [DEBUG] debug-file - 05-12 16:42:56.880 66252 84780 E C01400/ImageTranscoderUtils: DecodeToRGBA IN
+05-12 16:42:56.880 66252 84780 E C01400/ImageTranscoderUtils: ImageFilter IN C:\LandscapePortraitToggle-master\entry\src\main\resources\base\media\background.png
+
+[2026-05-12T16:42:56.881] [DEBUG] debug-file - 05-12 16:42:56.882 66252 84780 E C01400/ImageTranscoder: TranscodeSLR Only zoom-out is supported.
+
+[2026-05-12T16:42:56.881] [DEBUG] debug-file - Warning: ScaleImage failed, error message: INVALID_PARAMETERS, file path = C:\LandscapePortraitToggle-master\entry\src\main\resources\base\media\background.png
+
+[2026-05-12T16:42:56.883] [DEBUG] debug-file - 05-12 16:42:56.883 66252 84780 E C01400/ImageTranscoderUtils: DecodeToRGBA IN
+05-12 16:42:56.883 66252 84780 E C01400/ImageTranscoderUtils: ImageFilter IN C:\LandscapePortraitToggle-master\entry\src\main\resources\base\media\foreground.png
+
+[2026-05-12T16:42:56.884] [DEBUG] debug-file - 05-12 16:42:56.884 66252 84780 E C01400/ImageTranscoder: TranscodeSLR Only zoom-out is supported.
+
+[2026-05-12T16:42:56.884] [DEBUG] debug-file - Warning: ScaleImage failed, error message: INVALID_PARAMETERS, file path = C:\LandscapePortraitToggle-master\entry\src\main\resources\base\media\foreground.png
+
+[2026-05-12T16:42:56.884] [DEBUG] debug-file - Info: can't scale media json file.
+
+[2026-05-12T16:42:56.885] [DEBUG] debug-file - Warning: The width or height of the png file referenced by the icon exceeds the limit (41 pixels)
+at C:\LandscapePortraitToggle-master\entry\src\main\resources\base\media\background.png
+
+[2026-05-12T16:42:56.885] [DEBUG] debug-file - Warning: The width or height of the png file referenced by the icon exceeds the limit (41 pixels)
+at C:\LandscapePortraitToggle-master\entry\src\main\resources\base\media\foreground.png
+Warning: C:\LandscapePortraitToggle-master\entry\src\main\resources\base\media\layered_image.json is not png format
+
+[2026-05-12T16:42:56.887] [DEBUG] debug-file - Info: restool resources compile success.
+
+[2026-05-12T16:42:56.888] [DEBUG] debug-file - Info: thread pool is stopped
+
+[2026-05-12T16:42:56.953] [DEBUG] debug-file - entry : default@CompileResource cost memory -26.597732543945312
+[2026-05-12T16:42:56.954] [DEBUG] debug-file - runTaskFromQueue task cost before running: 6 s 785 ms 
+[2026-05-12T16:42:56.955] [INFO] debug-file - Finished :entry:default@CompileResource... after 1 s 256 ms 
+[2026-05-12T16:42:56.957] [DEBUG] debug-file - Executing task :entry:default@DoNativeStrip
+[2026-05-12T16:42:56.957] [DEBUG] debug-file - Task 'entry:default@DoNativeStrip' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:56.962] [DEBUG] debug-file - entry : default@DoNativeStrip cost memory 0.05611419677734375
+[2026-05-12T16:42:56.962] [DEBUG] debug-file - runTaskFromQueue task cost before running: 6 s 793 ms 
+[2026-05-12T16:42:56.962] [INFO] debug-file - Finished :entry:default@DoNativeStrip... after 5 ms 
+[2026-05-12T16:42:56.964] [DEBUG] debug-file - Executing task :entry:default@CompileArkTS
+[2026-05-12T16:42:56.965] [DEBUG] debug-file - obfuscationOptions: undefined
+[2026-05-12T16:42:56.967] [DEBUG] debug-file - Task 'entry:default@CompileArkTS' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:57.004] [DEBUG] debug-file - build config:
+[2026-05-12T16:42:57.005] [DEBUG] debug-file - {
+  moduleType: 'entry',
+  perf: 0,
+  targetName: '.default',
+  packageManagerType: 'ohpm',
+  localPropertiesPath: 'C:\\LandscapePortraitToggle-master\\local.properties',
+  isPreview: false,
+  isOhosTest: false,
+  isLocalTest: false,
+  buildMode: 'Debug',
+  hotReloadBuild: undefined,
+  watchMode: 'false',
+  aceProfilePath: 'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\res\\default\\resources\\base\\profile',
+  etsLoaderPath: 'C:\\Program Files\\Huawei\\DevEco Studio\\sdk\\default\\openharmony\\ets\\build-tools\\ets-loader',
+  modulePath: 'C:\\LandscapePortraitToggle-master\\entry',
+  testFrameworkPar: {
+    testMode: undefined,
+    coveragePathFilter: undefined,
+    coverageMode: undefined
+  },
+  needCoverageInsert: false,
+  debugLine: false,
+  projectTopDir: 'C:\\LandscapePortraitToggle-master',
+  compileSdkVersion: 22,
+  compatibleSdkVersion: 22,
+  originCompatibleSdkVersion: '6.0.2(22)',
+  compatibleSdkVersionStage: undefined,
+  bundleName: 'c***e',
+  etsLoaderVersion: '6.0.2.130',
+  etsLoaderReleaseType: 'Release',
+  aotCompileMode: 'type',
+  apPath: 'C:\\LandscapePortraitToggle-master\\entry\\modules.ap',
+  entryModuleName: 'entry',
+  entryModuleVersion: '1.0.0',
+  entryPackageName: 'entry',
+  allModuleNameHash: 'b98f32be9bcfe0588704830cf3403cbf21fa1728b9c9cae9af48f71c3488fd31',
+  externalApiPaths: [
+    'C:\\Program Files\\Huawei\\DevEco Studio\\sdk\\default\\hms\\ets'
+  ],
+  compilerTypes: [],
+  isCrossplatform: false,
+  hvigorPluginFile: undefined,
+  compilePluginPath: undefined,
+  buildGeneratedProfilePath: 'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\generated\\profile\\default',
+  bundleType: 'app',
+  arkTSVersion: undefined,
+  apiVersion: 22,
+  needCompleteSourcesMap: false,
+  isFaMode: false,
+  buildDir: 'C:\\LandscapePortraitToggle-master\\entry\\build',
+  deviceTypes: [ 'phone' ],
+  pkgContextInfo: undefined,
+  ohPackagePathMap: {},
+  dependencyAliasMap: {},
+  permission: { requestPermissions: [ [Object] ], definePermissions: undefined },
+  useGetCurrentBundleName: false,
+  projectArkOption: undefined,
+  sourceMapDir: undefined,
+  branchElimination: false,
+  transformLib: undefined,
+  tsImportSendable: false,
+  resolveConflictMode: true,
+  depName2RootPath: {},
+  depName2DepInfo: {},
+  rootPathSet: [ 'C:\\LandscapePortraitToggle-master' ],
+  useNativeResolver: true,
+  shouldEmitJs: true,
+  useTscResolve: false,
+  singleFileEmit: false,
+  userProjectConfig: {
+    autoLazyImport: false,
+    allowEmptyBundleName: false,
+    reExportCheckMode: 'noCheck',
+    executionMode: 'memory',
+    usePathPlaceholder: false,
+    writeRollupCache: true,
+    isExpandImportEnabled: false,
+    expandImportExclude: '',
+    lazyImportExclude: '',
+    lazyImportInclude: '',
+    ignoreCrossplatformCheck: false,
+    isHarDeduplicateEnabled: false,
+    skipOhModulesLint: false,
+    enableStrictCheckOHModule: false,
+    disableSendableCheckRules: [],
+    useDeclarationFileSignature: false,
+    customizedOptions: undefined,
+    integratedHsp: false,
+    isPreloadSoEnabled: false
+  },
+  executionMode: 'memory',
+  arkCompileCachePath: 'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\cache\\default\\default@CompileArkTS\\esmodule',
+  autoLazyFilter: undefined,
+  isHarDeduplicateEnabled: false,
+  intermediateHarDuplicateDirPath: 'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\har_duplicate\\default',
+  autoLazyImport: false,
+  allowEmptyBundleName: false,
+  reExportCheckMode: 'noCheck',
+  usePathPlaceholder: false,
+  writeRollupCache: true,
+  isExpandImportEnabled: false,
+  expandImportExclude: '',
+  lazyImportExclude: '',
+  lazyImportInclude: '',
+  ignoreCrossplatformCheck: false,
+  skipOhModulesLint: false,
+  enableStrictCheckOHModule: false,
+  disableSendableCheckRules: [],
+  useDeclarationFileSignature: false,
+  customizedOptions: undefined,
+  integratedHsp: false,
+  isPreloadSoEnabled: false,
+  strictMode: undefined,
+  useNormalizedOHMUrl: false,
+  caseSensitiveCheck: false,
+  aceModuleJsonPath: 'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\res\\default\\ark_module.json',
+  appResource: 'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\res\\default\\ResourceTable.txt',
+  rawFileResource: 'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\res\\default\\resources\\rawfile',
+  resourceTableHash: '4a480f2cace518d84100b7b72bc3433abffb8af57e322fba31e860f22a3ca61b',
+  runtimeOS: 'HarmonyOS',
+  sdkInfo: 'false:22:6.0.2.130:Release',
+  aceModuleRoot: 'C:\\LandscapePortraitToggle-master\\entry\\src\\main\\ets',
+  compileMode: 'esmodule',
+  aceSuperVisualPath: 'C:\\LandscapePortraitToggle-master\\entry\\src\\main\\supervisual',
+  aceBuildJson: 'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\loader\\default\\loader.json',
+  cachePath: 'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\cache\\default\\default@CompileArkTS\\esmodule\\debug',
+  aceModuleBuild: 'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\loader_out\\default\\ets',
+  supportChunks: true,
+  declaredFilesPath: undefined,
+  shouldCollectDirectImportees: false,
+  isByteCodeHarOptimize: false,
+  expandImportPath: undefined,
+  pkgNameToPkgBriefInfo: {
+    entry: {
+      pkgRoot: 'C:\\LandscapePortraitToggle-master\\entry',
+      originalSourceRoots: undefined,
+      sourceRoots: [Array],
+      pkgName: 'entry'
+    }
+  },
+  projectModel: {
+    'C:\\LandscapePortraitToggle-master\\entry\\src\\main': {
+      moduleName: 'entry',
+      modulePkgPath: 'C:\\LandscapePortraitToggle-master\\entry',
+      belongProjectPath: 'C:\\LandscapePortraitToggle-master'
+    },
+    'C:\\LandscapePortraitToggle-master\\entry': {
+      moduleName: 'entry',
+      modulePkgPath: 'C:\\LandscapePortraitToggle-master\\entry',
+      belongProjectPath: 'C:\\LandscapePortraitToggle-master'
+    },
+    'C:\\LandscapePortraitToggle-master': {
+      moduleName: 'LandscapePortraitToggle-master',
+      modulePkgPath: 'C:\\LandscapePortraitToggle-master',
+      belongProjectPath: 'C:\\LandscapePortraitToggle-master'
+    }
+  },
+  pkgJsonFileHash: 'ac995480e710a275b7cf4a6fb2472a77382a629452dd716ec0366f01c80fa48c',
+  allModulePaths: [ 'C:\\LandscapePortraitToggle-master\\entry' ],
+  routerMap: {},
+  obfuscationOptions: undefined,
+  byteCodeHarToDependencyKeys: undefined,
+  compileBlockPkg: [],
+  mockParams: {
+    decorator: '@MockSetup',
+    packageName: '@ohos/hamock',
+    etsSourceRootPath: 'src/main/ets',
+    mockConfigPath: undefined,
+    mockConfigKey2ModuleInfo: {},
+    source2ModuleIdMap: {}
+  },
+  copyCodeResourceEnable: true,
+  copyCodeResourceExcludes: [],
+  copyCodeResourceIncludes: undefined,
+  uiTransformOptimization: false,
+  sdkPath: 'C:/Program Files/Huawei/DevEco Studio/sdk',
+  needPreloadSoFileSet: {},
+  preloadSoFilePath: 'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\preload\\default\\preload.json',
+  useSourceHash: false,
+  localModuleParamMap: {},
+  otherPaths: {
+    'entry/*': [
+      '..\\*',
+      '..\\..\\..\\build\\default\\generated\\profile\\default\\*'
+    ]
+  },
+  collectImportersConfig: undefined
+}
+[2026-05-12T16:42:57.005] [DEBUG] debug-file - Compile arkts with external api path: C:\Program Files\Huawei\DevEco Studio\sdk\default\hms\ets
+[2026-05-12T16:42:57.009] [DEBUG] debug-file - default@CompileArkTS work[0] is submitted.
+[2026-05-12T16:42:57.009] [DEBUG] debug-file - default@CompileArkTS work[0] is pushed to ready queue.
+[2026-05-12T16:42:57.009] [DEBUG] debug-file - A work dispatched to worker[23] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[22] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[21] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[20] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[19] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[18] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[17] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[16] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[15] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[14] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[13] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[12] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[11] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[10] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[9] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[8] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[7] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[6] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.010] [DEBUG] debug-file - A work dispatched to worker[5] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.011] [DEBUG] debug-file - Create  resident worker with id: 4.
+[2026-05-12T16:42:57.012] [DEBUG] debug-file - default@CompileArkTS work[0] has been dispatched to worker[4].
+[2026-05-12T16:42:57.012] [DEBUG] debug-file - default@CompileArkTS work[0] is dispatched.
+[2026-05-12T16:42:57.012] [DEBUG] debug-file - CopyResources startTime: 1219171873124200
+[2026-05-12T16:42:57.012] [DEBUG] debug-file - default@CompileArkTS work[1] is submitted.
+[2026-05-12T16:42:57.013] [DEBUG] debug-file - default@CompileArkTS work[1] is pushed to ready queue.
+[2026-05-12T16:42:57.013] [DEBUG] debug-file - A work dispatched to worker[23] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.013] [DEBUG] debug-file - Create  resident worker with id: 22.
+[2026-05-12T16:42:57.014] [DEBUG] debug-file - default@CompileArkTS work[1] has been dispatched to worker[22].
+[2026-05-12T16:42:57.014] [DEBUG] debug-file - default@CompileArkTS work[1] is dispatched.
+[2026-05-12T16:42:57.014] [DEBUG] debug-file - entry : default@CompileArkTS cost memory 1.3493728637695312
+[2026-05-12T16:42:57.016] [DEBUG] debug-file - Executing task :entry:default@BuildJS
+[2026-05-12T16:42:57.016] [DEBUG] debug-file - Task 'entry:default@BuildJS' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:57.021] [DEBUG] debug-file - entry : default@BuildJS cost memory 0.143402099609375
+[2026-05-12T16:42:57.021] [DEBUG] debug-file - runTaskFromQueue task cost before running: 6 s 853 ms 
+[2026-05-12T16:42:57.022] [INFO] debug-file - Finished :entry:default@BuildJS... after 6 ms 
+[2026-05-12T16:42:57.023] [DEBUG] debug-file - Executing task :entry:default@CacheNativeLibs
+[2026-05-12T16:42:57.024] [DEBUG] debug-file - Task 'entry:default@CacheNativeLibs' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:42:57.024] [DEBUG] debug-file - default@CacheNativeLibs work[2] is submitted.
+[2026-05-12T16:42:57.025] [DEBUG] debug-file - default@CacheNativeLibs work[2] is pushed to ready queue.
+[2026-05-12T16:42:57.025] [DEBUG] debug-file - A work dispatched to worker[23] failed because unable to get work from ready queue.
+[2026-05-12T16:42:57.025] [DEBUG] debug-file - A work dispatched to worker[22] failed because of worker busy.
+[2026-05-12T16:42:57.025] [DEBUG] debug-file - Create  resident worker with id: 21.
+[2026-05-12T16:42:57.026] [DEBUG] debug-file - default@CacheNativeLibs work[2] has been dispatched to worker[21].
+[2026-05-12T16:42:57.026] [DEBUG] debug-file - default@CacheNativeLibs work[2] is dispatched.
+[2026-05-12T16:42:57.026] [DEBUG] debug-file - entry : default@CacheNativeLibs cost memory 0.17462921142578125
+[2026-05-12T16:42:58.654] [DEBUG] debug-file - worker[22] has one work done.
+[2026-05-12T16:42:58.655] [DEBUG] debug-file - CopyResources is end, endTime: 1219173515300900
+[2026-05-12T16:42:58.655] [DEBUG] debug-file - default@CompileArkTS work[1] done.
+[2026-05-12T16:42:58.655] [DEBUG] debug-file - A work dispatched to worker[22] failed because unable to get work from ready queue.
+[2026-05-12T16:42:58.861] [DEBUG] debug-file - worker[21] has one work done.
+[2026-05-12T16:42:58.861] [DEBUG] debug-file - default@CacheNativeLibs work[2] done.
+[2026-05-12T16:42:58.861] [DEBUG] debug-file - A work dispatched to worker[21] failed because unable to get work from ready queue.
+[2026-05-12T16:42:58.861] [INFO] debug-file - Finished :entry:default@CacheNativeLibs... after 125 ms 
+[2026-05-12T16:43:08.304] [DEBUG] debug-file - worker[4] has one work done.
+[2026-05-12T16:43:08.304] [DEBUG] debug-file - Ark compile task finished.finished time is 1219183164288400
+[2026-05-12T16:43:08.307] [DEBUG] debug-file - default@CompileArkTS work[0] done.
+[2026-05-12T16:43:08.307] [DEBUG] debug-file - A work dispatched to worker[4] failed because unable to get work from ready queue.
+[2026-05-12T16:43:08.310] [INFO] debug-file - Finished :entry:default@CompileArkTS... after 7 s 508 ms 
+[2026-05-12T16:43:08.311] [DEBUG] debug-file - Executing task :entry:default@GeneratePkgModuleJson
+[2026-05-12T16:43:08.312] [DEBUG] debug-file - File: 'C:\LandscapePortraitToggle-master\entry\build\default\intermediates\preload\default\preload.json' from 'preloadSoJsonPath' is not exists, just ignore.
+[2026-05-12T16:43:08.312] [DEBUG] debug-file - Error occurs while handling @Input 'shouldDeduplicateHar': The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+[2026-05-12T16:43:08.313] [DEBUG] debug-file - Task 'entry:default@GeneratePkgModuleJson' cost while wrapping incremental declarations: 2 ms 
+[2026-05-12T16:43:08.316] [DEBUG] debug-file - entry : default@GeneratePkgModuleJson cost memory 0.17293548583984375
+[2026-05-12T16:43:08.316] [DEBUG] debug-file - runTaskFromQueue task cost before running: 18 s 147 ms 
+[2026-05-12T16:43:08.316] [INFO] debug-file - Finished :entry:default@GeneratePkgModuleJson... after 5 ms 
+[2026-05-12T16:43:08.317] [DEBUG] debug-file - Executing task :entry:default@ProcessCompiledResources
+[2026-05-12T16:43:08.318] [DEBUG] debug-file - File: 'C:\LandscapePortraitToggle-master\entry\build\default\intermediates\preload\default\preload.json' from 'preloadSoJsonPath' is not exists, just ignore.
+[2026-05-12T16:43:08.318] [DEBUG] debug-file - Task 'entry:default@ProcessCompiledResources' cost while wrapping incremental declarations: 1 ms 
+[2026-05-12T16:43:08.318] [DEBUG] debug-file - entry : default@ProcessCompiledResources cost memory 0.056671142578125
+[2026-05-12T16:43:08.318] [DEBUG] debug-file - runTaskFromQueue task cost before running: 18 s 150 ms 
+[2026-05-12T16:43:08.318] [INFO] debug-file - Finished :entry:default@ProcessCompiledResources... after 1 ms 
+[2026-05-12T16:43:08.321] [DEBUG] debug-file - Executing task :entry:default@PackageHap
+[2026-05-12T16:43:08.327] [DEBUG] debug-file - Use tool [C:\Program Files\Huawei\DevEco Studio\sdk\default\openharmony\toolchains\lib\app_packing_tool.jar]
+ [
+  'java',
+  '-Dfile.encoding=GBK',
+  '-jar',
+  'C:\\Program Files\\Huawei\\DevEco Studio\\sdk\\default\\openharmony\\toolchains\\lib\\app_packing_tool.jar',
+  '--mode',
+  'hap',
+  '--force',
+  'true',
+  '--lib-path',
+  'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\stripped_native_libs\\default',
+  '--json-path',
+  'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\package\\default\\module.json',
+  '--resources-path',
+  'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\res\\default\\resources',
+  '--index-path',
+  'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\res\\default\\resources.index',
+  '--pack-info-path',
+  'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\outputs\\default\\pack.info',
+  '--out-path',
+  'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\outputs\\default\\entry-default-unsigned.hap',
+  '--ets-path',
+  'C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\loader_out\\default\\ets'
+]
+[2026-05-12T16:43:08.791] [DEBUG] debug-file - java daemon socket received message:{"code":0,"message":"pack success"}
+[2026-05-12T16:43:08.800] [DEBUG] debug-file - entry : default@PackageHap cost memory -0.113311767578125
+[2026-05-12T16:43:08.800] [DEBUG] debug-file - runTaskFromQueue task cost before running: 18 s 632 ms 
+[2026-05-12T16:43:08.802] [INFO] debug-file - Finished :entry:default@PackageHap... after 480 ms 
+[2026-05-12T16:43:08.805] [DEBUG] debug-file - Executing task :entry:default@PackingCheck
+[2026-05-12T16:43:08.816] [DEBUG] debug-file - entry : default@PackingCheck cost memory 0.5944747924804688
+[2026-05-12T16:43:08.817] [DEBUG] debug-file - runTaskFromQueue task cost before running: 18 s 648 ms 
+[2026-05-12T16:43:08.817] [INFO] debug-file - Finished :entry:default@PackingCheck... after 12 ms 
+[2026-05-12T16:43:08.821] [DEBUG] debug-file - Executing task :entry:default@SignHap
+[2026-05-12T16:43:08.821] [WARN] debug-file - Will skip sign 'hos_hap'. No signingConfigs profile is configured in current project.
+             If needed, configure the signingConfigs in C:\LandscapePortraitToggle-master\build-profile.json5.
+[2026-05-12T16:43:08.825] [DEBUG] debug-file - entry : default@SignHap cost memory 0.05458831787109375
+[2026-05-12T16:43:08.825] [DEBUG] debug-file - runTaskFromQueue task cost before running: 18 s 657 ms 
+[2026-05-12T16:43:08.826] [INFO] debug-file - Finished :entry:default@SignHap... after 5 ms 
+[2026-05-12T16:43:08.828] [DEBUG] debug-file - Executing task :entry:default@CollectDebugSymbol
+[2026-05-12T16:43:08.830] [DEBUG] debug-file - entry : default@CollectDebugSymbol cost memory 0.080169677734375
+[2026-05-12T16:43:08.830] [DEBUG] debug-file - runTaskFromQueue task cost before running: 18 s 662 ms 
+[2026-05-12T16:43:08.830] [INFO] debug-file - Finished :entry:default@CollectDebugSymbol... after 3 ms 
+[2026-05-12T16:43:08.831] [DEBUG] debug-file - Executing task :entry:assembleHap
+[2026-05-12T16:43:08.831] [DEBUG] debug-file - entry : assembleHap cost memory 0.012786865234375
+[2026-05-12T16:43:08.831] [DEBUG] debug-file - runTaskFromQueue task cost before running: 18 s 662 ms 
+[2026-05-12T16:43:08.831] [INFO] debug-file - Finished :entry:assembleHap... after 1 ms 
+[2026-05-12T16:43:08.846] [INFO] debug-file - BUILD SUCCESSFUL in 18 s 677 ms 
+[2026-05-12T16:43:08.849] [DEBUG] debug-file - Update task entry:default@PreBuild input file:C:\LandscapePortraitToggle-master\AppScope\app.json5 cache by regenerate.
+[2026-05-12T16:43:08.850] [DEBUG] debug-file - Update task entry:default@PreBuild input file:C:\LandscapePortraitToggle-master\entry\src\main\module.json5 cache by regenerate.
+[2026-05-12T16:43:08.850] [DEBUG] debug-file - Update task entry:default@PreBuild input file:C:\LandscapePortraitToggle-master\build-profile.json5 cache by regenerate.
+[2026-05-12T16:43:08.851] [DEBUG] debug-file - Update task entry:default@PreBuild input file:C:\LandscapePortraitToggle-master\entry\build-profile.json5 cache by regenerate.
+[2026-05-12T16:43:08.851] [DEBUG] debug-file - Update task entry:default@PreBuild input file:C:\LandscapePortraitToggle-master\entry\src\main\resources\base\profile\route_map.json cache by regenerate.
+[2026-05-12T16:43:08.851] [DEBUG] debug-file - Update task entry:default@PreBuild input file:C:\LandscapePortraitToggle-master\entry\src\main\resources\base\profile\main_pages.json cache by regenerate.
+[2026-05-12T16:43:08.852] [DEBUG] debug-file - Update task entry:default@PreBuild input file:C:\LandscapePortraitToggle-master\hvigor\hvigor-config.json5 cache by regenerate.
+[2026-05-12T16:43:08.852] [DEBUG] debug-file - Update task entry:default@PreBuild input file:C:\LandscapePortraitToggle-master\entry\oh-package.json5 cache by regenerate.
+[2026-05-12T16:43:08.853] [DEBUG] debug-file - Update task entry:default@PreBuild input file:C:\LandscapePortraitToggle-master\oh-package.json5 cache by regenerate.
+[2026-05-12T16:43:08.853] [DEBUG] debug-file - Incremental task entry:default@PreBuild post-execution cost:7 ms .
+[2026-05-12T16:43:08.853] [DEBUG] debug-file - Update task entry:default@CreateModuleInfo output file:C:\LandscapePortraitToggle-master\entry\build\default\generated\profile\default\ModuleInfo.ts cache.
+[2026-05-12T16:43:08.854] [DEBUG] debug-file - Incremental task entry:default@CreateModuleInfo post-execution cost:1 ms .
+[2026-05-12T16:43:08.854] [DEBUG] debug-file - Update task entry:default@GenerateMetadata input file:C:\LandscapePortraitToggle-master\entry\src\main\module.json5 cache by regenerate.
+[2026-05-12T16:43:08.854] [DEBUG] debug-file - Update task entry:default@GenerateMetadata output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\hap_metadata\default\output_metadata.json cache.
+[2026-05-12T16:43:08.855] [DEBUG] debug-file - Incremental task entry:default@GenerateMetadata post-execution cost:1 ms .
+[2026-05-12T16:43:08.855] [DEBUG] debug-file - Update task entry:default@MergeProfile input file:C:\LandscapePortraitToggle-master\AppScope\app.json5 cache by regenerate.
+[2026-05-12T16:43:08.855] [DEBUG] debug-file - Update task entry:default@MergeProfile input file:C:\LandscapePortraitToggle-master\build-profile.json5 cache by regenerate.
+[2026-05-12T16:43:08.856] [DEBUG] debug-file - Update task entry:default@MergeProfile input file:C:\LandscapePortraitToggle-master\entry\src\main\module.json5 cache by regenerate.
+[2026-05-12T16:43:08.856] [DEBUG] debug-file - Update task entry:default@MergeProfile output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\merge_profile\default\module.json cache.
+[2026-05-12T16:43:08.858] [DEBUG] debug-file - Incremental task entry:default@MergeProfile post-execution cost:4 ms .
+[2026-05-12T16:43:08.858] [DEBUG] debug-file - Update task entry:default@CreateBuildProfile input file:C:\LandscapePortraitToggle-master\AppScope\app.json5 cache by regenerate.
+[2026-05-12T16:43:08.859] [DEBUG] debug-file - Update task entry:default@CreateBuildProfile input file:C:\LandscapePortraitToggle-master\build-profile.json5 cache by regenerate.
+[2026-05-12T16:43:08.860] [DEBUG] debug-file - Update task entry:default@CreateBuildProfile output file:C:\LandscapePortraitToggle-master\entry\build\default\generated\profile\default\BuildProfile.ets cache.
+[2026-05-12T16:43:08.860] [DEBUG] debug-file - Incremental task entry:default@CreateBuildProfile post-execution cost:3 ms .
+[2026-05-12T16:43:08.861] [DEBUG] debug-file - Update task entry:default@GeneratePkgContextInfo output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader\default\pkgContextInfo.json cache.
+[2026-05-12T16:43:08.861] [DEBUG] debug-file - Incremental task entry:default@GeneratePkgContextInfo post-execution cost:1 ms .
+[2026-05-12T16:43:08.861] [DEBUG] debug-file - Update task entry:default@ProcessIntegratedHsp output file:C:\LandscapePortraitToggle-master\build\cache\default\integrated_hsp\integratedHspCache.json cache.
+[2026-05-12T16:43:08.862] [DEBUG] debug-file - Incremental task entry:default@ProcessIntegratedHsp post-execution cost:1 ms .
+[2026-05-12T16:43:08.863] [DEBUG] debug-file - Update task entry:default@MakePackInfo input file:C:\LandscapePortraitToggle-master\AppScope\app.json5 cache by regenerate.
+[2026-05-12T16:43:08.864] [DEBUG] debug-file - Update task entry:default@MakePackInfo input file:C:\LandscapePortraitToggle-master\entry\src\main\module.json5 cache by regenerate.
+[2026-05-12T16:43:08.865] [DEBUG] debug-file - Update task entry:default@MakePackInfo input file:C:\LandscapePortraitToggle-master\build-profile.json5 cache by regenerate.
+[2026-05-12T16:43:08.866] [DEBUG] debug-file - Update task entry:default@MakePackInfo input file:C:\LandscapePortraitToggle-master\entry\src\main\resources\base\profile\backup_config.json cache by regenerate.
+[2026-05-12T16:43:08.866] [DEBUG] debug-file - Update task entry:default@MakePackInfo output file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\pack.info cache.
+[2026-05-12T16:43:08.867] [DEBUG] debug-file - Incremental task entry:default@MakePackInfo post-execution cost:5 ms .
+[2026-05-12T16:43:08.867] [DEBUG] debug-file - Update task entry:default@SyscapTransform input file:C:\Program Files\Huawei\DevEco Studio\sdk\default\openharmony\toolchains\syscap_tool.exe cache by regenerate.
+[2026-05-12T16:43:08.867] [DEBUG] debug-file - Update task entry:default@SyscapTransform input file:C:\Program Files\Huawei\DevEco Studio\sdk\default\openharmony\ets\api\device-define cache by regenerate.
+[2026-05-12T16:43:08.870] [DEBUG] debug-file - Update task entry:default@SyscapTransform output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\syscap\default\rpcid.sc cache.
+[2026-05-12T16:43:08.870] [DEBUG] debug-file - Incremental task entry:default@SyscapTransform post-execution cost:4 ms .
+[2026-05-12T16:43:08.870] [DEBUG] debug-file - Update task entry:default@ProcessProfile input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\merge_profile\default\module.json cache by regenerate.
+[2026-05-12T16:43:08.870] [DEBUG] debug-file - Update task entry:default@ProcessProfile output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\process_profile\default\module.json cache.
+[2026-05-12T16:43:08.871] [DEBUG] debug-file - Incremental task entry:default@ProcessProfile post-execution cost:2 ms .
+[2026-05-12T16:43:08.874] [DEBUG] debug-file - Update task entry:default@ProcessRouterMap input file:C:\LandscapePortraitToggle-master\entry\oh-package.json5 cache by regenerate.
+[2026-05-12T16:43:08.875] [DEBUG] debug-file - Update task entry:default@ProcessRouterMap input file:C:\LandscapePortraitToggle-master\oh-package.json5 cache by regenerate.
+[2026-05-12T16:43:08.876] [DEBUG] debug-file - Update task entry:default@ProcessRouterMap input file:C:\LandscapePortraitToggle-master\entry\src\main\module.json5 cache by regenerate.
+[2026-05-12T16:43:08.876] [DEBUG] debug-file - Update task entry:default@ProcessRouterMap input file:C:\LandscapePortraitToggle-master\entry\src\main\resources\base\profile\route_map.json cache by regenerate.
+[2026-05-12T16:43:08.877] [DEBUG] debug-file - Update task entry:default@ProcessRouterMap output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\router_map\default\route_map.json cache.
+[2026-05-12T16:43:08.877] [DEBUG] debug-file - Update task entry:default@ProcessRouterMap output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\router_map\default\loader-router-map.json cache.
+[2026-05-12T16:43:08.878] [DEBUG] debug-file - Incremental task entry:default@ProcessRouterMap post-execution cost:7 ms .
+[2026-05-12T16:43:08.879] [DEBUG] debug-file - Update task entry:default@ProcessShareConfig input file:C:\LandscapePortraitToggle-master\entry\oh-package.json5 cache by regenerate.
+[2026-05-12T16:43:08.880] [DEBUG] debug-file - Update task entry:default@ProcessShareConfig input file:C:\LandscapePortraitToggle-master\oh-package.json5 cache by regenerate.
+[2026-05-12T16:43:08.881] [DEBUG] debug-file - Update task entry:default@ProcessShareConfig input file:C:\LandscapePortraitToggle-master\entry\src\main\module.json5 cache by regenerate.
+[2026-05-12T16:43:08.881] [DEBUG] debug-file - Update task entry:default@ProcessShareConfig output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\share_config\default\temp-share-config.json cache.
+[2026-05-12T16:43:08.882] [DEBUG] debug-file - Incremental task entry:default@ProcessShareConfig post-execution cost:4 ms .
+[2026-05-12T16:43:08.883] [DEBUG] debug-file - Update task entry:default@ProcessStartupConfig output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\startup\default\startup_config.json cache.
+[2026-05-12T16:43:08.883] [DEBUG] debug-file - Incremental task entry:default@ProcessStartupConfig post-execution cost:1 ms .
+[2026-05-12T16:43:08.883] [DEBUG] debug-file - Update task entry:default@ProcessResource output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resConfig.json cache.
+[2026-05-12T16:43:08.884] [DEBUG] debug-file - Update task entry:default@ProcessResource output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\opt-compression.json cache.
+[2026-05-12T16:43:08.885] [DEBUG] debug-file - Incremental task entry:default@ProcessResource post-execution cost:2 ms .
+[2026-05-12T16:43:08.888] [DEBUG] debug-file - Update task entry:default@GenerateLoaderJson input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\router_map\default\loader-router-map.json cache by regenerate.
+[2026-05-12T16:43:08.889] [DEBUG] debug-file - Update task entry:default@GenerateLoaderJson input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\router_map\default\route_map.json cache by regenerate.
+[2026-05-12T16:43:08.889] [DEBUG] debug-file - Update task entry:default@GenerateLoaderJson output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader\default\loader.json cache.
+[2026-05-12T16:43:08.890] [DEBUG] debug-file - Incremental task entry:default@GenerateLoaderJson post-execution cost:5 ms .
+[2026-05-12T16:43:08.890] [DEBUG] debug-file - Update task entry:default@ProcessLibs input file:C:\LandscapePortraitToggle-master\build-profile.json5 cache by regenerate.
+[2026-05-12T16:43:08.891] [DEBUG] debug-file - Update task entry:default@ProcessLibs input file:C:\LandscapePortraitToggle-master\entry\build-profile.json5 cache by regenerate.
+[2026-05-12T16:43:08.891] [DEBUG] debug-file - Update task entry:default@ProcessLibs output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\libs\default cache.
+[2026-05-12T16:43:08.892] [DEBUG] debug-file - Incremental task entry:default@ProcessLibs post-execution cost:2 ms .
+[2026-05-12T16:43:08.895] [DEBUG] debug-file - Update task entry:default@CompileResource input file:C:\LandscapePortraitToggle-master\entry\src\main\resources cache by regenerate.
+[2026-05-12T16:43:08.910] [DEBUG] debug-file - Update task entry:default@CompileResource input file:C:\LandscapePortraitToggle-master\AppScope\resources cache by regenerate.
+[2026-05-12T16:43:08.913] [DEBUG] debug-file - Update task entry:default@CompileResource input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\process_profile\default\module.json cache by regenerate.
+[2026-05-12T16:43:08.913] [DEBUG] debug-file - Update task entry:default@CompileResource input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\router_map\default\route_map.json cache by regenerate.
+[2026-05-12T16:43:08.914] [DEBUG] debug-file - Update task entry:default@CompileResource input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resConfig.json cache by regenerate.
+[2026-05-12T16:43:08.914] [DEBUG] debug-file - Update task entry:default@CompileResource output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default cache.
+[2026-05-12T16:43:08.925] [DEBUG] debug-file - Update task entry:default@CompileResource output file:C:\LandscapePortraitToggle-master\entry\build\default\generated\r\default\ResourceTable.h cache.
+[2026-05-12T16:43:08.925] [DEBUG] debug-file - Update task entry:default@CompileResource output file:C:\LandscapePortraitToggle-master\entry\build\default\generated\r\default cache.
+[2026-05-12T16:43:08.926] [DEBUG] debug-file - Incremental task entry:default@CompileResource post-execution cost:34 ms .
+[2026-05-12T16:43:08.926] [DEBUG] debug-file - Update task entry:default@DoNativeStrip input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\libs\default cache by regenerate.
+[2026-05-12T16:43:08.927] [DEBUG] debug-file - Update task entry:default@DoNativeStrip output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\stripped_native_libs\default cache.
+[2026-05-12T16:43:08.928] [DEBUG] debug-file - Incremental task entry:default@DoNativeStrip post-execution cost:2 ms .
+[2026-05-12T16:43:08.932] [DEBUG] debug-file - Update task entry:default@CompileArkTS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader\default cache by regenerate.
+[2026-05-12T16:43:08.932] [DEBUG] debug-file - Update task entry:default@CompileArkTS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resources\rawfile cache by regenerate.
+[2026-05-12T16:43:08.933] [DEBUG] debug-file - Update task entry:default@CompileArkTS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\ResourceTable.txt cache by regenerate.
+[2026-05-12T16:43:08.934] [DEBUG] debug-file - Update task entry:default@CompileArkTS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\ark_module.json cache by regenerate.
+[2026-05-12T16:43:08.934] [DEBUG] debug-file - Update task entry:default@CompileArkTS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resources\base\profile cache by regenerate.
+[2026-05-12T16:43:08.936] [DEBUG] debug-file - Update task entry:default@CompileArkTS input file:C:\LandscapePortraitToggle-master\entry\src\main\ets cache by regenerate.
+[2026-05-12T16:43:08.943] [DEBUG] debug-file - Update task entry:default@CompileArkTS input file:C:\LandscapePortraitToggle-master\entry\build\default\generated\profile\default\BuildProfile.ets cache by regenerate.
+[2026-05-12T16:43:08.944] [DEBUG] debug-file - Update task entry:default@CompileArkTS output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader_out\default\ets cache.
+[2026-05-12T16:43:08.945] [DEBUG] debug-file - Incremental task entry:default@CompileArkTS post-execution cost:17 ms .
+[2026-05-12T16:43:08.947] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader\default cache by regenerate.
+[2026-05-12T16:43:08.948] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resources\rawfile cache by regenerate.
+[2026-05-12T16:43:08.949] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\ResourceTable.txt cache by regenerate.
+[2026-05-12T16:43:08.949] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\ark_module.json cache by regenerate.
+[2026-05-12T16:43:08.949] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resources\base\profile cache by regenerate.
+[2026-05-12T16:43:08.950] [DEBUG] debug-file - Update task entry:default@BuildJS output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader_out\default\js cache.
+[2026-05-12T16:43:08.951] [DEBUG] debug-file - Incremental task entry:default@BuildJS post-execution cost:6 ms .
+[2026-05-12T16:43:08.951] [DEBUG] debug-file - Update task entry:default@CacheNativeLibs input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\stripped_native_libs\default cache by regenerate.
+[2026-05-12T16:43:08.951] [DEBUG] debug-file - Update task entry:default@CacheNativeLibs input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\libs\default cache by regenerate.
+[2026-05-12T16:43:08.952] [DEBUG] debug-file - Update task entry:default@CacheNativeLibs output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\patch\default\base_native_libs.json cache.
+[2026-05-12T16:43:08.952] [DEBUG] debug-file - Incremental task entry:default@CacheNativeLibs post-execution cost:2 ms .
+[2026-05-12T16:43:08.953] [DEBUG] debug-file - Update task entry:default@GeneratePkgModuleJson input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\module.json cache by regenerate.
+[2026-05-12T16:43:08.953] [DEBUG] debug-file - Update task entry:default@GeneratePkgModuleJson output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\package\default\module.json cache.
+[2026-05-12T16:43:08.953] [DEBUG] debug-file - Incremental task entry:default@GeneratePkgModuleJson post-execution cost:1 ms .
+[2026-05-12T16:43:08.954] [DEBUG] debug-file - Incremental task entry:default@ProcessCompiledResources post-execution cost:1 ms .
+[2026-05-12T16:43:08.955] [DEBUG] debug-file - Update task entry:default@PackageHap input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\stripped_native_libs\default cache by regenerate.
+[2026-05-12T16:43:08.955] [DEBUG] debug-file - Update task entry:default@PackageHap input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\module.json cache by regenerate.
+[2026-05-12T16:43:08.955] [DEBUG] debug-file - Update task entry:default@PackageHap input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resources cache by regenerate.
+[2026-05-12T16:43:08.964] [DEBUG] debug-file - Update task entry:default@PackageHap input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resources.index cache by regenerate.
+[2026-05-12T16:43:08.964] [DEBUG] debug-file - Update task entry:default@PackageHap input file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\pack.info cache by regenerate.
+[2026-05-12T16:43:08.965] [DEBUG] debug-file - Update task entry:default@PackageHap input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader_out\default\ets cache by regenerate.
+[2026-05-12T16:43:08.966] [DEBUG] debug-file - Update task entry:default@PackageHap input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader_out\default\ets\sourceMaps.map cache by regenerate.
+[2026-05-12T16:43:08.966] [DEBUG] debug-file - Update task entry:default@PackageHap input file:C:\LandscapePortraitToggle-master\entry\build\default\generated\profile\default\BuildProfile.ets cache by regenerate.
+[2026-05-12T16:43:08.967] [DEBUG] debug-file - Update task entry:default@PackageHap output file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\entry-default-unsigned.hap cache.
+[2026-05-12T16:43:08.967] [DEBUG] debug-file - Update task entry:default@PackageHap output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\source_map\default\sourceMaps.map cache.
+[2026-05-12T16:43:08.967] [DEBUG] debug-file - Update task entry:default@PackageHap output file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\mapping\sourceMaps.map cache.
+[2026-05-12T16:43:08.968] [DEBUG] debug-file - Incremental task entry:default@PackageHap post-execution cost:15 ms .
+[2026-05-12T16:43:08.968] [DEBUG] debug-file - Update task entry:default@SignHap input file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\entry-default-unsigned.hap cache by regenerate.
+[2026-05-12T16:43:08.969] [DEBUG] debug-file - Update task entry:default@SignHap output file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\entry-default-signed.hap cache.
+[2026-05-12T16:43:08.969] [DEBUG] debug-file - Incremental task entry:default@SignHap post-execution cost:2 ms .
+[2026-05-12T16:43:08.970] [DEBUG] debug-file - Update task entry:default@CollectDebugSymbol input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader_out\default\ets\sourceMaps.map cache by regenerate.
+[2026-05-12T16:43:08.970] [DEBUG] debug-file - Update task entry:default@CollectDebugSymbol input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\libs\default cache by regenerate.
+[2026-05-12T16:43:08.971] [DEBUG] debug-file - Update task entry:default@CollectDebugSymbol output file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\symbol cache.
+[2026-05-12T16:43:08.971] [DEBUG] debug-file - Incremental task entry:default@CollectDebugSymbol post-execution cost:2 ms .
+[2026-05-12T16:43:09.009] [DEBUG] debug-file - Cleanup worker 0.
+[2026-05-12T16:43:09.009] [DEBUG] debug-file - Worker 0 has been cleaned up.
+[2026-05-12T16:43:09.009] [DEBUG] debug-file - Current idle worker size: 4.
+[2026-05-12T16:43:09.009] [DEBUG] debug-file - Current resident worker size: 5.
+[2026-05-12T16:43:09.009] [DEBUG] debug-file - Cleanup worker 1.
+[2026-05-12T16:43:09.009] [DEBUG] debug-file - Worker 1 has been cleaned up.
+[2026-05-12T16:43:09.010] [DEBUG] debug-file - Current idle worker size: 3.
+[2026-05-12T16:43:09.010] [DEBUG] debug-file - Current resident worker size: 5.
+[2026-05-12T16:43:09.010] [DEBUG] debug-file - Cleanup worker 22.
+[2026-05-12T16:43:09.010] [DEBUG] debug-file - Worker 22 has been cleaned up.
+[2026-05-12T16:43:09.010] [DEBUG] debug-file - Current idle worker size: 2.
+[2026-05-12T16:43:09.010] [DEBUG] debug-file - Current resident worker size: 5.
+[2026-05-12T16:43:09.010] [DEBUG] debug-file - Cleanup worker 21.
+[2026-05-12T16:43:09.010] [DEBUG] debug-file - Worker 21 has been cleaned up.
+[2026-05-12T16:43:09.010] [DEBUG] debug-file - Current idle worker size: 1.
+[2026-05-12T16:43:09.010] [DEBUG] debug-file - Current resident worker size: 5.
+[2026-05-12T16:43:09.012] [DEBUG] debug-file - hvigor build process will be closed.
+[2026-05-12T16:43:09.015] [DEBUG] debug-file - session manager: send message to worker process.
+[2026-05-12T16:43:09.016] [DEBUG] debug-file - session manager: send message to worker process.
+[2026-05-12T16:43:09.013] [DEBUG] debug-file - java daemon socket close code:1000 reason:close by user
+[2026-05-12T16:43:09.019] [DEBUG] debug-file - worker[1] exits with exit code 1.
+[2026-05-12T16:43:09.020] [DEBUG] debug-file - worker[0] exits with exit code 1.
+[2026-05-12T16:43:09.021] [DEBUG] debug-file - watch worker: worker id should be larger than 0. Nothing will be sent to any worker thread.
+[2026-05-12T16:43:09.021] [DEBUG] debug-file - watch worker: worker id should be larger than 0. Nothing will be sent to any worker thread.
+[2026-05-12T16:43:09.023] [DEBUG] debug-file - worker[22] exits with exit code 1.
+[2026-05-12T16:43:09.025] [DEBUG] debug-file - worker[21] exits with exit code 1.
+[2026-05-25T18:21:43.174] [DEBUG] debug-file - env: nodejsVersion=v18.20.1
+[2026-05-25T18:21:43.241] [DEBUG] debug-file - env: daemon=true
+[2026-05-25T18:21:43.175] [DEBUG] debug-file - env: hvigor-config.json5 content = {
+  modelVersion: '5.0.0',
+  dependencies: {},
+  execution: {},
+  logging: {},
+  debugging: {},
+  nodeOptions: {}
+}
+[2026-05-25T18:21:44.033] [DEBUG] debug-file - java daemon tryConnect failed Error: connect ECONNREFUSED 127.0.0.1:45050
+[2026-05-25T18:21:44.055] [DEBUG] debug-file - java daemon started at port 45050 pid 72268
+[2026-05-25T18:21:44.072] [DEBUG] debug-file - session manager: set active socket. socketId=fHz6tcWbuC6bwv4pAAAB
+[2026-05-25T18:21:44.797] [DEBUG] debug-file - watch worker: worker id should be larger than 0. Nothing will be sent to any worker thread.
+[2026-05-25T18:21:44.802] [DEBUG] debug-file - Since there is no instance or instance is terminated, create a new worker pool.
+[2026-05-25T18:21:44.802] [DEBUG] debug-file - Worker pool is initialized with config:  {
+  minPoolNum: 2,
+  maxPoolNum: undefined,
+  maxCoreSize: undefined,
+  cacheCapacity: undefined,
+  cacheTtl: undefined
+}
+[2026-05-25T18:21:44.803] [DEBUG] debug-file - Create  resident worker with id: 0.
+[2026-05-25T18:21:44.805] [DEBUG] debug-file - Create  resident worker with id: 1.
+[2026-05-25T18:21:44.806] [DEBUG] debug-file - Workers' log level updated to INFO
+[2026-05-25T18:21:44.811] [DEBUG] debug-file - Hvigor init with startParameters:{
+  hvigorfileTypeCheck: false,
+  parallelExecution: true,
+  incrementalExecution: true,
+  printStackTrace: false,
+  daemon: true,
+  analyze: 0,
+  logLevel: Level { level: 20000, levelStr: 'INFO', colour: 'green' },
+  optimizationStrategy: 'memory',
+  hotCompile: undefined,
+  hotReloadBuild: undefined,
+  customizedParam: undefined
+}
+[2026-05-25T18:21:44.815] [DEBUG] debug-file - Cache service initialization finished in 4 ms 
+[2026-05-25T18:21:44.816] [DEBUG] debug-file - hvigorfile, resolving C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-25T18:21:46.965] [DEBUG] debug-file - hvigorfile, require result:  { default: { plugins: [] } }
+[2026-05-25T18:21:46.965] [DEBUG] debug-file - hvigorfile, binding system plugins null
+[2026-05-25T18:21:46.965] [DEBUG] debug-file - Starting plugin build process
+[2026-05-25T18:21:46.965] [DEBUG] debug-file - App plugin prepare start...
+[2026-05-25T18:21:46.966] [DEBUG] debug-file - App plugin prepare end...
+[2026-05-25T18:21:46.966] [DEBUG] debug-file - App plugin creating...
+[2026-05-25T18:21:47.064] [DEBUG] debug-file - App plugin register hook start...
+[2026-05-25T18:21:47.064] [DEBUG] debug-file - App plugin register hook end...
+[2026-05-25T18:21:47.064] [DEBUG] debug-file - Plugin build process completed
+[2026-05-25T18:21:47.064] [DEBUG] debug-file - Start initialize project's product build option map with build mode debug.
+[2026-05-25T18:21:47.065] [DEBUG] debug-file - Picking option from product 'default' with build mode 'debug'.
+[2026-05-25T18:21:47.065] [DEBUG] debug-file - Product 'default' build option initialized
+[2026-05-25T18:21:47.065] [DEBUG] debug-file - End initialize project's product build option map with build mode 'debug'.
+[2026-05-25T18:21:47.066] [DEBUG] debug-file - Obtain build option for product 'default'in this build.
+[2026-05-25T18:21:47.068] [DEBUG] debug-file - No signingConfig found, initRemoteHspCache failed.
+[2026-05-25T18:21:47.070] [DEBUG] debug-file - Local scan or download HarmonyOS sdk components toolchains,ets,js,native,previewer
+[2026-05-25T18:21:47.074] [DEBUG] debug-file - Local scan or download hmscore sdk components toolchains,ets,native
+[2026-05-25T18:21:47.076] [DEBUG] debug-file - Start recording SDK configuration permission data.
+[2026-05-25T18:21:47.095] [DEBUG] debug-file - Sdk init in 26 ms 
+[2026-05-25T18:21:47.098] [DEBUG] debug-file - Project task initialization takes 3 ms 
+[2026-05-25T18:21:47.099] [DEBUG] debug-file - hvigorfile, binding custom plugins []
+[2026-05-25T18:21:47.099] [DEBUG] debug-file - hvigorfile, no custom plugins were found in C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-25T18:21:47.099] [DEBUG] debug-file - hvigorfile, resolve finished C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-25T18:21:47.099] [DEBUG] debug-file - hvigorfile, resolving C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-25T18:21:47.103] [DEBUG] debug-file - hvigorfile, require result:  { default: { plugins: [] } }
+[2026-05-25T18:21:47.103] [DEBUG] debug-file - hvigorfile, binding system plugins null
+[2026-05-25T18:21:47.104] [DEBUG] debug-file - Starting plugin build process
+[2026-05-25T18:21:47.104] [DEBUG] debug-file - Hap plugin creating...
+[2026-05-25T18:21:47.105] [DEBUG] debug-file - failed to load cangjie to dynamically generate schemas: Error: Cannot find module '@ohos/cangjie-build-support/index'
+Require stack:
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\hooks\cangjie-register.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\strategy\stage-init-strategy.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\builder\abstract-plugin-builder.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\builder\app-plugin-builder.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\factory\plugin-factory.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\index.js
+- C:\LandscapePortraitToggle-master\hvigorfile.ts
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\internal\lifecycle\configuration.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\boot\index.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\daemon\cluster\worker-process-lifecycle.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\daemon\process\daemon-process-boot-script.js
+[2026-05-25T18:21:47.114] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=debug
+[2026-05-25T18:21:47.114] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-25T18:21:47.114] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-25T18:21:47.114] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-25T18:21:47.114] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=release
+[2026-05-25T18:21:47.114] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-25T18:21:47.116] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-25T18:21:47.116] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-25T18:21:47.116] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=debug
+[2026-05-25T18:21:47.116] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-25T18:21:47.116] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-25T18:21:47.116] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-25T18:21:47.116] [DEBUG] debug-file - Obtain build option for module 'entry' target 'default'in this build.
+[2026-05-25T18:21:47.119] [DEBUG] debug-file - Module entry task initialization takes 3 ms 
+[2026-05-25T18:21:47.119] [DEBUG] debug-file - Hap plugin register hook start...
+[2026-05-25T18:21:47.119] [DEBUG] debug-file - Hap plugin register hook end...
+[2026-05-25T18:21:47.119] [DEBUG] debug-file - Plugin build process completed
+[2026-05-25T18:21:47.119] [DEBUG] debug-file - hvigorfile, binding custom plugins []
+[2026-05-25T18:21:47.119] [DEBUG] debug-file - hvigorfile, no custom plugins were found in C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-25T18:21:47.119] [DEBUG] debug-file - hvigorfile, resolve finished C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-25T18:21:47.158] [DEBUG] debug-file - hvigorfile, resolve hvigorfile dependencies in 39 ms 
+[2026-05-25T18:21:47.158] [DEBUG] debug-file - project has submodules:entry
+[2026-05-25T18:21:47.160] [DEBUG] debug-file - start to load updatedOhPackageInfo to the disk
+[2026-05-25T18:21:47.167] [DEBUG] debug-file - load to the disk finished
+[2026-05-25T18:21:47.168] [DEBUG] debug-file - Start to initialize dependency information.
+[2026-05-25T18:21:47.170] [DEBUG] debug-file - Module LandscapePortraitToggle-master Collected Dependency: 
+[2026-05-25T18:21:47.170] [DEBUG] debug-file - Module LandscapePortraitToggle-master's total dependency: 0
+[2026-05-25T18:21:47.171] [DEBUG] debug-file - Start to initialize dependency information.
+[2026-05-25T18:21:47.175] [DEBUG] debug-file - Module entry Collected Dependency: 
+[2026-05-25T18:21:47.175] [DEBUG] debug-file - Module entry's total dependency: 0
+[2026-05-25T18:21:47.178] [DEBUG] debug-file - Configuration phase cost:2 s 363 ms 
+[2026-05-25T18:21:47.179] [DEBUG] debug-file - Configuration task cost before running: 2 s 373 ms 
+[2026-05-25T18:21:47.185] [DEBUG] debug-file - Executing task :entry:default@PreBuild
+[2026-05-25T18:21:47.187] [DEBUG] debug-file - Task 'entry:default@PreBuild' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.198] [DEBUG] debug-file - Incremental task entry:default@PreBuild pre-execution cost: 8 ms .
+[2026-05-25T18:21:47.198] [DEBUG] debug-file - entry : default@PreBuild cost memory 0.4498748779296875
+[2026-05-25T18:21:47.201] [INFO] debug-file - UP-TO-DATE :entry:default@PreBuild...  
+[2026-05-25T18:21:47.202] [DEBUG] debug-file - Executing task :entry:default@CreateModuleInfo
+[2026-05-25T18:21:47.202] [DEBUG] debug-file - Task 'entry:default@CreateModuleInfo' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.202] [DEBUG] debug-file - entry : default@CreateModuleInfo cost memory 0.04264068603515625
+[2026-05-25T18:21:47.203] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 397 ms 
+[2026-05-25T18:21:47.203] [INFO] debug-file - Finished :entry:default@CreateModuleInfo... after 1 ms 
+[2026-05-25T18:21:47.204] [DEBUG] debug-file - Executing task :entry:default@GenerateMetadata
+[2026-05-25T18:21:47.204] [DEBUG] debug-file - Task 'entry:default@GenerateMetadata' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.206] [DEBUG] debug-file - Incremental task entry:default@GenerateMetadata pre-execution cost: 2 ms .
+[2026-05-25T18:21:47.206] [DEBUG] debug-file - entry : default@GenerateMetadata cost memory 0.0883941650390625
+[2026-05-25T18:21:47.206] [INFO] debug-file - UP-TO-DATE :entry:default@GenerateMetadata...  
+[2026-05-25T18:21:47.207] [DEBUG] debug-file - Executing task :entry:default@ConfigureCmake
+[2026-05-25T18:21:47.207] [DEBUG] debug-file - entry : default@ConfigureCmake cost memory 0.0145721435546875
+[2026-05-25T18:21:47.207] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 401 ms 
+[2026-05-25T18:21:47.207] [INFO] debug-file - Finished :entry:default@ConfigureCmake... after 1 ms 
+[2026-05-25T18:21:47.208] [DEBUG] debug-file - Executing task :entry:default@MergeProfile
+[2026-05-25T18:21:47.208] [DEBUG] debug-file - Task 'entry:default@MergeProfile' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.211] [DEBUG] debug-file - Incremental task entry:default@MergeProfile pre-execution cost: 3 ms .
+[2026-05-25T18:21:47.211] [DEBUG] debug-file - entry : default@MergeProfile cost memory 0.1286163330078125
+[2026-05-25T18:21:47.211] [INFO] debug-file - UP-TO-DATE :entry:default@MergeProfile...  
+[2026-05-25T18:21:47.212] [DEBUG] debug-file - Executing task :entry:default@CreateBuildProfile
+[2026-05-25T18:21:47.213] [DEBUG] debug-file - Task 'entry:default@CreateBuildProfile' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.214] [DEBUG] debug-file - Incremental task entry:default@CreateBuildProfile pre-execution cost: 2 ms .
+[2026-05-25T18:21:47.214] [DEBUG] debug-file - entry : default@CreateBuildProfile cost memory 0.09519195556640625
+[2026-05-25T18:21:47.214] [INFO] debug-file - UP-TO-DATE :entry:default@CreateBuildProfile...  
+[2026-05-25T18:21:47.215] [DEBUG] debug-file - Executing task :entry:default@PreCheckSyscap
+[2026-05-25T18:21:47.215] [DEBUG] debug-file - entry : default@PreCheckSyscap cost memory 0.01471710205078125
+[2026-05-25T18:21:47.215] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 410 ms 
+[2026-05-25T18:21:47.216] [INFO] debug-file - Finished :entry:default@PreCheckSyscap... after 1 ms 
+[2026-05-25T18:21:47.217] [DEBUG] debug-file - Executing task :entry:default@GeneratePkgContextInfo
+[2026-05-25T18:21:47.225] [DEBUG] debug-file - Task 'entry:default@GeneratePkgContextInfo' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.225] [DEBUG] debug-file - entry : default@GeneratePkgContextInfo cost memory 0.27086639404296875
+[2026-05-25T18:21:47.226] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 420 ms 
+[2026-05-25T18:21:47.226] [INFO] debug-file - Finished :entry:default@GeneratePkgContextInfo... after 9 ms 
+[2026-05-25T18:21:47.229] [DEBUG] debug-file - Executing task :entry:default@ProcessIntegratedHsp
+[2026-05-25T18:21:47.230] [DEBUG] debug-file - entry:default@ProcessIntegratedHsp is not up-to-date, since the output file 'C:\LandscapePortraitToggle-master\build\cache\default\integrated_hsp\integratedHspCache.json' does not exist.
+[2026-05-25T18:21:47.230] [DEBUG] debug-file - Incremental task entry:default@ProcessIntegratedHsp pre-execution cost: 1 ms .
+[2026-05-25T18:21:47.230] [DEBUG] debug-file - entry : default@ProcessIntegratedHsp cost memory 0.05699920654296875
+[2026-05-25T18:21:47.230] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 424 ms 
+[2026-05-25T18:21:47.230] [INFO] debug-file - Finished :entry:default@ProcessIntegratedHsp... after 1 ms 
+[2026-05-25T18:21:47.231] [DEBUG] debug-file - Executing task :entry:default@BuildNativeWithCmake
+[2026-05-25T18:21:47.231] [DEBUG] debug-file - entry : default@BuildNativeWithCmake cost memory 0.014862060546875
+[2026-05-25T18:21:47.231] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 425 ms 
+[2026-05-25T18:21:47.231] [INFO] debug-file - Finished :entry:default@BuildNativeWithCmake... after 1 ms 
+[2026-05-25T18:21:47.232] [DEBUG] debug-file - Executing task :entry:default@MakePackInfo
+[2026-05-25T18:21:47.235] [DEBUG] debug-file - Incremental task entry:default@MakePackInfo pre-execution cost: 3 ms .
+[2026-05-25T18:21:47.235] [DEBUG] debug-file - entry : default@MakePackInfo cost memory 0.1275634765625
+[2026-05-25T18:21:47.236] [INFO] debug-file - UP-TO-DATE :entry:default@MakePackInfo...  
+[2026-05-25T18:21:47.237] [DEBUG] debug-file - Executing task :entry:default@SyscapTransform
+[2026-05-25T18:21:47.237] [DEBUG] debug-file - File: 'C:\LandscapePortraitToggle-master\entry\src\main\syscap.json' from 'sysCapJsonPath' is not exists, just ignore.
+[2026-05-25T18:21:47.238] [DEBUG] debug-file - Task 'entry:default@SyscapTransform' cost while wrapping incremental declarations: 2 ms 
+[2026-05-25T18:21:47.246] [DEBUG] debug-file - entry:default@SyscapTransform is not up-to-date, since the output file 'C:\LandscapePortraitToggle-master\entry\build\default\intermediates\syscap\default\rpcid.sc' does not exist.
+[2026-05-25T18:21:47.246] [DEBUG] debug-file - Incremental task entry:default@SyscapTransform pre-execution cost: 9 ms .
+[2026-05-25T18:21:47.247] [DEBUG] debug-file - entry : default@SyscapTransform cost memory 0.1619720458984375
+[2026-05-25T18:21:47.247] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 441 ms 
+[2026-05-25T18:21:47.247] [INFO] debug-file - Finished :entry:default@SyscapTransform... after 11 ms 
+[2026-05-25T18:21:47.248] [DEBUG] debug-file - Executing task :entry:default@ProcessProfile
+[2026-05-25T18:21:47.249] [DEBUG] debug-file - Task 'entry:default@ProcessProfile' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.250] [DEBUG] debug-file - Incremental task entry:default@ProcessProfile pre-execution cost: 2 ms .
+[2026-05-25T18:21:47.251] [DEBUG] debug-file - entry : default@ProcessProfile cost memory 0.1436920166015625
+[2026-05-25T18:21:47.251] [INFO] debug-file - UP-TO-DATE :entry:default@ProcessProfile...  
+[2026-05-25T18:21:47.252] [DEBUG] debug-file - Executing task :entry:default@ProcessRouterMap
+[2026-05-25T18:21:47.256] [DEBUG] debug-file - Incremental task entry:default@ProcessRouterMap pre-execution cost: 4 ms .
+[2026-05-25T18:21:47.256] [DEBUG] debug-file - entry : default@ProcessRouterMap cost memory 0.18796539306640625
+[2026-05-25T18:21:47.257] [INFO] debug-file - UP-TO-DATE :entry:default@ProcessRouterMap...  
+[2026-05-25T18:21:47.258] [DEBUG] debug-file - Executing task :entry:default@ProcessShareConfig
+[2026-05-25T18:21:47.260] [DEBUG] debug-file - Incremental task entry:default@ProcessShareConfig pre-execution cost: 2 ms .
+[2026-05-25T18:21:47.260] [DEBUG] debug-file - entry : default@ProcessShareConfig cost memory 0.1031341552734375
+[2026-05-25T18:21:47.260] [INFO] debug-file - UP-TO-DATE :entry:default@ProcessShareConfig...  
+[2026-05-25T18:21:47.261] [DEBUG] debug-file - Executing task :entry:default@ProcessStartupConfig
+[2026-05-25T18:21:47.261] [DEBUG] debug-file - Task 'entry:default@ProcessStartupConfig' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.262] [DEBUG] debug-file - entry:default@ProcessStartupConfig is not up-to-date, since the output file 'C:\LandscapePortraitToggle-master\entry\build\default\intermediates\startup\default\startup_config.json' does not exist.
+[2026-05-25T18:21:47.262] [DEBUG] debug-file - Incremental task entry:default@ProcessStartupConfig pre-execution cost: 1 ms .
+[2026-05-25T18:21:47.262] [DEBUG] debug-file - entry : default@ProcessStartupConfig cost memory 0.08927154541015625
+[2026-05-25T18:21:47.262] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 457 ms 
+[2026-05-25T18:21:47.263] [INFO] debug-file - Finished :entry:default@ProcessStartupConfig... after 2 ms 
+[2026-05-25T18:21:47.263] [DEBUG] debug-file - Executing task :entry:default@BuildNativeWithNinja
+[2026-05-25T18:21:47.264] [DEBUG] debug-file - entry : default@BuildNativeWithNinja cost memory 0.0201873779296875
+[2026-05-25T18:21:47.264] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 458 ms 
+[2026-05-25T18:21:47.264] [INFO] debug-file - Finished :entry:default@BuildNativeWithNinja... after 1 ms 
+[2026-05-25T18:21:47.266] [DEBUG] debug-file - restool module names: entry; moduleName=entry, taskName=default@ProcessResource
+[2026-05-25T18:21:47.268] [DEBUG] debug-file - Executing task :entry:default@ProcessResource
+[2026-05-25T18:21:47.268] [DEBUG] debug-file - Task 'entry:default@ProcessResource' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.269] [DEBUG] debug-file - Incremental task entry:default@ProcessResource pre-execution cost: 1 ms .
+[2026-05-25T18:21:47.269] [DEBUG] debug-file - entry : default@ProcessResource cost memory 0.1242523193359375
+[2026-05-25T18:21:47.270] [INFO] debug-file - UP-TO-DATE :entry:default@ProcessResource...  
+[2026-05-25T18:21:47.272] [DEBUG] debug-file - Executing task :entry:default@GenerateLoaderJson
+[2026-05-25T18:21:47.272] [DEBUG] debug-file - Task 'entry:default@GenerateLoaderJson' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.280] [DEBUG] debug-file - Incremental task entry:default@GenerateLoaderJson pre-execution cost: 5 ms .
+[2026-05-25T18:21:47.281] [DEBUG] debug-file - entry : default@GenerateLoaderJson cost memory 0.7447128295898438
+[2026-05-25T18:21:47.283] [INFO] debug-file - UP-TO-DATE :entry:default@GenerateLoaderJson...  
+[2026-05-25T18:21:47.284] [DEBUG] debug-file - Executing task :entry:default@ProcessLibs
+[2026-05-25T18:21:47.288] [DEBUG] debug-file - Incremental task entry:default@ProcessLibs pre-execution cost: 4 ms .
+[2026-05-25T18:21:47.288] [DEBUG] debug-file - entry : default@ProcessLibs cost memory -7.870063781738281
+[2026-05-25T18:21:47.289] [INFO] debug-file - UP-TO-DATE :entry:default@ProcessLibs...  
+[2026-05-25T18:21:47.290] [DEBUG] debug-file - restool module names: entry; moduleName=entry, taskName=default@CompileResource
+[2026-05-25T18:21:47.290] [DEBUG] debug-file - Executing task :entry:default@CompileResource
+[2026-05-25T18:21:47.310] [DEBUG] debug-file - Incremental task entry:default@CompileResource pre-execution cost: 19 ms .
+[2026-05-25T18:21:47.310] [DEBUG] debug-file - entry : default@CompileResource cost memory 1.0455780029296875
+[2026-05-25T18:21:47.311] [INFO] debug-file - UP-TO-DATE :entry:default@CompileResource...  
+[2026-05-25T18:21:47.312] [DEBUG] debug-file - Executing task :entry:default@DoNativeStrip
+[2026-05-25T18:21:47.313] [DEBUG] debug-file - Task 'entry:default@DoNativeStrip' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.314] [DEBUG] debug-file - Incremental task entry:default@DoNativeStrip pre-execution cost: 1 ms .
+[2026-05-25T18:21:47.314] [DEBUG] debug-file - entry : default@DoNativeStrip cost memory 0.07648468017578125
+[2026-05-25T18:21:47.314] [INFO] debug-file - UP-TO-DATE :entry:default@DoNativeStrip...  
+[2026-05-25T18:21:47.315] [DEBUG] debug-file - Executing task :entry:default@CompileArkTS
+[2026-05-25T18:21:47.315] [DEBUG] debug-file - obfuscationOptions: undefined
+[2026-05-25T18:21:47.316] [DEBUG] debug-file - Task 'entry:default@CompileArkTS' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.327] [DEBUG] debug-file - Incremental task entry:default@CompileArkTS pre-execution cost: 10 ms .
+[2026-05-25T18:21:47.327] [DEBUG] debug-file - entry : default@CompileArkTS cost memory 0.6960296630859375
+[2026-05-25T18:21:47.329] [INFO] debug-file - UP-TO-DATE :entry:default@CompileArkTS...  
+[2026-05-25T18:21:47.330] [DEBUG] debug-file - Executing task :entry:default@BuildJS
+[2026-05-25T18:21:47.330] [DEBUG] debug-file - Task 'entry:default@BuildJS' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.332] [DEBUG] debug-file - entry : default@BuildJS cost memory 0.13985443115234375
+[2026-05-25T18:21:47.332] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 527 ms 
+[2026-05-25T18:21:47.332] [INFO] debug-file - Finished :entry:default@BuildJS... after 3 ms 
+[2026-05-25T18:21:47.333] [DEBUG] debug-file - Executing task :entry:default@CacheNativeLibs
+[2026-05-25T18:21:47.333] [DEBUG] debug-file - Task 'entry:default@CacheNativeLibs' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.335] [DEBUG] debug-file - Incremental task entry:default@CacheNativeLibs pre-execution cost: 2 ms .
+[2026-05-25T18:21:47.335] [DEBUG] debug-file - entry : default@CacheNativeLibs cost memory 0.0935821533203125
+[2026-05-25T18:21:47.335] [INFO] debug-file - UP-TO-DATE :entry:default@CacheNativeLibs...  
+[2026-05-25T18:21:47.335] [DEBUG] debug-file - Executing task :entry:default@GeneratePkgModuleJson
+[2026-05-25T18:21:47.336] [DEBUG] debug-file - File: 'C:\LandscapePortraitToggle-master\entry\build\default\intermediates\preload\default\preload.json' from 'preloadSoJsonPath' is not exists, just ignore.
+[2026-05-25T18:21:47.336] [DEBUG] debug-file - Error occurs while handling @Input 'shouldDeduplicateHar': The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+[2026-05-25T18:21:47.336] [DEBUG] debug-file - Task 'entry:default@GeneratePkgModuleJson' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.337] [DEBUG] debug-file - Incremental task entry:default@GeneratePkgModuleJson pre-execution cost: 1 ms .
+[2026-05-25T18:21:47.337] [DEBUG] debug-file - entry : default@GeneratePkgModuleJson cost memory 0.1034393310546875
+[2026-05-25T18:21:47.337] [INFO] debug-file - UP-TO-DATE :entry:default@GeneratePkgModuleJson...  
+[2026-05-25T18:21:47.337] [DEBUG] debug-file - Executing task :entry:default@ProcessCompiledResources
+[2026-05-25T18:21:47.338] [DEBUG] debug-file - File: 'C:\LandscapePortraitToggle-master\entry\build\default\intermediates\preload\default\preload.json' from 'preloadSoJsonPath' is not exists, just ignore.
+[2026-05-25T18:21:47.338] [DEBUG] debug-file - Task 'entry:default@ProcessCompiledResources' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T18:21:47.338] [DEBUG] debug-file - entry : default@ProcessCompiledResources cost memory 0.05670166015625
+[2026-05-25T18:21:47.338] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 532 ms 
+[2026-05-25T18:21:47.338] [INFO] debug-file - Finished :entry:default@ProcessCompiledResources... after 1 ms 
+[2026-05-25T18:21:47.340] [DEBUG] debug-file - Executing task :entry:default@PackageHap
+[2026-05-25T18:21:47.349] [DEBUG] debug-file - Incremental task entry:default@PackageHap pre-execution cost: 9 ms .
+[2026-05-25T18:21:47.349] [DEBUG] debug-file - entry : default@PackageHap cost memory 0.6199188232421875
+[2026-05-25T18:21:47.350] [INFO] debug-file - UP-TO-DATE :entry:default@PackageHap...  
+[2026-05-25T18:21:47.351] [DEBUG] debug-file - Executing task :entry:default@PackingCheck
+[2026-05-25T18:21:47.356] [DEBUG] debug-file - entry : default@PackingCheck cost memory 0.5645294189453125
+[2026-05-25T18:21:47.357] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 551 ms 
+[2026-05-25T18:21:47.357] [INFO] debug-file - Finished :entry:default@PackingCheck... after 6 ms 
+[2026-05-25T18:21:47.358] [DEBUG] debug-file - Executing task :entry:default@SignHap
+[2026-05-25T18:21:47.358] [WARN] debug-file - Will skip sign 'hos_hap'. No signingConfigs profile is configured in current project.
+             If needed, configure the signingConfigs in C:\LandscapePortraitToggle-master\build-profile.json5.
+[2026-05-25T18:21:47.359] [DEBUG] debug-file - entry:default@SignHap is not up-to-date, since the output file 'C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\entry-default-signed.hap' does not exist.
+[2026-05-25T18:21:47.359] [DEBUG] debug-file - Incremental task entry:default@SignHap pre-execution cost: 1 ms .
+[2026-05-25T18:21:47.359] [DEBUG] debug-file - entry : default@SignHap cost memory 0.08980560302734375
+[2026-05-25T18:21:47.359] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 554 ms 
+[2026-05-25T18:21:47.360] [INFO] debug-file - Finished :entry:default@SignHap... after 2 ms 
+[2026-05-25T18:21:47.360] [DEBUG] debug-file - Executing task :entry:default@CollectDebugSymbol
+[2026-05-25T18:21:47.361] [DEBUG] debug-file - entry : default@CollectDebugSymbol cost memory 0.0808563232421875
+[2026-05-25T18:21:47.361] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 556 ms 
+[2026-05-25T18:21:47.362] [INFO] debug-file - Finished :entry:default@CollectDebugSymbol... after 2 ms 
+[2026-05-25T18:21:47.362] [DEBUG] debug-file - Executing task :entry:assembleHap
+[2026-05-25T18:21:47.362] [DEBUG] debug-file - entry : assembleHap cost memory 0.0128326416015625
+[2026-05-25T18:21:47.362] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 556 ms 
+[2026-05-25T18:21:47.362] [INFO] debug-file - Finished :entry:assembleHap... after 1 ms 
+[2026-05-25T18:21:47.375] [INFO] debug-file - BUILD SUCCESSFUL in 2 s 569 ms 
+[2026-05-25T18:21:47.376] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@PreBuild is up-to-date.
+[2026-05-25T18:21:47.376] [DEBUG] debug-file - Update task entry:default@CreateModuleInfo output file:C:\LandscapePortraitToggle-master\entry\build\default\generated\profile\default\ModuleInfo.ts cache.
+[2026-05-25T18:21:47.376] [DEBUG] debug-file - Incremental task entry:default@CreateModuleInfo post-execution cost:1 ms .
+[2026-05-25T18:21:47.376] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@GenerateMetadata is up-to-date.
+[2026-05-25T18:21:47.376] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@MergeProfile is up-to-date.
+[2026-05-25T18:21:47.376] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@CreateBuildProfile is up-to-date.
+[2026-05-25T18:21:47.376] [DEBUG] debug-file - Update task entry:default@GeneratePkgContextInfo output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader\default\pkgContextInfo.json cache.
+[2026-05-25T18:21:47.376] [DEBUG] debug-file - Incremental task entry:default@GeneratePkgContextInfo post-execution cost:1 ms .
+[2026-05-25T18:21:47.376] [DEBUG] debug-file - Update task entry:default@ProcessIntegratedHsp output file:C:\LandscapePortraitToggle-master\build\cache\default\integrated_hsp\integratedHspCache.json cache.
+[2026-05-25T18:21:47.376] [DEBUG] debug-file - Incremental task entry:default@ProcessIntegratedHsp post-execution cost:1 ms .
+[2026-05-25T18:21:47.376] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@MakePackInfo is up-to-date.
+[2026-05-25T18:21:47.377] [DEBUG] debug-file - Update task entry:default@SyscapTransform input file:C:\Program Files\Huawei\DevEco Studio\sdk\default\openharmony\toolchains\syscap_tool.exe cache by regenerate.
+[2026-05-25T18:21:47.377] [DEBUG] debug-file - Update task entry:default@SyscapTransform input file:C:\Program Files\Huawei\DevEco Studio\sdk\default\openharmony\ets\api\device-define cache by regenerate.
+[2026-05-25T18:21:47.378] [DEBUG] debug-file - Update task entry:default@SyscapTransform output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\syscap\default\rpcid.sc cache.
+[2026-05-25T18:21:47.378] [DEBUG] debug-file - Incremental task entry:default@SyscapTransform post-execution cost:2 ms .
+[2026-05-25T18:21:47.378] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@ProcessProfile is up-to-date.
+[2026-05-25T18:21:47.378] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@ProcessRouterMap is up-to-date.
+[2026-05-25T18:21:47.378] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@ProcessShareConfig is up-to-date.
+[2026-05-25T18:21:47.378] [DEBUG] debug-file - Update task entry:default@ProcessStartupConfig output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\startup\default\startup_config.json cache.
+[2026-05-25T18:21:47.379] [DEBUG] debug-file - Incremental task entry:default@ProcessStartupConfig post-execution cost:1 ms .
+[2026-05-25T18:21:47.379] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@ProcessResource is up-to-date.
+[2026-05-25T18:21:47.379] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@GenerateLoaderJson is up-to-date.
+[2026-05-25T18:21:47.379] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@ProcessLibs is up-to-date.
+[2026-05-25T18:21:47.379] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@CompileResource is up-to-date.
+[2026-05-25T18:21:47.379] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@DoNativeStrip is up-to-date.
+[2026-05-25T18:21:47.379] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@CompileArkTS is up-to-date.
+[2026-05-25T18:21:47.380] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader\default cache by regenerate.
+[2026-05-25T18:21:47.380] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resources\rawfile cache by regenerate.
+[2026-05-25T18:21:47.381] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\ResourceTable.txt cache by regenerate.
+[2026-05-25T18:21:47.381] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\ark_module.json cache by regenerate.
+[2026-05-25T18:21:47.381] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resources\base\profile cache by regenerate.
+[2026-05-25T18:21:47.382] [DEBUG] debug-file - Update task entry:default@BuildJS output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader_out\default\js cache.
+[2026-05-25T18:21:47.382] [DEBUG] debug-file - Incremental task entry:default@BuildJS post-execution cost:4 ms .
+[2026-05-25T18:21:47.382] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@CacheNativeLibs is up-to-date.
+[2026-05-25T18:21:47.382] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@GeneratePkgModuleJson is up-to-date.
+[2026-05-25T18:21:47.382] [DEBUG] debug-file - Incremental task entry:default@ProcessCompiledResources post-execution cost:1 ms .
+[2026-05-25T18:21:47.382] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@PackageHap is up-to-date.
+[2026-05-25T18:21:47.382] [DEBUG] debug-file - Update task entry:default@SignHap input file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\entry-default-unsigned.hap cache by regenerate.
+[2026-05-25T18:21:47.382] [DEBUG] debug-file - Update task entry:default@SignHap output file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\entry-default-signed.hap cache.
+[2026-05-25T18:21:47.383] [DEBUG] debug-file - Incremental task entry:default@SignHap post-execution cost:1 ms .
+[2026-05-25T18:21:47.383] [DEBUG] debug-file - Update task entry:default@CollectDebugSymbol input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader_out\default\ets\sourceMaps.map cache by regenerate.
+[2026-05-25T18:21:47.383] [DEBUG] debug-file - Update task entry:default@CollectDebugSymbol input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\libs\default cache by regenerate.
+[2026-05-25T18:21:47.384] [DEBUG] debug-file - Update task entry:default@CollectDebugSymbol output file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\symbol cache.
+[2026-05-25T18:21:47.384] [DEBUG] debug-file - Incremental task entry:default@CollectDebugSymbol post-execution cost:2 ms .
+[2026-05-25T18:21:47.408] [DEBUG] debug-file - session manager: send message to worker process.
+[2026-05-25T18:21:47.408] [DEBUG] debug-file - session manager: send message to worker process.
+[2026-05-25T18:21:47.454] [DEBUG] debug-file - Cleanup worker 0.
+[2026-05-25T18:21:47.455] [DEBUG] debug-file - Worker 0 has been cleaned up.
+[2026-05-25T18:21:47.455] [DEBUG] debug-file - Current idle worker size: 1.
+[2026-05-25T18:21:47.455] [DEBUG] debug-file - Current resident worker size: 2.
+[2026-05-25T18:21:47.455] [DEBUG] debug-file - Cleanup worker 1.
+[2026-05-25T18:21:47.455] [DEBUG] debug-file - Worker 1 has been cleaned up.
+[2026-05-25T18:21:47.456] [DEBUG] debug-file - Current idle worker size: 0.
+[2026-05-25T18:21:47.456] [DEBUG] debug-file - Current resident worker size: 2.
+[2026-05-25T18:21:47.457] [DEBUG] debug-file - hvigor build process will be closed.
+[2026-05-25T18:21:47.461] [DEBUG] debug-file - worker[0] exits with exit code 1.
+[2026-05-25T18:21:47.463] [DEBUG] debug-file - worker[1] exits with exit code 1.
+[2026-05-25T18:21:47.465] [DEBUG] debug-file - watch worker: worker id should be larger than 0. Nothing will be sent to any worker thread.
+[2026-05-25T18:21:47.465] [DEBUG] debug-file - watch worker: worker id should be larger than 0. Nothing will be sent to any worker thread.
+[2026-05-25T19:51:24.640] [DEBUG] debug-file - env: nodejsVersion=v18.20.1
+[2026-05-25T19:51:24.707] [DEBUG] debug-file - env: daemon=true
+[2026-05-25T19:51:24.641] [DEBUG] debug-file - env: hvigor-config.json5 content = {
+  modelVersion: '5.0.0',
+  dependencies: {},
+  execution: {},
+  logging: {},
+  debugging: {},
+  nodeOptions: {}
+}
+[2026-05-25T19:51:25.541] [DEBUG] debug-file - java daemon tryConnect failed Error: connect ECONNREFUSED 127.0.0.1:45050
+[2026-05-25T19:51:25.552] [DEBUG] debug-file - java daemon started at port 45050 pid 53496
+[2026-05-25T19:51:25.572] [DEBUG] debug-file - session manager: set active socket. socketId=8bkDOuasfp-6AMiTAAAB
+[2026-05-25T19:51:26.352] [DEBUG] debug-file - watch worker: worker id should be larger than 0. Nothing will be sent to any worker thread.
+[2026-05-25T19:51:26.357] [DEBUG] debug-file - Since there is no instance or instance is terminated, create a new worker pool.
+[2026-05-25T19:51:26.357] [DEBUG] debug-file - Worker pool is initialized with config:  {
+  minPoolNum: 2,
+  maxPoolNum: undefined,
+  maxCoreSize: undefined,
+  cacheCapacity: undefined,
+  cacheTtl: undefined
+}
+[2026-05-25T19:51:26.358] [DEBUG] debug-file - Create  resident worker with id: 0.
+[2026-05-25T19:51:26.359] [DEBUG] debug-file - Create  resident worker with id: 1.
+[2026-05-25T19:51:26.360] [DEBUG] debug-file - Workers' log level updated to INFO
+[2026-05-25T19:51:26.365] [DEBUG] debug-file - Hvigor init with startParameters:{
+  hvigorfileTypeCheck: false,
+  parallelExecution: true,
+  incrementalExecution: true,
+  printStackTrace: false,
+  daemon: true,
+  analyze: 0,
+  logLevel: Level { level: 20000, levelStr: 'INFO', colour: 'green' },
+  optimizationStrategy: 'memory',
+  hotCompile: undefined,
+  hotReloadBuild: undefined,
+  customizedParam: undefined
+}
+[2026-05-25T19:51:26.368] [DEBUG] debug-file - Cache service initialization finished in 3 ms 
+[2026-05-25T19:51:26.370] [DEBUG] debug-file - hvigorfile, resolving C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-25T19:51:28.128] [DEBUG] debug-file - hvigorfile, require result:  { default: { plugins: [] } }
+[2026-05-25T19:51:28.129] [DEBUG] debug-file - hvigorfile, binding system plugins null
+[2026-05-25T19:51:28.129] [DEBUG] debug-file - Starting plugin build process
+[2026-05-25T19:51:28.129] [DEBUG] debug-file - App plugin prepare start...
+[2026-05-25T19:51:28.129] [DEBUG] debug-file - App plugin prepare end...
+[2026-05-25T19:51:28.129] [DEBUG] debug-file - App plugin creating...
+[2026-05-25T19:51:28.231] [DEBUG] debug-file - App plugin register hook start...
+[2026-05-25T19:51:28.231] [DEBUG] debug-file - App plugin register hook end...
+[2026-05-25T19:51:28.231] [DEBUG] debug-file - Plugin build process completed
+[2026-05-25T19:51:28.232] [DEBUG] debug-file - Start initialize project's product build option map with build mode debug.
+[2026-05-25T19:51:28.232] [DEBUG] debug-file - Picking option from product 'default' with build mode 'debug'.
+[2026-05-25T19:51:28.232] [DEBUG] debug-file - Product 'default' build option initialized
+[2026-05-25T19:51:28.232] [DEBUG] debug-file - End initialize project's product build option map with build mode 'debug'.
+[2026-05-25T19:51:28.233] [DEBUG] debug-file - Obtain build option for product 'default'in this build.
+[2026-05-25T19:51:28.235] [DEBUG] debug-file - No signingConfig found, initRemoteHspCache failed.
+[2026-05-25T19:51:28.236] [DEBUG] debug-file - Local scan or download HarmonyOS sdk components toolchains,ets,js,native,previewer
+[2026-05-25T19:51:28.239] [DEBUG] debug-file - Local scan or download hmscore sdk components toolchains,ets,native
+[2026-05-25T19:51:28.240] [DEBUG] debug-file - Start recording SDK configuration permission data.
+[2026-05-25T19:51:28.259] [DEBUG] debug-file - Sdk init in 24 ms 
+[2026-05-25T19:51:28.264] [DEBUG] debug-file - Project task initialization takes 4 ms 
+[2026-05-25T19:51:28.264] [DEBUG] debug-file - hvigorfile, binding custom plugins []
+[2026-05-25T19:51:28.264] [DEBUG] debug-file - hvigorfile, no custom plugins were found in C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-25T19:51:28.264] [DEBUG] debug-file - hvigorfile, resolve finished C:\LandscapePortraitToggle-master\hvigorfile.ts
+[2026-05-25T19:51:28.264] [DEBUG] debug-file - hvigorfile, resolving C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-25T19:51:28.269] [DEBUG] debug-file - hvigorfile, require result:  { default: { plugins: [] } }
+[2026-05-25T19:51:28.269] [DEBUG] debug-file - hvigorfile, binding system plugins null
+[2026-05-25T19:51:28.269] [DEBUG] debug-file - Starting plugin build process
+[2026-05-25T19:51:28.269] [DEBUG] debug-file - Hap plugin creating...
+[2026-05-25T19:51:28.271] [DEBUG] debug-file - failed to load cangjie to dynamically generate schemas: Error: Cannot find module '@ohos/cangjie-build-support/index'
+Require stack:
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\hooks\cangjie-register.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\strategy\stage-init-strategy.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\builder\abstract-plugin-builder.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\builder\app-plugin-builder.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\src\plugin\factory\plugin-factory.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor-ohos-plugin\index.js
+- C:\LandscapePortraitToggle-master\hvigorfile.ts
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\internal\lifecycle\configuration.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\boot\index.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\daemon\cluster\worker-process-lifecycle.js
+- C:\Program Files\Huawei\DevEco Studio\tools\hvigor\hvigor\src\base\daemon\process\daemon-process-boot-script.js
+[2026-05-25T19:51:28.280] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=debug
+[2026-05-25T19:51:28.281] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-25T19:51:28.281] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-25T19:51:28.281] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-25T19:51:28.281] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=release
+[2026-05-25T19:51:28.281] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-25T19:51:28.281] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-25T19:51:28.282] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-25T19:51:28.282] [DEBUG] debug-file - Start initialize module-target build option map, moduleName=entry, buildMode=debug
+[2026-05-25T19:51:28.283] [DEBUG] debug-file - Target 'default' config initialized
+[2026-05-25T19:51:28.283] [DEBUG] debug-file - Module 'entry' target 'default' build option initialized
+[2026-05-25T19:51:28.283] [DEBUG] debug-file - End initialize module-target build option map, moduleName=entry
+[2026-05-25T19:51:28.283] [DEBUG] debug-file - Obtain build option for module 'entry' target 'default'in this build.
+[2026-05-25T19:51:28.286] [DEBUG] debug-file - Module entry task initialization takes 3 ms 
+[2026-05-25T19:51:28.286] [DEBUG] debug-file - Hap plugin register hook start...
+[2026-05-25T19:51:28.286] [DEBUG] debug-file - Hap plugin register hook end...
+[2026-05-25T19:51:28.286] [DEBUG] debug-file - Plugin build process completed
+[2026-05-25T19:51:28.286] [DEBUG] debug-file - hvigorfile, binding custom plugins []
+[2026-05-25T19:51:28.286] [DEBUG] debug-file - hvigorfile, no custom plugins were found in C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-25T19:51:28.286] [DEBUG] debug-file - hvigorfile, resolve finished C:\LandscapePortraitToggle-master\entry\hvigorfile.ts
+[2026-05-25T19:51:28.323] [DEBUG] debug-file - hvigorfile, resolve hvigorfile dependencies in 37 ms 
+[2026-05-25T19:51:28.323] [DEBUG] debug-file - project has submodules:entry
+[2026-05-25T19:51:28.325] [DEBUG] debug-file - start to load updatedOhPackageInfo to the disk
+[2026-05-25T19:51:28.332] [DEBUG] debug-file - load to the disk finished
+[2026-05-25T19:51:28.333] [DEBUG] debug-file - Start to initialize dependency information.
+[2026-05-25T19:51:28.336] [DEBUG] debug-file - Module LandscapePortraitToggle-master Collected Dependency: 
+[2026-05-25T19:51:28.336] [DEBUG] debug-file - Module LandscapePortraitToggle-master's total dependency: 0
+[2026-05-25T19:51:28.337] [DEBUG] debug-file - Start to initialize dependency information.
+[2026-05-25T19:51:28.340] [DEBUG] debug-file - Module entry Collected Dependency: 
+[2026-05-25T19:51:28.340] [DEBUG] debug-file - Module entry's total dependency: 0
+[2026-05-25T19:51:28.343] [DEBUG] debug-file - Configuration phase cost:1 s 975 ms 
+[2026-05-25T19:51:28.345] [DEBUG] debug-file - Configuration task cost before running: 1 s 984 ms 
+[2026-05-25T19:51:28.351] [DEBUG] debug-file - Executing task :entry:default@PreBuild
+[2026-05-25T19:51:28.352] [DEBUG] debug-file - Task 'entry:default@PreBuild' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.364] [DEBUG] debug-file - Incremental task entry:default@PreBuild pre-execution cost: 9 ms .
+[2026-05-25T19:51:28.364] [DEBUG] debug-file - entry : default@PreBuild cost memory 0.4663238525390625
+[2026-05-25T19:51:28.367] [INFO] debug-file - UP-TO-DATE :entry:default@PreBuild...  
+[2026-05-25T19:51:28.367] [DEBUG] debug-file - Executing task :entry:default@CreateModuleInfo
+[2026-05-25T19:51:28.368] [DEBUG] debug-file - Task 'entry:default@CreateModuleInfo' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.368] [DEBUG] debug-file - entry : default@CreateModuleInfo cost memory 0.0426177978515625
+[2026-05-25T19:51:28.368] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 8 ms 
+[2026-05-25T19:51:28.368] [INFO] debug-file - Finished :entry:default@CreateModuleInfo... after 1 ms 
+[2026-05-25T19:51:28.369] [DEBUG] debug-file - Executing task :entry:default@GenerateMetadata
+[2026-05-25T19:51:28.370] [DEBUG] debug-file - Task 'entry:default@GenerateMetadata' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.371] [DEBUG] debug-file - Incremental task entry:default@GenerateMetadata pre-execution cost: 1 ms .
+[2026-05-25T19:51:28.371] [DEBUG] debug-file - entry : default@GenerateMetadata cost memory 0.08535003662109375
+[2026-05-25T19:51:28.371] [INFO] debug-file - UP-TO-DATE :entry:default@GenerateMetadata...  
+[2026-05-25T19:51:28.372] [DEBUG] debug-file - Executing task :entry:default@ConfigureCmake
+[2026-05-25T19:51:28.373] [DEBUG] debug-file - entry : default@ConfigureCmake cost memory 0.0145721435546875
+[2026-05-25T19:51:28.373] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 12 ms 
+[2026-05-25T19:51:28.373] [INFO] debug-file - Finished :entry:default@ConfigureCmake... after 1 ms 
+[2026-05-25T19:51:28.374] [DEBUG] debug-file - Executing task :entry:default@MergeProfile
+[2026-05-25T19:51:28.374] [DEBUG] debug-file - Task 'entry:default@MergeProfile' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.376] [DEBUG] debug-file - Incremental task entry:default@MergeProfile pre-execution cost: 2 ms .
+[2026-05-25T19:51:28.376] [DEBUG] debug-file - entry : default@MergeProfile cost memory 0.1287689208984375
+[2026-05-25T19:51:28.376] [INFO] debug-file - UP-TO-DATE :entry:default@MergeProfile...  
+[2026-05-25T19:51:28.377] [DEBUG] debug-file - Executing task :entry:default@CreateBuildProfile
+[2026-05-25T19:51:28.378] [DEBUG] debug-file - Task 'entry:default@CreateBuildProfile' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.379] [DEBUG] debug-file - Incremental task entry:default@CreateBuildProfile pre-execution cost: 2 ms .
+[2026-05-25T19:51:28.379] [DEBUG] debug-file - entry : default@CreateBuildProfile cost memory 0.09564971923828125
+[2026-05-25T19:51:28.379] [INFO] debug-file - UP-TO-DATE :entry:default@CreateBuildProfile...  
+[2026-05-25T19:51:28.380] [DEBUG] debug-file - Executing task :entry:default@PreCheckSyscap
+[2026-05-25T19:51:28.380] [DEBUG] debug-file - entry : default@PreCheckSyscap cost memory 0.01471710205078125
+[2026-05-25T19:51:28.380] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 20 ms 
+[2026-05-25T19:51:28.380] [INFO] debug-file - Finished :entry:default@PreCheckSyscap... after 1 ms 
+[2026-05-25T19:51:28.382] [DEBUG] debug-file - Executing task :entry:default@GeneratePkgContextInfo
+[2026-05-25T19:51:28.388] [DEBUG] debug-file - Task 'entry:default@GeneratePkgContextInfo' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.389] [DEBUG] debug-file - entry : default@GeneratePkgContextInfo cost memory 0.40721893310546875
+[2026-05-25T19:51:28.389] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 28 ms 
+[2026-05-25T19:51:28.389] [INFO] debug-file - Finished :entry:default@GeneratePkgContextInfo... after 7 ms 
+[2026-05-25T19:51:28.393] [DEBUG] debug-file - Executing task :entry:default@ProcessIntegratedHsp
+[2026-05-25T19:51:28.393] [DEBUG] debug-file - entry:default@ProcessIntegratedHsp is not up-to-date, since the output file 'C:\LandscapePortraitToggle-master\build\cache\default\integrated_hsp\integratedHspCache.json' does not exist.
+[2026-05-25T19:51:28.393] [DEBUG] debug-file - Incremental task entry:default@ProcessIntegratedHsp pre-execution cost: 1 ms .
+[2026-05-25T19:51:28.393] [DEBUG] debug-file - entry : default@ProcessIntegratedHsp cost memory 0.05699920654296875
+[2026-05-25T19:51:28.393] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 33 ms 
+[2026-05-25T19:51:28.393] [INFO] debug-file - Finished :entry:default@ProcessIntegratedHsp... after 1 ms 
+[2026-05-25T19:51:28.394] [DEBUG] debug-file - Executing task :entry:default@BuildNativeWithCmake
+[2026-05-25T19:51:28.394] [DEBUG] debug-file - entry : default@BuildNativeWithCmake cost memory 0.014862060546875
+[2026-05-25T19:51:28.394] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 34 ms 
+[2026-05-25T19:51:28.394] [INFO] debug-file - Finished :entry:default@BuildNativeWithCmake... after 1 ms 
+[2026-05-25T19:51:28.395] [DEBUG] debug-file - Executing task :entry:default@MakePackInfo
+[2026-05-25T19:51:28.398] [DEBUG] debug-file - Incremental task entry:default@MakePackInfo pre-execution cost: 2 ms .
+[2026-05-25T19:51:28.398] [DEBUG] debug-file - entry : default@MakePackInfo cost memory 0.127532958984375
+[2026-05-25T19:51:28.398] [INFO] debug-file - UP-TO-DATE :entry:default@MakePackInfo...  
+[2026-05-25T19:51:28.399] [DEBUG] debug-file - Executing task :entry:default@SyscapTransform
+[2026-05-25T19:51:28.399] [DEBUG] debug-file - File: 'C:\LandscapePortraitToggle-master\entry\src\main\syscap.json' from 'sysCapJsonPath' is not exists, just ignore.
+[2026-05-25T19:51:28.400] [DEBUG] debug-file - Task 'entry:default@SyscapTransform' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.408] [DEBUG] debug-file - entry:default@SyscapTransform is not up-to-date, since the output file 'C:\LandscapePortraitToggle-master\entry\build\default\intermediates\syscap\default\rpcid.sc' does not exist.
+[2026-05-25T19:51:28.408] [DEBUG] debug-file - Incremental task entry:default@SyscapTransform pre-execution cost: 9 ms .
+[2026-05-25T19:51:28.408] [DEBUG] debug-file - entry : default@SyscapTransform cost memory 0.158447265625
+[2026-05-25T19:51:28.409] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 48 ms 
+[2026-05-25T19:51:28.409] [INFO] debug-file - Finished :entry:default@SyscapTransform... after 10 ms 
+[2026-05-25T19:51:28.410] [DEBUG] debug-file - Executing task :entry:default@ProcessProfile
+[2026-05-25T19:51:28.411] [DEBUG] debug-file - Task 'entry:default@ProcessProfile' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.412] [DEBUG] debug-file - Incremental task entry:default@ProcessProfile pre-execution cost: 1 ms .
+[2026-05-25T19:51:28.412] [DEBUG] debug-file - entry : default@ProcessProfile cost memory 0.14051055908203125
+[2026-05-25T19:51:28.412] [INFO] debug-file - UP-TO-DATE :entry:default@ProcessProfile...  
+[2026-05-25T19:51:28.413] [DEBUG] debug-file - Executing task :entry:default@ProcessRouterMap
+[2026-05-25T19:51:28.417] [DEBUG] debug-file - Incremental task entry:default@ProcessRouterMap pre-execution cost: 3 ms .
+[2026-05-25T19:51:28.417] [DEBUG] debug-file - entry : default@ProcessRouterMap cost memory 0.18782806396484375
+[2026-05-25T19:51:28.418] [INFO] debug-file - UP-TO-DATE :entry:default@ProcessRouterMap...  
+[2026-05-25T19:51:28.419] [DEBUG] debug-file - Executing task :entry:default@ProcessShareConfig
+[2026-05-25T19:51:28.421] [DEBUG] debug-file - Incremental task entry:default@ProcessShareConfig pre-execution cost: 2 ms .
+[2026-05-25T19:51:28.421] [DEBUG] debug-file - entry : default@ProcessShareConfig cost memory 0.10677337646484375
+[2026-05-25T19:51:28.422] [INFO] debug-file - UP-TO-DATE :entry:default@ProcessShareConfig...  
+[2026-05-25T19:51:28.422] [DEBUG] debug-file - Executing task :entry:default@ProcessStartupConfig
+[2026-05-25T19:51:28.423] [DEBUG] debug-file - Task 'entry:default@ProcessStartupConfig' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.423] [DEBUG] debug-file - entry:default@ProcessStartupConfig is not up-to-date, since the output file 'C:\LandscapePortraitToggle-master\entry\build\default\intermediates\startup\default\startup_config.json' does not exist.
+[2026-05-25T19:51:28.423] [DEBUG] debug-file - Incremental task entry:default@ProcessStartupConfig pre-execution cost: 1 ms .
+[2026-05-25T19:51:28.423] [DEBUG] debug-file - entry : default@ProcessStartupConfig cost memory 0.33557891845703125
+[2026-05-25T19:51:28.424] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 63 ms 
+[2026-05-25T19:51:28.424] [INFO] debug-file - Finished :entry:default@ProcessStartupConfig... after 2 ms 
+[2026-05-25T19:51:28.425] [DEBUG] debug-file - Executing task :entry:default@BuildNativeWithNinja
+[2026-05-25T19:51:28.425] [DEBUG] debug-file - entry : default@BuildNativeWithNinja cost memory 0.0201873779296875
+[2026-05-25T19:51:28.425] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 65 ms 
+[2026-05-25T19:51:28.425] [INFO] debug-file - Finished :entry:default@BuildNativeWithNinja... after 1 ms 
+[2026-05-25T19:51:28.427] [DEBUG] debug-file - restool module names: entry; moduleName=entry, taskName=default@ProcessResource
+[2026-05-25T19:51:28.428] [DEBUG] debug-file - Executing task :entry:default@ProcessResource
+[2026-05-25T19:51:28.428] [DEBUG] debug-file - Task 'entry:default@ProcessResource' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.429] [DEBUG] debug-file - Incremental task entry:default@ProcessResource pre-execution cost: 1 ms .
+[2026-05-25T19:51:28.429] [DEBUG] debug-file - entry : default@ProcessResource cost memory 0.123992919921875
+[2026-05-25T19:51:28.431] [INFO] debug-file - UP-TO-DATE :entry:default@ProcessResource...  
+[2026-05-25T19:51:28.433] [DEBUG] debug-file - Executing task :entry:default@GenerateLoaderJson
+[2026-05-25T19:51:28.433] [DEBUG] debug-file - Task 'entry:default@GenerateLoaderJson' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.440] [DEBUG] debug-file - Incremental task entry:default@GenerateLoaderJson pre-execution cost: 4 ms .
+[2026-05-25T19:51:28.441] [DEBUG] debug-file - entry : default@GenerateLoaderJson cost memory 0.7453994750976562
+[2026-05-25T19:51:28.443] [INFO] debug-file - UP-TO-DATE :entry:default@GenerateLoaderJson...  
+[2026-05-25T19:51:28.444] [DEBUG] debug-file - Executing task :entry:default@ProcessLibs
+[2026-05-25T19:51:28.448] [DEBUG] debug-file - Incremental task entry:default@ProcessLibs pre-execution cost: 4 ms .
+[2026-05-25T19:51:28.449] [DEBUG] debug-file - entry : default@ProcessLibs cost memory -7.825653076171875
+[2026-05-25T19:51:28.449] [INFO] debug-file - UP-TO-DATE :entry:default@ProcessLibs...  
+[2026-05-25T19:51:28.450] [DEBUG] debug-file - restool module names: entry; moduleName=entry, taskName=default@CompileResource
+[2026-05-25T19:51:28.451] [DEBUG] debug-file - Executing task :entry:default@CompileResource
+[2026-05-25T19:51:28.469] [DEBUG] debug-file - Incremental task entry:default@CompileResource pre-execution cost: 17 ms .
+[2026-05-25T19:51:28.469] [DEBUG] debug-file - entry : default@CompileResource cost memory 1.0454483032226562
+[2026-05-25T19:51:28.470] [INFO] debug-file - UP-TO-DATE :entry:default@CompileResource...  
+[2026-05-25T19:51:28.471] [DEBUG] debug-file - Executing task :entry:default@DoNativeStrip
+[2026-05-25T19:51:28.472] [DEBUG] debug-file - Task 'entry:default@DoNativeStrip' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.472] [DEBUG] debug-file - Incremental task entry:default@DoNativeStrip pre-execution cost: 1 ms .
+[2026-05-25T19:51:28.472] [DEBUG] debug-file - entry : default@DoNativeStrip cost memory 0.07648468017578125
+[2026-05-25T19:51:28.473] [INFO] debug-file - UP-TO-DATE :entry:default@DoNativeStrip...  
+[2026-05-25T19:51:28.474] [DEBUG] debug-file - Executing task :entry:default@CompileArkTS
+[2026-05-25T19:51:28.474] [DEBUG] debug-file - obfuscationOptions: undefined
+[2026-05-25T19:51:28.475] [DEBUG] debug-file - Task 'entry:default@CompileArkTS' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.488] [DEBUG] debug-file - Incremental task entry:default@CompileArkTS pre-execution cost: 11 ms .
+[2026-05-25T19:51:28.488] [DEBUG] debug-file - entry : default@CompileArkTS cost memory 0.6958465576171875
+[2026-05-25T19:51:28.490] [INFO] debug-file - UP-TO-DATE :entry:default@CompileArkTS...  
+[2026-05-25T19:51:28.491] [DEBUG] debug-file - Executing task :entry:default@BuildJS
+[2026-05-25T19:51:28.491] [DEBUG] debug-file - Task 'entry:default@BuildJS' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.493] [DEBUG] debug-file - entry : default@BuildJS cost memory 0.13983917236328125
+[2026-05-25T19:51:28.493] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 133 ms 
+[2026-05-25T19:51:28.493] [INFO] debug-file - Finished :entry:default@BuildJS... after 3 ms 
+[2026-05-25T19:51:28.494] [DEBUG] debug-file - Executing task :entry:default@CacheNativeLibs
+[2026-05-25T19:51:28.494] [DEBUG] debug-file - Task 'entry:default@CacheNativeLibs' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.495] [DEBUG] debug-file - Incremental task entry:default@CacheNativeLibs pre-execution cost: 1 ms .
+[2026-05-25T19:51:28.495] [DEBUG] debug-file - entry : default@CacheNativeLibs cost memory 0.09009552001953125
+[2026-05-25T19:51:28.495] [INFO] debug-file - UP-TO-DATE :entry:default@CacheNativeLibs...  
+[2026-05-25T19:51:28.496] [DEBUG] debug-file - Executing task :entry:default@GeneratePkgModuleJson
+[2026-05-25T19:51:28.496] [DEBUG] debug-file - File: 'C:\LandscapePortraitToggle-master\entry\build\default\intermediates\preload\default\preload.json' from 'preloadSoJsonPath' is not exists, just ignore.
+[2026-05-25T19:51:28.496] [DEBUG] debug-file - Error occurs while handling @Input 'shouldDeduplicateHar': The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received undefined
+[2026-05-25T19:51:28.497] [DEBUG] debug-file - Task 'entry:default@GeneratePkgModuleJson' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.497] [DEBUG] debug-file - Incremental task entry:default@GeneratePkgModuleJson pre-execution cost: 1 ms .
+[2026-05-25T19:51:28.497] [DEBUG] debug-file - entry : default@GeneratePkgModuleJson cost memory 0.1034393310546875
+[2026-05-25T19:51:28.497] [INFO] debug-file - UP-TO-DATE :entry:default@GeneratePkgModuleJson...  
+[2026-05-25T19:51:28.498] [DEBUG] debug-file - Executing task :entry:default@ProcessCompiledResources
+[2026-05-25T19:51:28.498] [DEBUG] debug-file - File: 'C:\LandscapePortraitToggle-master\entry\build\default\intermediates\preload\default\preload.json' from 'preloadSoJsonPath' is not exists, just ignore.
+[2026-05-25T19:51:28.498] [DEBUG] debug-file - Task 'entry:default@ProcessCompiledResources' cost while wrapping incremental declarations: 1 ms 
+[2026-05-25T19:51:28.499] [DEBUG] debug-file - entry : default@ProcessCompiledResources cost memory 0.08612060546875
+[2026-05-25T19:51:28.499] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 138 ms 
+[2026-05-25T19:51:28.499] [INFO] debug-file - Finished :entry:default@ProcessCompiledResources... after 1 ms 
+[2026-05-25T19:51:28.500] [DEBUG] debug-file - Executing task :entry:default@PackageHap
+[2026-05-25T19:51:28.508] [DEBUG] debug-file - Incremental task entry:default@PackageHap pre-execution cost: 8 ms .
+[2026-05-25T19:51:28.509] [DEBUG] debug-file - entry : default@PackageHap cost memory 0.6601638793945312
+[2026-05-25T19:51:28.509] [INFO] debug-file - UP-TO-DATE :entry:default@PackageHap...  
+[2026-05-25T19:51:28.510] [DEBUG] debug-file - Executing task :entry:default@PackingCheck
+[2026-05-25T19:51:28.516] [DEBUG] debug-file - entry : default@PackingCheck cost memory 0.5851974487304688
+[2026-05-25T19:51:28.516] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 155 ms 
+[2026-05-25T19:51:28.516] [INFO] debug-file - Finished :entry:default@PackingCheck... after 6 ms 
+[2026-05-25T19:51:28.517] [DEBUG] debug-file - Executing task :entry:default@SignHap
+[2026-05-25T19:51:28.517] [WARN] debug-file - Will skip sign 'hos_hap'. No signingConfigs profile is configured in current project.
+             If needed, configure the signingConfigs in C:\LandscapePortraitToggle-master\build-profile.json5.
+[2026-05-25T19:51:28.518] [DEBUG] debug-file - entry:default@SignHap is not up-to-date, since the output file 'C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\entry-default-signed.hap' does not exist.
+[2026-05-25T19:51:28.518] [DEBUG] debug-file - Incremental task entry:default@SignHap pre-execution cost: 1 ms .
+[2026-05-25T19:51:28.518] [DEBUG] debug-file - entry : default@SignHap cost memory 0.08969879150390625
+[2026-05-25T19:51:28.518] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 158 ms 
+[2026-05-25T19:51:28.518] [INFO] debug-file - Finished :entry:default@SignHap... after 2 ms 
+[2026-05-25T19:51:28.519] [DEBUG] debug-file - Executing task :entry:default@CollectDebugSymbol
+[2026-05-25T19:51:28.520] [DEBUG] debug-file - entry : default@CollectDebugSymbol cost memory 0.08087158203125
+[2026-05-25T19:51:28.520] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 160 ms 
+[2026-05-25T19:51:28.520] [INFO] debug-file - Finished :entry:default@CollectDebugSymbol... after 1 ms 
+[2026-05-25T19:51:28.520] [DEBUG] debug-file - Executing task :entry:assembleHap
+[2026-05-25T19:51:28.520] [DEBUG] debug-file - entry : assembleHap cost memory 0.0128326416015625
+[2026-05-25T19:51:28.520] [DEBUG] debug-file - runTaskFromQueue task cost before running: 2 s 160 ms 
+[2026-05-25T19:51:28.521] [INFO] debug-file - Finished :entry:assembleHap... after 1 ms 
+[2026-05-25T19:51:28.537] [INFO] debug-file - BUILD SUCCESSFUL in 2 s 177 ms 
+[2026-05-25T19:51:28.538] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@PreBuild is up-to-date.
+[2026-05-25T19:51:28.538] [DEBUG] debug-file - Update task entry:default@CreateModuleInfo output file:C:\LandscapePortraitToggle-master\entry\build\default\generated\profile\default\ModuleInfo.ts cache.
+[2026-05-25T19:51:28.538] [DEBUG] debug-file - Incremental task entry:default@CreateModuleInfo post-execution cost:1 ms .
+[2026-05-25T19:51:28.538] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@GenerateMetadata is up-to-date.
+[2026-05-25T19:51:28.538] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@MergeProfile is up-to-date.
+[2026-05-25T19:51:28.538] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@CreateBuildProfile is up-to-date.
+[2026-05-25T19:51:28.538] [DEBUG] debug-file - Update task entry:default@GeneratePkgContextInfo output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader\default\pkgContextInfo.json cache.
+[2026-05-25T19:51:28.539] [DEBUG] debug-file - Incremental task entry:default@GeneratePkgContextInfo post-execution cost:1 ms .
+[2026-05-25T19:51:28.539] [DEBUG] debug-file - Update task entry:default@ProcessIntegratedHsp output file:C:\LandscapePortraitToggle-master\build\cache\default\integrated_hsp\integratedHspCache.json cache.
+[2026-05-25T19:51:28.539] [DEBUG] debug-file - Incremental task entry:default@ProcessIntegratedHsp post-execution cost:1 ms .
+[2026-05-25T19:51:28.539] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@MakePackInfo is up-to-date.
+[2026-05-25T19:51:28.539] [DEBUG] debug-file - Update task entry:default@SyscapTransform input file:C:\Program Files\Huawei\DevEco Studio\sdk\default\openharmony\toolchains\syscap_tool.exe cache by regenerate.
+[2026-05-25T19:51:28.539] [DEBUG] debug-file - Update task entry:default@SyscapTransform input file:C:\Program Files\Huawei\DevEco Studio\sdk\default\openharmony\ets\api\device-define cache by regenerate.
+[2026-05-25T19:51:28.540] [DEBUG] debug-file - Update task entry:default@SyscapTransform output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\syscap\default\rpcid.sc cache.
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - Incremental task entry:default@SyscapTransform post-execution cost:2 ms .
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@ProcessProfile is up-to-date.
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@ProcessRouterMap is up-to-date.
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@ProcessShareConfig is up-to-date.
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - Update task entry:default@ProcessStartupConfig output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\startup\default\startup_config.json cache.
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - Incremental task entry:default@ProcessStartupConfig post-execution cost:1 ms .
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@ProcessResource is up-to-date.
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@GenerateLoaderJson is up-to-date.
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@ProcessLibs is up-to-date.
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@CompileResource is up-to-date.
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@DoNativeStrip is up-to-date.
+[2026-05-25T19:51:28.541] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@CompileArkTS is up-to-date.
+[2026-05-25T19:51:28.542] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader\default cache by regenerate.
+[2026-05-25T19:51:28.543] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resources\rawfile cache by regenerate.
+[2026-05-25T19:51:28.543] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\ResourceTable.txt cache by regenerate.
+[2026-05-25T19:51:28.543] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\ark_module.json cache by regenerate.
+[2026-05-25T19:51:28.544] [DEBUG] debug-file - Update task entry:default@BuildJS input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\res\default\resources\base\profile cache by regenerate.
+[2026-05-25T19:51:28.546] [DEBUG] debug-file - Update task entry:default@BuildJS output file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader_out\default\js cache.
+[2026-05-25T19:51:28.546] [DEBUG] debug-file - Incremental task entry:default@BuildJS post-execution cost:5 ms .
+[2026-05-25T19:51:28.546] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@CacheNativeLibs is up-to-date.
+[2026-05-25T19:51:28.546] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@GeneratePkgModuleJson is up-to-date.
+[2026-05-25T19:51:28.546] [DEBUG] debug-file - Incremental task entry:default@ProcessCompiledResources post-execution cost:1 ms .
+[2026-05-25T19:51:28.546] [DEBUG] debug-file - There is no need to refresh cache, since the incremental task entry:default@PackageHap is up-to-date.
+[2026-05-25T19:51:28.547] [DEBUG] debug-file - Update task entry:default@SignHap input file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\entry-default-unsigned.hap cache by regenerate.
+[2026-05-25T19:51:28.547] [DEBUG] debug-file - Update task entry:default@SignHap output file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\entry-default-signed.hap cache.
+[2026-05-25T19:51:28.547] [DEBUG] debug-file - Incremental task entry:default@SignHap post-execution cost:1 ms .
+[2026-05-25T19:51:28.548] [DEBUG] debug-file - Update task entry:default@CollectDebugSymbol input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\loader_out\default\ets\sourceMaps.map cache by regenerate.
+[2026-05-25T19:51:28.548] [DEBUG] debug-file - Update task entry:default@CollectDebugSymbol input file:C:\LandscapePortraitToggle-master\entry\build\default\intermediates\libs\default cache by regenerate.
+[2026-05-25T19:51:28.548] [DEBUG] debug-file - Update task entry:default@CollectDebugSymbol output file:C:\LandscapePortraitToggle-master\entry\build\default\outputs\default\symbol cache.
+[2026-05-25T19:51:28.549] [DEBUG] debug-file - Incremental task entry:default@CollectDebugSymbol post-execution cost:2 ms .
+[2026-05-25T19:51:28.578] [DEBUG] debug-file - session manager: send message to worker process.
+[2026-05-25T19:51:28.579] [DEBUG] debug-file - session manager: send message to worker process.
+[2026-05-25T19:51:28.637] [DEBUG] debug-file - Cleanup worker 0.
+[2026-05-25T19:51:28.638] [DEBUG] debug-file - Worker 0 has been cleaned up.
+[2026-05-25T19:51:28.638] [DEBUG] debug-file - Current idle worker size: 1.
+[2026-05-25T19:51:28.638] [DEBUG] debug-file - Current resident worker size: 2.
+[2026-05-25T19:51:28.638] [DEBUG] debug-file - Cleanup worker 1.
+[2026-05-25T19:51:28.638] [DEBUG] debug-file - Worker 1 has been cleaned up.
+[2026-05-25T19:51:28.638] [DEBUG] debug-file - Current idle worker size: 0.
+[2026-05-25T19:51:28.638] [DEBUG] debug-file - Current resident worker size: 2.
+[2026-05-25T19:51:28.639] [DEBUG] debug-file - hvigor build process will be closed.
+[2026-05-25T19:51:28.644] [DEBUG] debug-file - worker[0] exits with exit code 1.
+[2026-05-25T19:51:28.644] [DEBUG] debug-file - worker[1] exits with exit code 1.
+[2026-05-25T19:51:28.647] [DEBUG] debug-file - watch worker: worker id should be larger than 0. Nothing will be sent to any worker thread.
+[2026-05-25T19:51:28.647] [DEBUG] debug-file - watch worker: worker id should be larger than 0. Nothing will be sent to any worker thread.

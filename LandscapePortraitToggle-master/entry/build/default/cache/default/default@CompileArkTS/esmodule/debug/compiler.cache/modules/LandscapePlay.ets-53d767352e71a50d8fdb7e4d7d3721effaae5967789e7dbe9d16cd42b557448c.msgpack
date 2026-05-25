@@ -1,0 +1,561 @@
+Ôr@Ÿªassertions¤code´customTransformCache¬dependencies¢id¤meta±moduleSideEffects¬originalCode±originalSourcemap«resolvedIds®sourcemapChainµsyntheticNamedExportsµtransformDependencies®transformFiles¨cacheAstÔrAÚ5Mif (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+import { AnimationProperties } from '../common/AnimationProperties';
+import { RectInfoInPx } from '../utils/ComponentAttrUtils';
+import { CustomTransition } from '../common/CustomTransition';
+import { VideoNodeController } from '../common/VideoNodeController';
+import display from "@ohos.display";
+import window from "@ohos.window";
+import { WindowUtils } from '../utils/WindowUtils';
+import Logger from '../common/Logger';
+export function LandscapePlayBuilder(parent = null) {
+    {
+        (parent ? parent : this).observeComponentCreation2((elmtId, isInitialRender) => {
+            if (isInitialRender) {
+                let componentCall = new MyPageLandscape(parent ? parent : this, {}, undefined, elmtId, () => { }, { page: "entry/src/main/ets/transitionbetweenpage/LandscapePlay.ets", line: 11, col: 3 });
+                ViewPU.create(componentCall);
+                let paramsLambda = () => {
+                    return {};
+                };
+                componentCall.paramsGenerator_ = paramsLambda;
+            }
+            else {
+                (parent ? parent : this).updateStateVarsOfChildByElmtId(elmtId, {});
+            }
+        }, { name: "MyPageLandscape" });
+    }
+}
+const TAG = 'MyPageLandscapeTag';
+export class MyPageLandscape extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__videoBackgroundColor = this.createStorageLink('videoBackgroundColor', Color.Transparent, "videoBackgroundColor");
+        this.__statusBarHeight = this.createStorageLink('statusBarHeight', 0, "statusBarHeight");
+        this.__navBarHeight = this.createStorageLink('navBarHeight', 0, "navBarHeight");
+        this.__animationProperties = new ObservedPropertyObjectPU(new AnimationProperties(this.getUIContext()), this, "animationProperties");
+        this.__nodeController = new ObservedPropertyObjectPU(VideoNodeController.getInstance(), this, "nodeController");
+        this.__displayOrientation = new ObservedPropertySimplePU(window.Orientation.LANDSCAPE, this, "displayOrientation");
+        this.stack = null;
+        this.pageId = '-1';
+        this.prePageDoFinishTransition = () => {
+        };
+        this.nodeRectInfo = new RectInfoInPx();
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.animationProperties !== undefined) {
+            this.animationProperties = params.animationProperties;
+        }
+        if (params.nodeController !== undefined) {
+            this.nodeController = params.nodeController;
+        }
+        if (params.displayOrientation !== undefined) {
+            this.displayOrientation = params.displayOrientation;
+        }
+        if (params.stack !== undefined) {
+            this.stack = params.stack;
+        }
+        if (params.pageId !== undefined) {
+            this.pageId = params.pageId;
+        }
+        if (params.prePageDoFinishTransition !== undefined) {
+            this.prePageDoFinishTransition = params.prePageDoFinishTransition;
+        }
+        if (params.nodeRectInfo !== undefined) {
+            this.nodeRectInfo = params.nodeRectInfo;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__videoBackgroundColor.purgeDependencyOnElmtId(rmElmtId);
+        this.__statusBarHeight.purgeDependencyOnElmtId(rmElmtId);
+        this.__navBarHeight.purgeDependencyOnElmtId(rmElmtId);
+        this.__animationProperties.purgeDependencyOnElmtId(rmElmtId);
+        this.__nodeController.purgeDependencyOnElmtId(rmElmtId);
+        this.__displayOrientation.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__videoBackgroundColor.aboutToBeDeleted();
+        this.__statusBarHeight.aboutToBeDeleted();
+        this.__navBarHeight.aboutToBeDeleted();
+        this.__animationProperties.aboutToBeDeleted();
+        this.__nodeController.aboutToBeDeleted();
+        this.__displayOrientation.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get videoBackgroundColor() {
+        return this.__videoBackgroundColor.get();
+    }
+    set videoBackgroundColor(newValue) {
+        this.__videoBackgroundColor.set(newValue);
+    }
+    get statusBarHeight() {
+        return this.__statusBarHeight.get();
+    }
+    set statusBarHeight(newValue) {
+        this.__statusBarHeight.set(newValue);
+    }
+    get navBarHeight() {
+        return this.__navBarHeight.get();
+    }
+    set navBarHeight(newValue) {
+        this.__navBarHeight.set(newValue);
+    }
+    get animationProperties() {
+        return this.__animationProperties.get();
+    }
+    set animationProperties(newValue) {
+        this.__animationProperties.set(newValue);
+    }
+    get nodeController() {
+        return this.__nodeController.get();
+    }
+    set nodeController(newValue) {
+        this.__nodeController.set(newValue);
+    }
+    get displayOrientation() {
+        return this.__displayOrientation.get();
+    }
+    set displayOrientation(newValue) {
+        this.__displayOrientation.set(newValue);
+    }
+    aboutToAppear() {
+        if (WindowUtils.isExpandedOrHalfFolded()) {
+            this.displayOrientation = window.Orientation.PORTRAIT;
+        }
+        else {
+            this.displayOrientation = window.Orientation.LANDSCAPE;
+        }
+        this.foldStatusChangeUI();
+    }
+    // [Start folded_status_change]
+    // Handling UI adaptation for video playback with collapse and expand functionality
+    foldStatusChangeUI() {
+        try {
+            let beforeFoldedStatus = display.getFoldStatus();
+            // Handling UI adaptation for video playback with collapse and expand functionality
+            let callback = (data) => {
+                // Full-screen playback: Expanded / Semi-expanded -> Collapsed detail page playback
+                if ((beforeFoldedStatus === display.FoldStatus.FOLD_STATUS_EXPANDED ||
+                    beforeFoldedStatus === display.FoldStatus.FOLD_STATUS_HALF_FOLDED) &&
+                    data === display.FoldStatus.FOLD_STATUS_FOLDED) {
+                    CustomTransition.getInstance().unRegisterNavParam(this.pageId);
+                    this.stack?.pop(false);
+                    this.prePageDoFinishTransition();
+                }
+                // Full-screen playback: collapsed state -> expanded state full playback
+                if (beforeFoldedStatus === display.FoldStatus.FOLD_STATUS_HALF_FOLDED &&
+                    data === display.FoldStatus.FOLD_STATUS_EXPANDED) {
+                    this.displayOrientation = window.Orientation.PORTRAIT;
+                }
+                beforeFoldedStatus = data;
+            };
+            display.on('foldStatusChange', callback);
+        }
+        catch (err) {
+            let error = err;
+            Logger.error(TAG, `on foldStatusChangeUI err, code: ${error.code}, message: ${error.message}`);
+        }
+    }
+    // [End folded_status_change]
+    aboutToDisappear() {
+        try {
+            display.off('foldStatusChange');
+        }
+        catch (err) {
+            let error = err;
+            Logger.error(TAG, `off foldStatusChange err, code: ${error.code}, message: ${error.message}`);
+        }
+    }
+    // [EndExclude landscape_bind_controller]
+    // [Start bind_transition_animation]
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            NavDestination.create(() => {
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Stack.create();
+                    Stack.alignContent(Alignment.Center);
+                    Stack.width(this.animationProperties.width);
+                    Stack.height(this.animationProperties.height);
+                    Stack.translate({ x: this.animationProperties.translateX, y: this.animationProperties.translateY });
+                    Stack.rotate({ angle: this.animationProperties.rotate });
+                }, Stack);
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    // Bind the NodeController to the NodeContainer
+                    NodeContainer.create(this.nodeController);
+                }, NodeContainer);
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    // [StartExclude landscape_bind_controller]
+                    Stack.create();
+                    // [StartExclude landscape_bind_controller]
+                    Stack.alignContent(Alignment.TopStart);
+                    // [StartExclude landscape_bind_controller]
+                    Stack.width('100%');
+                    // [StartExclude landscape_bind_controller]
+                    Stack.height('100%');
+                }, Stack);
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Button.createWithChild({ type: ButtonType.Circle });
+                    Button.height(40);
+                    Button.aspectRatio(1);
+                    Button.backgroundColor('#19FFFFFF');
+                    Button.margin({
+                        left: 16,
+                        top: 8
+                    });
+                    Button.alignRules({
+                        top: { anchor: '__container__', align: VerticalAlign.Top },
+                        left: { anchor: '__container__', align: HorizontalAlign.Start }
+                    });
+                    Button.onClick(() => {
+                        this.stack?.pop();
+                    });
+                }, Button);
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    SymbolGlyph.create({ "id": 125833534, "type": 40000, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" });
+                    SymbolGlyph.fontColor([{ "id": 125831057, "type": 10001, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" }]);
+                    SymbolGlyph.fontSize({ "id": 125830965, "type": 10002, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" });
+                }, SymbolGlyph);
+                Button.pop();
+                // [StartExclude landscape_bind_controller]
+                Stack.pop();
+                Stack.pop();
+            }, { moduleName: "entry", pagePath: "entry/src/main/ets/transitionbetweenpage/LandscapePlay" });
+            NavDestination.preferredOrientation(this.displayOrientation);
+            NavDestination.enableStatusBar(WindowUtils.isExpandedOrHalfFolded());
+            NavDestination.enableNavigationIndicator(WindowUtils.isExpandedOrHalfFolded());
+            NavDestination.width('100%');
+            NavDestination.height('100%');
+            NavDestination.backgroundColor(this.videoBackgroundColor);
+            NavDestination.hideTitleBar(true);
+            NavDestination.hideToolBar(true);
+            NavDestination.onBackPressed(() => {
+                return true;
+            });
+            NavDestination.onDisAppear(() => {
+                if (this.pageId !== '-1') {
+                    CustomTransition.getInstance().unRegisterNavParam(this.pageId);
+                }
+            });
+            NavDestination.onReady((ctx) => {
+                if (ctx.navDestinationId) {
+                    this.pageId = ctx.navDestinationId;
+                    this.stack = ctx.pathStack;
+                    let param = ctx.pathInfo.param;
+                    this.nodeRectInfo = param.nodeRectInfo;
+                    this.prePageDoFinishTransition = param.DoDefaultTransition;
+                    // [Start register_nav_param]
+                    // Register the animation callback of the current page.
+                    CustomTransition.getInstance().registerNavParam(this.pageId, (isPush, isExit, transitionProxy) => {
+                        if (WindowUtils.isExpandedOrHalfFolded()) {
+                            // Play animation, foldable screen in unfolded state
+                            this.animationProperties.doAnimationFoldable(this.nodeRectInfo, isPush, isExit, transitionProxy, this.prePageDoFinishTransition);
+                        }
+                        else {
+                            // Perform animation, non-foldable screen expanded state
+                            this.animationProperties.doAnimation(this.nodeRectInfo, isPush, isExit, transitionProxy, this.prePageDoFinishTransition);
+                        }
+                    }, 2000);
+                    // [End register_nav_param]
+                }
+                // [EndExclude landscape_bind_controller]
+            });
+        }, NavDestination);
+        NavDestination.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+(function () {
+    if (typeof NavigationBuilderRegister === "function") {
+        NavigationBuilderRegister("LandscapePlay", wrapBuilder(LandscapePlayBuilder));
+    }
+})();
+//# sourceMappingURL=LandscapePlay.js.mapÂ˜ÙSC:\LandscapePortraitToggle-master\entry\src\main\ets\common\AnimationProperties.etsÙQC:\LandscapePortraitToggle-master\entry\src\main\ets\utils\ComponentAttrUtils.etsÙPC:\LandscapePortraitToggle-master\entry\src\main\ets\common\CustomTransition.etsÙSC:\LandscapePortraitToggle-master\entry\src\main\ets\common\VideoNodeController.etsÙg hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.display.d.tsÙf hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.window.d.tsÙJC:\LandscapePortraitToggle-master\entry\src\main\ets\utils\WindowUtils.etsÙFC:\LandscapePortraitToggle-master\entry\src\main\ets\common\Logger.etsÙ\C:\LandscapePortraitToggle-master\entry\src\main\ets\transitionbetweenpage\LandscapePlay.etsÔrB›ªmoduleName±isLocalDependency¯isNodeEntryFile§pkgPath±belongProjectPath§pkgNameªpkgVersion±dependencyPkgInfo°belongModulePath§checker¬shouldEmitJs¥entryÃÂÙ'C:\LandscapePortraitToggle-master\entryÙ!C:\LandscapePortraitToggle-master¥entry¥1.0.0Ô  Ù'C:\LandscapePortraitToggle-master\entryÔrCÜ ®¬getNodeCount²getIdentifierCount®getSymbolCount¬getTypeCountµgetInstantiationCountµgetRelationCacheSizes±isUndefinedSymbol±isArgumentsSymbol¯isUnknownSymbol¯getMergedSymbol®getDiagnostics´getGlobalDiagnostics´getRecursionIdentity¶getUnmatchedProperties¹getTypeOfSymbolAtLocation¯getTypeOfSymbolÙ(getSymbolsOfParameterPropertyDeclaration·getDeclaredTypeOfSymbol³getPropertiesOfType±getPropertyOfTypeÙ"getPrivateIdentifierPropertyOfType·getTypeOfPropertyOfType²getIndexInfoOfType³getIndexInfosOfTypeºgetIndexInfosOfIndexSymbol³getSignaturesOfType²getIndexTypeOfType¬getIndexType¬getBaseTypes¸getBaseTypeOfLiteralType®getWidenedType³getTypeFromTypeNode°getParameterTypeÙ$getParameterIdentifierNameAtPosition¸getPromisedTypeOfPromise®getAwaitedType¸getReturnTypeOfSignature®isNullableType¯getNullableType²getNonNullableType²getNonOptionalType°getTypeArguments®typeToTypeNodeÙ$indexInfoToIndexSignatureDeclaration¿signatureToSignatureDeclaration²symbolToEntityName²symbolToExpression¬symbolToNodeÙ!symbolToTypeParameterDeclarations¼symbolToParameterDeclarationºtypeParameterToDeclaration±getSymbolsInScope³getSymbolAtLocation·getIndexInfosAtLocationÙ!getShorthandAssignmentValueSymbolÙ#getExportSpecifierLocalTargetSymbol·getExportSymbolOfSymbol±getTypeAtLocationºgetTypeAtLocationForLinterÙ tryGetTypeAtLocationWithoutCheckºgetTypeOfAssignmentPatternÙ*getPropertySymbolOfDestructuringAssignment±signatureToString¬typeToString®symbolToStringµtypePredicateToString®writeSignature©writeType«writeSymbol²writeTypePredicate¼getAugmentedPropertiesOfType®getRootSymbols²getSymbolOfExpando±getContextualTypeÙ(getContextualTypeForObjectLiteralElementÙ#getContextualTypeForArgumentAtIndexÙ getContextualTypeForJsxAttribute²isContextSensitiveÙ!getTypeOfPropertyOfContextualTypeµgetFullyQualifiedNameÙ#tryGetResolvedSignatureWithoutCheck´getResolvedSignatureÙ/getResolvedSignatureForStringLiteralCompletionsÙ$getResolvedSignatureForSignatureHelpµgetExpandedParameters¹hasEffectiveRestParameterºcontainsArgumentsReference°getConstantValueµisValidPropertyAccessÙ#isValidPropertyAccessForCompletions»getSignatureFromDeclarationºisImplementationOfOverload¹getImmediateAliasedSymbol°getAliasedSymbol¯getEmitResolver²getExportsOfModule¿getExportsAndPropertiesOfModuleÙ forEachExportAndPropertyOfModule¯getSymbolWalker±getAmbientModules¹getJsxIntrinsicTagNamesAt³isOptionalParameter»tryGetMemberInModuleExportsÙ(tryGetMemberInModuleExportsAndProperties´tryFindAmbientModuleÙ(tryFindAmbientModuleWithoutAugmentations¯getApparentType¬getUnionType²isTypeAssignableTo³createAnonymousType¯createSignature¬createSymbol¯createIndexInfoªgetAnyType­getStringType­getNumberType±createPromiseType¯createArrayType¹getElementTypeOfArrayType®getBooleanType¬getFalseType«getTrueType«getVoidType°getUndefinedType«getNullType¯getESSymbolType¬getNeverType¯getOptionalType®getPromiseType²getPromiseLikeType´getAsyncIterableType²isSymbolAccessible«isArrayType«isTupleType¯isArrayLikeTypeÙ#isTypeInvalidDueToUnionDiscriminantºgetExactOptionalProperties¿getAllPossiblePropertiesOfTypesÙ(getSuggestedSymbolForNonexistentPropertyÙ#getSuggestionForNonexistentPropertyÙ,getSuggestedSymbolForNonexistentJSXAttributeÙ&getSuggestedSymbolForNonexistentSymbolÙ!getSuggestionForNonexistentSymbolÙ&getSuggestedSymbolForNonexistentModuleÙ!getSuggestionForNonexistentExportÙ+getSuggestedSymbolForNonexistentClassMember·getBaseConstraintOfType»getDefaultFromTypeParameter«resolveName¯getJsxNamespaceµgetJsxFragmentFactory¸getAccessibleSymbolChain»getTypePredicateOfSignature¹resolveExternalModuleName»resolveExternalModuleSymbol°tryGetThisTypeAt¹getTypeArgumentConstraint¸getSuggestionDiagnostics¸runWithCancellationTokenÙ3getLocalTypeParametersOfClassOrInterfaceOrTypeAlias´isDeclarationVisible´isPropertyAccessible»getTypeOnlyAliasDeclaration¿getMemberOverrideModifierStatusÙ!isTypeParameterPossiblyReferenced²getConstEnumRelate´clearConstEnumRelateµdeleteConstEnumRelateÙ$getTypeArgumentsForResolvedSignatureµgetCheckedSourceFilesÙ"collectHaveTsNoCheckFilesForLinter·clearQualifiedNameCache®isStaticRecord²isStaticSourceFileÔ  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  ÃÃÚ{import { AnimationProperties } from '../common/AnimationProperties';
+import { RectInfoInPx } from '../utils/ComponentAttrUtils';
+import { CustomTransition } from '../common/CustomTransition';
+import { VideoNodeController } from '../common/VideoNodeController';
+import { display, window } from '@kit.ArkUI';
+import { WindowUtils } from '../utils/WindowUtils';
+import Logger from '../common/Logger';
+
+@Builder
+export function LandscapePlayBuilder() {
+  MyPageLandscape();
+}
+
+const TAG = 'MyPageLandscapeTag';
+
+// [Start landscape_bind_controller]
+@Component
+export struct MyPageLandscape {
+  // [StartExclude landscape_bind_controller]
+  @StorageLink('videoBackgroundColor') videoBackgroundColor: Color = Color.Transparent;
+  @StorageLink('statusBarHeight') statusBarHeight: number = 0;
+  @StorageLink('navBarHeight') navBarHeight: number = 0;
+  @State animationProperties: AnimationProperties = new AnimationProperties(this.getUIContext());
+  // [EndExclude landscape_bind_controller]
+  // Obtaining the VideoNodeController instance
+  @State nodeController: VideoNodeController = VideoNodeController.getInstance();
+  // Page display orientation, default is landscape.
+  @State displayOrientation: window.Orientation = window.Orientation.LANDSCAPE;
+  // [StartExclude landscape_bind_controller]
+  private stack: NavPathStack | null = null;
+  private pageId: string = '-1';
+  private prePageDoFinishTransition: () => void = () => {
+  };
+  private nodeRectInfo: RectInfoInPx = new RectInfoInPx();
+
+  aboutToAppear(): void {
+    if (WindowUtils.isExpandedOrHalfFolded()) {
+      this.displayOrientation = window.Orientation.PORTRAIT;
+    } else {
+      this.displayOrientation = window.Orientation.LANDSCAPE;
+    }
+
+    this.foldStatusChangeUI();
+  }
+
+  // [Start folded_status_change]
+  // Handling UI adaptation for video playback with collapse and expand functionality
+  foldStatusChangeUI() {
+    try {
+      let beforeFoldedStatus: display.FoldStatus = display.getFoldStatus();
+      // Handling UI adaptation for video playback with collapse and expand functionality
+      let callback: Callback<display.FoldStatus> = (data: display.FoldStatus) => {
+        // Full-screen playback: Expanded / Semi-expanded -> Collapsed detail page playback
+        if ((beforeFoldedStatus === display.FoldStatus.FOLD_STATUS_EXPANDED ||
+          beforeFoldedStatus === display.FoldStatus.FOLD_STATUS_HALF_FOLDED) &&
+          data === display.FoldStatus.FOLD_STATUS_FOLDED) {
+          CustomTransition.getInstance().unRegisterNavParam(this.pageId);
+          this.stack?.pop(false);
+          this.prePageDoFinishTransition();
+        }
+        // Full-screen playback: collapsed state -> expanded state full playback
+        if (beforeFoldedStatus === display.FoldStatus.FOLD_STATUS_HALF_FOLDED &&
+          data === display.FoldStatus.FOLD_STATUS_EXPANDED) {
+          this.displayOrientation = window.Orientation.PORTRAIT;
+        }
+        beforeFoldedStatus = data;
+      };
+      display.on('foldStatusChange', callback);
+    } catch (err) {
+      let error = err as BusinessError;
+      Logger.error(TAG, `on foldStatusChangeUI err, code: ${error.code}, message: ${error.message}`);
+    }
+  }
+  // [End folded_status_change]
+
+  aboutToDisappear(): void {
+    try {
+      display.off('foldStatusChange');
+    } catch (err) {
+      let error = err as BusinessError;
+      Logger.error(TAG, `off foldStatusChange err, code: ${error.code}, message: ${error.message}`);
+    }
+  }
+  // [EndExclude landscape_bind_controller]
+  // [Start bind_transition_animation]
+  build() {
+    // [StartExclude bind_transition_animation]
+    NavDestination() {
+      Stack() {
+        // Bind the NodeController to the NodeContainer
+        NodeContainer(this.nodeController)
+        // [StartExclude landscape_bind_controller]
+        Stack() {
+          Button({ type: ButtonType.Circle }) {
+            SymbolGlyph($r('sys.symbol.chevron_backward'))
+              .fontColor([$r('sys.color.icon_on_primary')])
+              .fontSize($r('sys.float.Title_M'))
+          }
+          .height(40)
+          .aspectRatio(1)
+          .backgroundColor('#19FFFFFF')
+          .margin({
+            left: 16,
+            top: 8
+          })
+          .alignRules({
+            top: { anchor: '__container__', align: VerticalAlign.Top },
+            left: { anchor: '__container__', align: HorizontalAlign.Start }
+          })
+          .onClick(() => {
+            this.stack?.pop();
+          })
+        }
+        .alignContent(Alignment.TopStart)
+        .width('100%')
+        .height('100%')
+        // [EndExclude landscape_bind_controller]
+      }
+      // [StartExclude landscape_bind_controller]
+      .alignContent(Alignment.Center)
+      .width(this.animationProperties.width)
+      .height(this.animationProperties.height)
+      .translate({ x: this.animationProperties.translateX, y: this.animationProperties.translateY })
+      .rotate({ angle: this.animationProperties.rotate })
+      // [EndExclude landscape_bind_controller]
+    }
+    // Set the page display orientation.
+    .preferredOrientation(this.displayOrientation)
+    // [StartExclude landscape_bind_controller]
+    .enableStatusBar(WindowUtils.isExpandedOrHalfFolded())
+    .enableNavigationIndicator(WindowUtils.isExpandedOrHalfFolded())
+    .width('100%')
+    .height('100%')
+    .backgroundColor(this.videoBackgroundColor)
+    .hideTitleBar(true)
+    .hideToolBar(true)
+    .onBackPressed(() => {
+      return true;
+    })
+    .onDisAppear(() => {
+      if (this.pageId !== '-1') {
+        CustomTransition.getInstance().unRegisterNavParam(this.pageId);
+      }
+    })
+    // [EndExclude bind_transition_animation]
+    .onReady((ctx: NavDestinationContext) => {
+      if (ctx.navDestinationId) {
+        this.pageId = ctx.navDestinationId;
+        this.stack = ctx.pathStack;
+        let param = ctx.pathInfo.param as Record<string, object>
+        this.nodeRectInfo = param.nodeRectInfo as RectInfoInPx;
+        this.prePageDoFinishTransition = param.DoDefaultTransition as () => void;
+        // [Start register_nav_param]
+        // Register the animation callback of the current page.
+        CustomTransition.getInstance().registerNavParam(this.pageId,
+          (isPush: boolean, isExit: boolean, transitionProxy: NavigationTransitionProxy) => {
+            if (WindowUtils.isExpandedOrHalfFolded()) {
+              // Play animation, foldable screen in unfolded state
+              this.animationProperties.doAnimationFoldable(this.nodeRectInfo, isPush, isExit, transitionProxy,
+                this.prePageDoFinishTransition);
+            } else {
+              // Perform animation, non-foldable screen expanded state
+              this.animationProperties.doAnimation(this.nodeRectInfo, isPush, isExit, transitionProxy,
+                this.prePageDoFinishTransition);
+            }
+          }, 2000);
+        // [End register_nav_param]
+      }
+    // [EndExclude landscape_bind_controller]
+    })
+  }
+  // [End bind_transition_animation]
+}
+// [End landscape_bind_controller]ÀÔrD˜­@ohos.display¬@ohos.window»../utils/ComponentAttrUtils´../utils/WindowUtils°../common/Logger½../common/AnimationProperties½../common/VideoNodeControllerº../common/CustomTransitionÔrE—ªassertions¨external¢id¤meta±moduleSideEffectsªresolvedByµsyntheticNamedExportsAÃÙg hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.display.d.tsÔrF‘¯hostModulesInfo”ÔrG’²hostDependencyName®hostModuleName­@ohos.display¥entryG­@ohos.display¥entryG­@ohos.display¥entryG­@ohos.display¥entryÃªoh-resolveÂEAÃÙf hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.window.d.tsF•G¬@ohos.window¥entryG¬@ohos.window¥entryG¬@ohos.window¥entryG¬@ohos.window¥entryG¬@ohos.window¥entryÃªoh-resolveÂEAÂÙQC:\LandscapePortraitToggle-master\entry\src\main\ets\utils\ComponentAttrUtils.etsAÃªoh-resolveÂEAÂÙJC:\LandscapePortraitToggle-master\entry\src\main\ets\utils\WindowUtils.etsAÃªoh-resolveÂEAÂÙFC:\LandscapePortraitToggle-master\entry\src\main\ets\common\Logger.etsAÃªoh-resolveÂEAÂÙSC:\LandscapePortraitToggle-master\entry\src\main\ets\common\AnimationProperties.etsAÃªoh-resolveÂEAÂÙSC:\LandscapePortraitToggle-master\entry\src\main\ets\common\VideoNodeController.etsAÃªoh-resolveÂEAÂÙPC:\LandscapePortraitToggle-master\entry\src\main\ets\common\CustomTransition.etsAÃªoh-resolveÂ“ÔrH–§version¤fileªsourceRoot§sources¥names¨mappings°LandscapePlay.js ‘±LandscapePlay.etsÜ˜”    ”  ”	  	”  ”  ”$  $”ÌC  ÌC”ÌD  ÌD˜”   ” ”	 	” ” ” ”: :”; ;˜”   ” ”	 	” ” ”! !”= =”> >˜”   ” ”	 	” ” ”$ $”ÌC ÌC”ÌD ÌD–”   ” 	” ”  ”# ,”$ -–”   ” ” ”  ”! ,”" -˜”   ” ”	 	” ” ” ”2 2”3 3–”   ” ” ” ”% %”& &””  	 ” 	” 	”$ 	$’”( 
+”7 
+‘” –”   ” ”	 	” ”   ”! !””   ” ” ” ‘”  –”= ”ÌS %”ÌU ÌE”ÌZ ÌJ”Ì[ ÌK”Ìf ÌV””8 ”ÌI  ”ÌK <”ÌL =””5 ”ÌC ”ÌE 6”ÌF 7™”ÌB 4”ÌF 8”ÌY ÌK”ÌZ ÌL”Ì^ ÌP”Ì_ ÌQ”Ìk Ì]”Ìm Ì_”Ìn Ì`•”= /”ÌP ÌB”ÌQ ÌC”Ì\ ÌN”Ì^ ÌP–”ÌA 2”ÌG 8”ÌH 9”ÌS ÌD”ÌT ÌE”Ì] ÌN’” '” +’” ” “”) 2”, 5”. 7’”  ”	  ”” !'”  !+”, !7”. !9‘” !’” '” ;’” '” ;’” "” 1’” "” 1’” ” +’” ” +’” 	” ’” 	” ’” 	” ’” 	” ’” 	” ’” 	” ’” #” #—” $” $” $” $”. $*”0 $,”2 $.›” %” %
+” %”# %”& % ”, %&”- %'”8 %2”9 %3”ÌA %;”ÌB %<‘”	 &‘” &›” '” '
+” '”# '”& ' ”, '&”- ''”8 '2”9 '3”ÌB '<”ÌC '=‘”	 (–” *” *” *	” *”! *”" *’” +” +’” -”# -!’” .”ÌW .ÌU’” /” /’” 0” 0™” 1” 1
+”" 1”% 13”, 1:”- 1;”: 1ÌH”< 1ÌJ”= 1ÌK’” 2”Ì_ 2ÌY˜” 3” 3
+” 3” 33” 34”  3ÌL”" 3ÌN”$ 3ÌP’” 4”Ìc 4Ì[š” 5” 5” 5”' 5”, 5$”3 5+”4 5,”> 56”? 57”ÌS 5ÌK™” 6
+”& 6”+ 6!”2 6(”3 6)”= 63”> 64”ÌU 6ÌK”ÌV 6ÌL™” 7
+” 7” 7”$ 7”% 7”/ 7%”0 7&”ÌB 78”ÌD 7:” 8
+”$ 8”% 8”0 8&”2 8(”3 8)”ÌE 8;”ÌF 8<”ÌJ 8Ì@”ÌK 8ÌA”ÌQ 8ÌG”ÌR 8ÌH”ÌS 8ÌIš” 9
+” 9” 9” 9”  9”# 9”$ 9”) 9”* 9 ”+ 9!–” :
+” :” :”2 :(”4 :*”5 :+‘” ;	’” <”ÌX <ÌP™” =” =”& =”+ =#”2 =*”3 =+”= =5”> =6”ÌU =ÌM™” >
+” >” >”$ >”% >”/ >%”0 >&”ÌD >:”ÌF ><›” ?
+” ?” ?”+ ?!”. ?$”4 ?*”5 ?+”Ì@ ?6”ÌA ?7”ÌI ??”ÌJ ?Ì@‘” Ì@	•” ÌA”" ÌA”% ÌA”) ÌA!”* ÌA"“” ÌB” ÌB” ÌBš” ÌC” ÌC” ÌC” ÌC” ÌC”) ÌC#”+ ÌC%”3 ÌC-”4 ÌC.”5 ÌC/‘”	 ÌD”” ÌD” ÌD” ÌD” ÌD–” ÌE” ÌE
+” ÌE” ÌE” ÌE&” ÌE'Ü ” ÌF” ÌF” ÌF” ÌF” ÌF” ÌF” ÌF”ÌB ÌF<”ÌG ÌFÌA”ÌH ÌFÌB”ÌL ÌFÌF”ÌZ ÌFÌT”Ì_ ÌFÌY”Ì` ÌFÌZ”Ìg ÌFÌa”Ìi ÌFÌc”Ìj ÌFÌd”Ìk ÌFÌe‘”	 ÌG’” ÌH” ÌH’” ÌI”! ÌI’” ÌK” ÌK’” ÌL” ÌL˜” ÌM” ÌM” ÌM” ÌM” ÌM”* ÌM$”+ ÌM%”, ÌM&‘”	 ÌN”” ÌN” ÌN” ÌN” ÌN–” ÌO” ÌO
+” ÌO” ÌO” ÌO&” ÌO'Ü ” ÌP” ÌP” ÌP” ÌP” ÌP” ÌP” ÌP”ÌA ÌP;”ÌF ÌPÌ@”ÌG ÌPÌA”ÌK ÌPÌE”ÌY ÌPÌS”Ì^ ÌPÌX”Ì_ ÌPÌY”Ìf ÌPÌ`”Ìh ÌPÌb”Ìi ÌPÌc”Ìj ÌPÌd‘”	 ÌQ’” ÌR” ÌR’” ÌS”- ÌS+’” ÌT”( ÌT&‘” ÌU’” ÌX” ÌX˜” ÌX” ÌX” Ìw”& Ìw”' Ìw”0 Ìw”1 Ìw”7 Ìw$š” ÌX” ÌX” Ìx” Ìx”  Ìx”$ Ìx”% Ìx”8 Ìx%”9 Ìx&”> Ìx+š” ÌX” ÌX” Ìy”  Ìy”! Ìy”% Ìy”& Ìy”9 Ìy&”: Ìy'”Ì@ Ìy-Ü ” ÌX” ÌX” Ìz”# Ìz”$ Ìz”& Ìz”' Ìz”) Ìz”- Ìz”. Ìz”ÌA Ìz.”ÌB Ìz/”ÌL Ìz9”ÌN Ìz;”ÌO Ìz<”ÌQ Ìz>”ÌU ÌzÌB”ÌV ÌzÌC”Ìi ÌzÌV”Ìj ÌzÌW”Ìt ÌzÌa”Ìv ÌzÌc” ÌX” ÌX” Ì{”  Ì{”! Ì{”# Ì{”( Ì{”* Ì{”. Ì{”/ Ì{”ÌB Ì{/”ÌC Ì{0”ÌI Ì{6”ÌK Ì{8’” ÌY”ÌC ÌY7–” ÌZ”! ÌZ”) ÌZ”- ÌZ”. ÌZ”< ÌZ)’” Ì[”? Ì[3’” Ì\” Ì\’” Ì[”? Ì[3˜” Ì\” Ì\” Ìq	”& Ìq”' Ìq”0 Ìq”1 Ìq ”9 Ìq(’” Ì[”? Ì[3–” Ì\” Ì\” Ìr	” Ìr”  Ìr”& Ìr’” Ì[”? Ì[3–” Ì\” Ì\” Ìs	”  Ìs”! Ìs”' Ìsš” Ì]
+” Ì]”+ Ì]”- Ì]”1 Ì]”3 Ì]”= Ì]#”> Ì]$”ÌD Ì]*”ÌF Ì],–” Ì]
+” Ì]” Ìb”! Ìb”" Ìb”$ Ìb–” Ì]
+” Ì]” Ìc”& Ìc”' Ìc”( Ìc–” Ì]
+” Ì]” Ìd”* Ìd”+ Ìd”6 Ìd&•” Ì]
+” Ì]” Ìe”! Ìe”" Ìe”” Ìf” Ìf” Ìf”  Ìf”” Ìg” Ìg” Ìg” Ìg‘” Ìh•” Ì]
+” Ì]” Ìi”% Ìi”& Ìi” Ìj” Ìj” Ìj” Ìj”% Ìj”' Ìj”6 Ìj*”8 Ìj,”= Ìj1”? Ìj3”ÌL ÌjÌ@”ÌM ÌjÌA”ÌP ÌjÌD”ÌR ÌjÌF” Ìk” Ìk” Ìk”  Ìk”& Ìk”( Ìk”7 Ìk+”9 Ìk-”> Ìk2”Ì@ Ìk4”ÌO ÌkÌC”ÌP ÌkÌD”ÌU ÌkÌI”ÌW ÌkÌK‘” Ìl—” Ì]
+” Ì]” Ìm”" Ìm”# Ìm”& Ìm”( Ìm˜” Ìn” Ìn” Ìn”" Ìn”$ Ìn”' Ìn”) Ìn”* Ìn’” Ìo
+” Ìo’” Ì^” Ì^–” Ì^” Ì^”  Ì_”) Ì_”* Ì_”Ì¦ Ì_:”” Ì^” Ì^”  Ì`”( Ì`’” Ì]
+” Ì]’” Ì[”; Ì[3’” Ì\” Ì\’” ÌX” ÌX–” Ì”/ Ì”0 Ì”4 Ì”5 Ì”ÌG Ì1—” Ì”* Ì”+ Ì”6 Ì ”7 Ì!”ÌM Ì7”ÌO Ì9—” Ì‚”4 Ì‚”5 Ì‚”Ì@ Ì‚*”ÌA Ì‚+”ÌW Ì‚ÌA”ÌY Ì‚ÌC”” Ìƒ”  Ìƒ
+”! Ìƒ”' Ìƒ”” Ì„”! Ì„”" Ì„”( Ì„–” Ì…”* Ì…”+ Ì…”/ Ì…”0 Ì…”ÌD Ì….”” Ì†”' Ì†”( Ì†”, Ì†”” Ì‡”& Ì‡”' Ì‡”+ Ì‡•” Ìˆ”( Ìˆ”) Ìˆ”, Ìˆ”. Ìˆ”” Ì‰” Ì‰” Ì‰” Ì‰’” ÌŠ” ÌŠ•” Ì‹”& Ì‹”' Ì‹”* Ì‹”, Ì‹˜” ÌŒ” ÌŒ
+” ÌŒ” ÌŒ” ÌŒ”$ ÌŒ”( ÌŒ”* ÌŒ ” Ì”$ Ì”% Ì”0 Ì$”2 Ì&”3 Ì'”ÌE Ì9”ÌF Ì:”ÌJ Ì>”ÌK Ì?”ÌQ ÌÌE”ÌR ÌÌF”ÌS ÌÌG‘” Ì’” Ì” Ì—” Ì‘”" Ì‘”# Ì‘”$ Ì‘”' Ì‘(”) Ì‘*”+ Ì‘,–” Ì’” Ì’
+” Ì’” Ì’”( Ì’”* Ì’ ™” Ì“” Ì“” Ì“” Ì“”" Ì“”% Ì“”& Ì“”6 Ì“*”7 Ì“+™” Ì”” Ì”” Ì”” Ì””! Ì””$ Ì””% Ì””. Ì”"”/ Ì”#š” Ì•” Ì•” Ì•”  Ì•”# Ì•”$ Ì•”, Ì• ”- Ì•!”2 Ì•Ì@”3 Ì•Ì@™” Ì–” Ì–” Ì–”% Ì–”( Ì–”- Ì–!”. Ì–"”: Ì–>”; Ì–?™” Ì—” Ì—” Ì—”2 Ì—&”5 Ì—)”: Ì—.”; Ì—/”ÌN Ì—ÌP”ÌO Ì—ÌQ’” Ì˜”1 Ì˜%’” Ì™”ÌK Ì™?Ü ” Ìš”$ Ìš”% Ìš”0 Ìš$”2 Ìš&”3 Ìš'”ÌC Ìš7”ÌD Ìš8”ÌH Ìš<”ÌI Ìš=”ÌO ÌšÌC”ÌQ Ì›
+”ÌR Ì›”ÌX Ì›”ÌZ Ì›”Ì` Ì›+”Ìb Ì›-”Ìq Ì›ÌW”Ìs Ì›ÌY”Ìu Ì›Ì[—” Ìœ” Ìœ”' Ìœ”( Ìœ”> Ìœ2”Ì@ Ìœ4”ÌB Ìœ6’” Ì”ÌP ÌÌBÜ ” Ì”  Ì”! Ì”4 Ì&”5 Ì'”ÌH Ì:”ÌI Ì;”ÌM Ì?”ÌN ÌÌ@”ÌZ ÌÌL”Ì\ ÌÌN”Ìb ÌÌT”Ìd ÌÌV”Ìj ÌÌ\”Ìl ÌÌ^”Ì{ ÌÌm”Ì} ÌŸ”Ì ÌŸ”Ì‚ ÌŸ”Ì› ÌŸ.”Ìœ ÌŸ/”Ì ÌŸ0‘” Ì ‘” Ì ’” Ì¡”ÌT Ì¡ÌFÜ ” Ì¢”  Ì¢”! Ì¢”4 Ì¢&”5 Ì¢'”Ì@ Ì¢2”ÌA Ì¢3”ÌE Ì¢7”ÌF Ì¢8”ÌR Ì¢ÌD”ÌT Ì¢ÌF”ÌZ Ì¢ÌL”Ì\ Ì¢ÌN”Ìb Ì¢ÌT”Ìd Ì¢ÌV”Ìs Ì¢Ìe”Ìu Ì£”Ìy Ì£”Ìz Ì£”Ì“ Ì£.”Ì” Ì£/”Ì• Ì£0‘” Ì¤–” Ì¥
+” Ì¥” Ì¥” Ì¥” Ì¥” Ì¥’” Ì¦”/ Ì¦#‘” Ì§’” Ì¨”9 Ì¨-’” Ì©” Ì©‘” ÌªÔrI–§version¤file§sources®sourcesContent¥names¨mappingsÀ‘À‘ÀÜ‘”    ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”  	 ‘”  
+ ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”    ‘”  ! ‘”  " ‘”  # ‘”  $ ‘”  % ‘”  & ‘”  ' ‘”  ( ‘”  ) ‘”  * ‘”  + ‘”  , ‘”  - ‘”  . ‘”  / ‘”  0 ‘”  1 ‘”  2 ‘”  3 ‘”  4 ‘”  5 ‘”  6 ‘”  7 ‘”  8 ‘”  9 ‘”  : ‘”  ; ‘”  < ‘”  = ‘”  > ‘”  ? ‘”  Ì@ ‘”  ÌA ‘”  ÌB ‘”  ÌC ‘”  ÌD ‘”  ÌE ‘”  ÌF ‘”  ÌG ‘”  ÌH ‘”  ÌI ‘”  ÌJ ‘”  ÌK ‘”  ÌL ‘”  ÌM ‘”  ÌN ‘”  ÌO ‘”  ÌP ‘”  ÌQ ‘”  ÌR ‘”  ÌS ‘”  ÌT ‘”  ÌU ‘”  ÌV ‘”  ÌW ‘”  ÌX ‘”  ÌY ‘”  ÌZ ‘”  Ì[ ‘”  Ì\ ‘”  Ì] ‘”  Ì^ ‘”  Ì_ ‘”  Ì` ‘”  Ìa ‘”  Ìb ‘”  Ìc ‘”  Ìd ‘”  Ìe ‘”  Ìf ‘”  Ìg ‘”  Ìh ‘”  Ìi ‘”  Ìj ‘”  Ìk ‘”  Ìl ‘”  Ìm ‘”  Ìn ‘”  Ìo ‘”  Ìp ‘”  Ìq ‘”  Ìr ‘”  Ìs ‘”  Ìt ‘”  Ìu ‘”  Ìv ‘”  Ìw ‘”  Ìx ‘”  Ìy ‘”  Ìz ‘”  Ì{ ‘”  Ì| ‘”  Ì} ‘”  Ì~ ‘”  Ì ‘”  Ì€ ‘”  Ì ‘”  Ì‚ ‘”  Ìƒ ‘”  Ì„ ‘”  Ì… ‘”  Ì† ‘”  Ì‡ ‘”  Ìˆ ‘”  Ì‰ ‘”  ÌŠ ‘”  Ì‹ ‘”  ÌŒ ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì‘ ‘”  Ì’ ‘”  Ì“ ‘”  Ì” ‘”  Ì• ‘”  Ì– ‘”  Ì— ‘”  Ì˜ ‘”  Ì™ ‘”  Ìš ‘”  Ì› ‘”  Ìœ ‘”  Ì ‘”  Ì ‘”  ÌŸ ‘”  Ì  ‘”  Ì¡ ‘”  Ì¢ ‘”  Ì£ ‘”  Ì¤ ‘”  Ì¥ ‘”  Ì¦ ‘”  Ì§ ‘”  Ì¨ ‘”  Ì© ‘”  Ìª ‘”  Ì« ‘”  Ì¬ ‘”  Ì­ ‘”  Ì® ‘”  Ì¯ ‘”  Ì° ‘”  Ì± ‘”  Ì² ‘”  Ì³ ‘”  Ì´ ‘”  Ìµ ‘”  Ì¶ ‘”  Ì· ‘”  Ì¸ ‘”  Ì¹ ‘”  Ìº ‘”  Ì» ‘”  Ì¼ ‘”  Ì½ ‘”  Ì¾ ‘”  Ì¿ ‘”  ÌÀ ‘”  ÌÁ ‘”  ÌÂ ‘”  ÌÃ ‘”  ÌÄ ‘”  ÌÅ ‘”  ÌÆ ‘”  ÌÇ ‘”  ÌÈ ‘”  ÌÉ ‘”  ÌÊ ‘”  ÌË ‘”  ÌÌ ‘”  ÌÍ ‘”  ÌÎ ‘”  ÌÏ ‘”  ÌĞ ‘”  ÌÑ ‘”  ÌÒ ‘”  ÌÓ ‘”  ÌÔ ‘”  ÌÕ ‘”  ÌÖ ‘”  Ì× ‘”  ÌØ ‘”  ÌÙ ‘”  ÌÚ ‘”  ÌÛ ‘”  ÌÜ ‘”  Ìİ ‘”  ÌŞ ‘”  Ìß ‘”  Ìà ‘”  Ìá ‘”  Ìâ ‘”  Ìã ‘”  Ìä ‘”  Ìå ‘”  Ìæ ‘”  Ìç ‘”  Ìè ‘”  Ìé ‘”  Ìê ‘”  Ìë ‘”  Ìì ‘”  Ìí ‘”  Ìî ‘”  Ìï ‘”  Ìğ ‘”  Ìñ ‘”  Ìò ‘”  Ìó ‘”  Ìô ‘”  Ìõ ‘”  Ìö ‘”  Ì÷ ‘”  Ìø ‘”  Ìù ‘”  Ìú ‘”  Ìû ‘”  Ìü ‘”  Ìı ‘”  Ìş ‘”  Ìÿ ‘”  Í  ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í	 ‘”  Í
+ ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ÔrJ’§missing¦pluginÃ¦genAbcÂÔ  ÔrK”²dynamicImportCache¹exportAllDeclarationCache»exportNamedDeclarationCache«importCache’ÔrL–¤type¥start£end«declarationªspecifiers¦source¶ExportNamedDeclarationÍ0ÍDÔrM™¤type¥start£end¢idªexpression©generator¥async¦params¤body³FunctionDeclarationÍ7ÍDÔrN”¤type¥start£end¤nameªIdentifierÍ@ÍT´LandscapePlayBuilderÂÂÂ‘ÔrO•¤type¥start£end¤left¥right±AssignmentPatternÍUÍbNªIdentifierÍUÍ[¦parentÔrP•¤type¥start£end¥value£raw§LiteralÍ^ÍbÀ¤nullÔrQ”¤type¥start£end¤body®BlockStatementÍdÍD‘Q®BlockStatementÍkÍA‘ÔrR”¤type¥start£endªexpression³ExpressionStatementÍvÍ:ÔrS–¤type¥start£end¦callee©arguments¨optional®CallExpressionÍvÍ9ÔrT—¤type¥start£end¦object¨property¨computed¨optional°MemberExpressionÍvÍ¨ÔrU–¤type¥start£end¤testªconsequent©alternateµConditionalExpressionÍwÍNªIdentifierÍwÍ}¦parentNªIdentifierÍ€Í†¦parentÔrV“¤type¥start£end®ThisExpressionÍ‰ÍNªIdentifierÍÍ¨¹observeComponentCreation2ÂÂ’M·ArrowFunctionExpressionÍ©ÍÀÂÂÂ’NªIdentifierÍªÍ°¦elmtIdNªIdentifierÍ²ÍÁ¯isInitialRenderQ®BlockStatementÍÆÍ‘U«IfStatementÍÕÍNªIdentifierÍÙÍè¯isInitialRenderQ®BlockStatementÍêÍ—”ÔrW•¤type¥start£end¬declarations¤kind³VariableDeclarationÍıÍ¹‘ÔrX•¤type¥start£end¢id¤init²VariableDeclaratorÍÍ¸NªIdentifierÍÍ­componentCallÔrY•¤type¥start£end¦callee©arguments­NewExpressionÍÍ¸NªIdentifierÍÍ$¯MyPageLandscape–UµConditionalExpressionÍ%Í;NªIdentifierÍ%Í+¦parentNªIdentifierÍ.Í4¦parentV®ThisExpressionÍ7Í;ÔrZ”¤type¥start£endªproperties°ObjectExpressionÍ=Í?NªIdentifierÍAÍJ©undefinedNªIdentifierÍLÍR¦elmtIdM·ArrowFunctionExpressionÍTÍ]ÀÂÂÂQ®BlockStatementÍZÍ]Z°ObjectExpressionÍ_Í·“Ôr[™¤type¥start£end¦method©shorthand¨computed£key¥value¤kind¨PropertyÍaÍ£ÂÂÂNªIdentifierÍaÍe¤pageP§LiteralÍgÍ£Ù:entry/src/main/ets/transitionbetweenpage/LandscapePlay.etsÙ<"entry/src/main/ets/transitionbetweenpage/LandscapePlay.ets"¤init[¨PropertyÍ¥Í­ÂÂÂNªIdentifierÍ¥Í©¤lineP§LiteralÍ«Í­¢11¤init[¨PropertyÍ¯ÍµÂÂÂNªIdentifierÍ¯Í²£colP§LiteralÍ´Íµ¡3¤init£letR³ExpressionStatementÍËÍèS®CallExpressionÍËÍçT°MemberExpressionÍËÍØNªIdentifierÍËÍÑ¦ViewPUNªIdentifierÍÒÍØ¦createÂÂ‘NªIdentifierÍÙÍæ­componentCallÂW³VariableDeclarationÍúÍH‘X²VariableDeclaratorÍşÍGNªIdentifierÍşÍ
+¬paramsLambdaM·ArrowFunctionExpressionÍÍGÀÂÂÂQ®BlockStatementÍÍG‘Ôr\”¤type¥start£end¨argument¯ReturnStatementÍ*Í4Z°ObjectExpressionÍ1Í3£letR³ExpressionStatementÍZÍˆÔr]–¤type¥start£end¨operator¤left¥right´AssignmentExpressionÍZÍ‡¡=T°MemberExpressionÍZÍxNªIdentifierÍZÍg­componentCallNªIdentifierÍhÍx°paramsGenerator_ÂÂNªIdentifierÍ{Í‡¬paramsLambdaQ®BlockStatementÍªÍ‘R³ExpressionStatementÍ½ÍS®CallExpressionÍ½Í T°MemberExpressionÍ½ÍôUµConditionalExpressionÍ¾ÍÔNªIdentifierÍ¾ÍÄ¦parentNªIdentifierÍÇÍÍ¦parentV®ThisExpressionÍĞÍÔNªIdentifierÍÖÍô¾updateStateVarsOfChildByElmtIdÂÂ’NªIdentifierÍõÍû¦elmtIdZ°ObjectExpressionÍıÍÿÂZ°ObjectExpressionÍÍ8‘[¨PropertyÍÍ6ÂÂÂNªIdentifierÍÍ#¤nameP§LiteralÍ%Í6¯MyPageLandscape±"MyPageLandscape"¤initÂÀL¶ExportNamedDeclarationÍiÍ4pÔr^–¤type¥start£end¢idªsuperClass¤body°ClassDeclarationÍpÍ4pNªIdentifierÍvÍ…¯MyPageLandscapeNªIdentifierÍÍ”¦ViewPUQ©ClassBodyÍ•Í4pÜ Ôr_˜¤type¥start£end¦static¨computed£key¤kind¥value°MethodDefinitionÍœÍ
+rÂÂNªIdentifierÍœÍ§«constructor«constructorM²FunctionExpressionÍ§Í
+rÀÂÂÂ–NªIdentifierÍ¨Í®¦parentNªIdentifierÍ°Í¶¦paramsNªIdentifierÍ¸ÍÆ®__localStorageO±AssignmentPatternÍÈÍÓNªIdentifierÍÈÍÎ¦elmtIdÔr`–¤type¥start£end¨operator¦prefix¨argument¯UnaryExpressionÍÑÍÓ¡-ÃP§LiteralÍÒÍÓ¡1O±AssignmentPatternÍÕÍíNªIdentifierÍÕÍá¬paramsLambdaNªIdentifierÍäÍí©undefinedNªIdentifierÍïÍø©extraInfoQ®BlockStatementÍúÍ
+rR³ExpressionStatementÍÍ6S®CallExpressionÍÍ5V¥SuperÍÍ
+”NªIdentifierÍÍ¦parentNªIdentifierÍÍ!®__localStorageNªIdentifierÍ#Í)¦elmtIdNªIdentifierÍ+Í4©extraInfoÂU«IfStatementÍ@Í§Ôra–¤type¥start£end¤left¨operator¥right°BinaryExpressionÍDÍf`¯UnaryExpressionÍDÍW¦typeofÃNªIdentifierÍKÍW¬paramsLambda£===P§LiteralÍ\Íf¨functionª"function"Q®BlockStatementÍhÍ§‘R³ExpressionStatementÍwÍœ]´AssignmentExpressionÍwÍ›¡=T°MemberExpressionÍwÍŒV®ThisExpressionÍwÍ{NªIdentifierÍ|ÍŒ°paramsGenerator_ÂÂNªIdentifierÍÍ›¬paramsLambdaÀR³ExpressionStatementÍ±Í)]´AssignmentExpressionÍ±Í(¡=T°MemberExpressionÍ±ÍÌV®ThisExpressionÍ±ÍµNªIdentifierÍ¶ÍÌ¶__videoBackgroundColorÂÂS®CallExpressionÍÏÍ(T°MemberExpressionÍÏÍåV®ThisExpressionÍÏÍÓNªIdentifierÍÔÍå±createStorageLinkÂÂ“P§LiteralÍæÍü´videoBackgroundColor¶'videoBackgroundColor'T°MemberExpressionÍşÍNªIdentifierÍşÍ¥ColorNªIdentifierÍÍ«TransparentÂÂP§LiteralÍÍ'´videoBackgroundColor¶"videoBackgroundColor"ÂR³ExpressionStatementÍ3ÍŒ]´AssignmentExpressionÍ3Í‹¡=T°MemberExpressionÍ3ÍIV®ThisExpressionÍ3Í7NªIdentifierÍ8ÍI±__statusBarHeightÂÂS®CallExpressionÍLÍ‹T°MemberExpressionÍLÍbV®ThisExpressionÍLÍPNªIdentifierÍQÍb±createStorageLinkÂÂ“P§LiteralÍcÍt¯statusBarHeight±'statusBarHeight'P§LiteralÍvÍw ¡0P§LiteralÍyÍŠ¯statusBarHeight±"statusBarHeight"ÂR³ExpressionStatementÍ–Íæ]´AssignmentExpressionÍ–Íå¡=T°MemberExpressionÍ–Í©V®ThisExpressionÍ–ÍšNªIdentifierÍ›Í©®__navBarHeightÂÂS®CallExpressionÍ¬ÍåT°MemberExpressionÍ¬ÍÂV®ThisExpressionÍ¬Í°NªIdentifierÍ±ÍÂ±createStorageLinkÂÂ“P§LiteralÍÃÍÑ¬navBarHeight®'navBarHeight'P§LiteralÍÓÍÔ ¡0P§LiteralÍÖÍä¬navBarHeight®"navBarHeight"ÂR³ExpressionStatementÍğÍu]´AssignmentExpressionÍğÍt¡=T°MemberExpressionÍğÍ
+V®ThisExpressionÍğÍôNªIdentifierÍõÍ
+µ__animationPropertiesÂÂY­NewExpressionÍÍtNªIdentifierÍÍ)¸ObservedPropertyObjectPU“Y­NewExpressionÍ*ÍVNªIdentifierÍ.ÍA³AnimationProperties‘S®CallExpressionÍBÍUT°MemberExpressionÍBÍSV®ThisExpressionÍBÍFNªIdentifierÍGÍS¬getUIContextÂÂÂV®ThisExpressionÍXÍ\P§LiteralÍ^Ís³animationPropertiesµ"animationProperties"R³ExpressionStatementÍÍï]´AssignmentExpressionÍÍî¡=T°MemberExpressionÍÍ”V®ThisExpressionÍÍƒNªIdentifierÍ„Í”°__nodeControllerÂÂY­NewExpressionÍ—ÍîNªIdentifierÍ›Í³¸ObservedPropertyObjectPU“S®CallExpressionÍ´ÍÕT°MemberExpressionÍ´ÍÓNªIdentifierÍ´ÍÇ³VideoNodeControllerNªIdentifierÍÈÍÓ«getInstanceÂÂÂV®ThisExpressionÍ×ÍÛP§LiteralÍİÍí®nodeController°"nodeController"R³ExpressionStatementÍùÍ	l]´AssignmentExpressionÍùÍ	k¡=T°MemberExpressionÍùÍ	V®ThisExpressionÍùÍıNªIdentifierÍşÍ	´__displayOrientationÂÂY­NewExpressionÍ	Í	kNªIdentifierÍ	Í	1¸ObservedPropertySimplePU“T°MemberExpressionÍ	2Í	NT°MemberExpressionÍ	2Í	DNªIdentifierÍ	2Í	8¦windowNªIdentifierÍ	9Í	D«OrientationÂÂNªIdentifierÍ	EÍ	N©LANDSCAPEÂÂV®ThisExpressionÍ	PÍ	TP§LiteralÍ	VÍ	j²displayOrientation´"displayOrientation"R³ExpressionStatementÍ	vÍ	ˆ]´AssignmentExpressionÍ	vÍ	‡¡=T°MemberExpressionÍ	vÍ	€V®ThisExpressionÍ	vÍ	zNªIdentifierÍ	{Í	€¥stackÂÂP§LiteralÍ	ƒÍ	‡À¤nullR³ExpressionStatementÍ	’Í	¥]´AssignmentExpressionÍ	’Í	¤¡=T°MemberExpressionÍ	’Í	V®ThisExpressionÍ	’Í	–NªIdentifierÍ	—Í	¦pageIdÂÂP§LiteralÍ	 Í	¤¢-1¤'-1'R³ExpressionStatementÍ	¯Í	ã]´AssignmentExpressionÍ	¯Í	â¡=T°MemberExpressionÍ	¯Í	ÍV®ThisExpressionÍ	¯Í	³NªIdentifierÍ	´Í	Í¹prePageDoFinishTransitionÂÂM·ArrowFunctionExpressionÍ	ĞÍ	âÀÂÂÂQ®BlockStatementÍ	ÖÍ	âR³ExpressionStatementÍ	íÍ
+]´AssignmentExpressionÍ	íÍ
+¡=T°MemberExpressionÍ	íÍ	şV®ThisExpressionÍ	íÍ	ñNªIdentifierÍ	òÍ	ş¬nodeRectInfoÂÂY­NewExpressionÍ
+Í
+NªIdentifierÍ
+Í
+¬RectInfoInPxR³ExpressionStatementÍ
+Í
+ES®CallExpressionÍ
+Í
+DT°MemberExpressionÍ
+Í
+<V®ThisExpressionÍ
+Í
+"NªIdentifierÍ
+#Í
+<¹setInitiallyProvidedValueÂÂ‘NªIdentifierÍ
+=Í
+C¦paramsÂR³ExpressionStatementÍ
+OÍ
+kS®CallExpressionÍ
+OÍ
+jT°MemberExpressionÍ
+OÍ
+hV®ThisExpressionÍ
+OÍ
+SNªIdentifierÍ
+TÍ
+h´finalizeConstructionÂÂÂ_°MethodDefinitionÍ
+xÍôÂÂNªIdentifierÍ
+xÍ
+‘¹setInitiallyProvidedValue¦methodM²FunctionExpressionÍ
+‘ÍôÀÂÂÂ‘NªIdentifierÍ
+’Í
+˜¦paramsQ®BlockStatementÍ
+šÍô—U«IfStatementÍ
+¥Í#a°BinaryExpressionÍ
+©Í
+ÑT°MemberExpressionÍ
+©Í
+ÃNªIdentifierÍ
+©Í
+¯¦paramsNªIdentifierÍ
+°Í
+Ã³animationPropertiesÂÂ£!==NªIdentifierÍ
+ÈÍ
+Ñ©undefinedQ®BlockStatementÍ
+ÓÍ#‘R³ExpressionStatementÍ
+âÍ]´AssignmentExpressionÍ
+âÍ¡=T°MemberExpressionÍ
+âÍ
+úV®ThisExpressionÍ
+âÍ
+æNªIdentifierÍ
+çÍ
+ú³animationPropertiesÂÂT°MemberExpressionÍ
+ıÍNªIdentifierÍ
+ıÍ¦paramsNªIdentifierÍÍ³animationPropertiesÂÂÀU«IfStatementÍ-Íœa°BinaryExpressionÍ1ÍTT°MemberExpressionÍ1ÍFNªIdentifierÍ1Í7¦paramsNªIdentifierÍ8ÍF®nodeControllerÂÂ£!==NªIdentifierÍKÍT©undefinedQ®BlockStatementÍVÍœ‘R³ExpressionStatementÍeÍ‘]´AssignmentExpressionÍeÍ¡=T°MemberExpressionÍeÍxV®ThisExpressionÍeÍiNªIdentifierÍjÍx®nodeControllerÂÂT°MemberExpressionÍ{ÍNªIdentifierÍ{Í¦paramsNªIdentifierÍ‚Í®nodeControllerÂÂÀU«IfStatementÍ¦Í!a°BinaryExpressionÍªÍÑT°MemberExpressionÍªÍÃNªIdentifierÍªÍ°¦paramsNªIdentifierÍ±ÍÃ²displayOrientationÂÂ£!==NªIdentifierÍÈÍÑ©undefinedQ®BlockStatementÍÓÍ!‘R³ExpressionStatementÍâÍ]´AssignmentExpressionÍâÍ¡=T°MemberExpressionÍâÍùV®ThisExpressionÍâÍæNªIdentifierÍçÍù²displayOrientationÂÂT°MemberExpressionÍüÍNªIdentifierÍüÍ¦paramsNªIdentifierÍÍ²displayOrientationÂÂÀU«IfStatementÍ+Ía°BinaryExpressionÍ/ÍIT°MemberExpressionÍ/Í;NªIdentifierÍ/Í5¦paramsNªIdentifierÍ6Í;¥stackÂÂ£!==NªIdentifierÍ@ÍI©undefinedQ®BlockStatementÍKÍ‘R³ExpressionStatementÍZÍt]´AssignmentExpressionÍZÍs¡=T°MemberExpressionÍZÍdV®ThisExpressionÍZÍ^NªIdentifierÍ_Íd¥stackÂÂT°MemberExpressionÍgÍsNªIdentifierÍgÍm¦paramsNªIdentifierÍnÍs¥stackÂÂÀU«IfStatementÍ‰Íàa°BinaryExpressionÍÍ¨T°MemberExpressionÍÍšNªIdentifierÍÍ“¦paramsNªIdentifierÍ”Íš¦pageIdÂÂ£!==NªIdentifierÍŸÍ¨©undefinedQ®BlockStatementÍªÍà‘R³ExpressionStatementÍ¹ÍÕ]´AssignmentExpressionÍ¹ÍÔ¡=T°MemberExpressionÍ¹ÍÄV®ThisExpressionÍ¹Í½NªIdentifierÍ¾ÍÄ¦pageIdÂÂT°MemberExpressionÍÇÍÔNªIdentifierÍÇÍÍ¦paramsNªIdentifierÍÎÍÔ¦pageIdÂÂÀU«IfStatementÍêÍza°BinaryExpressionÍîÍT°MemberExpressionÍîÍNªIdentifierÍîÍô¦paramsNªIdentifierÍõÍ¹prePageDoFinishTransitionÂÂ£!==NªIdentifierÍÍ©undefinedQ®BlockStatementÍÍz‘R³ExpressionStatementÍ-Ío]´AssignmentExpressionÍ-Ín¡=T°MemberExpressionÍ-ÍKV®ThisExpressionÍ-Í1NªIdentifierÍ2ÍK¹prePageDoFinishTransitionÂÂT°MemberExpressionÍNÍnNªIdentifierÍNÍT¦paramsNªIdentifierÍUÍn¹prePageDoFinishTransitionÂÂÀU«IfStatementÍ„Íía°BinaryExpressionÍˆÍ©T°MemberExpressionÍˆÍ›NªIdentifierÍˆÍ¦paramsNªIdentifierÍÍ›¬nodeRectInfoÂÂ£!==NªIdentifierÍ Í©©undefinedQ®BlockStatementÍ«Íí‘R³ExpressionStatementÍºÍâ]´AssignmentExpressionÍºÍá¡=T°MemberExpressionÍºÍËV®ThisExpressionÍºÍ¾NªIdentifierÍ¿ÍË¬nodeRectInfoÂÂT°MemberExpressionÍÎÍáNªIdentifierÍÎÍÔ¦paramsNªIdentifierÍÕÍá¬nodeRectInfoÂÂÀ_°MethodDefinitionÍúÍÂÂNªIdentifierÍúÍ	¯updateStateVars¦methodM²FunctionExpressionÍ	ÍÀÂÂÂ‘NªIdentifierÍ
+Í¦paramsQ®BlockStatementÍÍ_°MethodDefinitionÍ ÍîÂÂNªIdentifierÍ ÍAÙ!purgeVariableDependenciesOnElmtId¦methodM²FunctionExpressionÍAÍîÀÂÂÂ‘NªIdentifierÍBÍJ¨rmElmtIdQ®BlockStatementÍLÍî–R³ExpressionStatementÍWÍ•S®CallExpressionÍWÍ”T°MemberExpressionÍWÍŠT°MemberExpressionÍWÍrV®ThisExpressionÍWÍ[NªIdentifierÍ\Ír¶__videoBackgroundColorÂÂNªIdentifierÍsÍŠ·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍ‹Í“¨rmElmtIdÂR³ExpressionStatementÍŸÍØS®CallExpressionÍŸÍ×T°MemberExpressionÍŸÍÍT°MemberExpressionÍŸÍµV®ThisExpressionÍŸÍ£NªIdentifierÍ¤Íµ±__statusBarHeightÂÂNªIdentifierÍ¶ÍÍ·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍÎÍÖ¨rmElmtIdÂR³ExpressionStatementÍâÍS®CallExpressionÍâÍT°MemberExpressionÍâÍT°MemberExpressionÍâÍõV®ThisExpressionÍâÍæNªIdentifierÍçÍõ®__navBarHeightÂÂNªIdentifierÍöÍ·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍÍ¨rmElmtIdÂR³ExpressionStatementÍ"Í_S®CallExpressionÍ"Í^T°MemberExpressionÍ"ÍTT°MemberExpressionÍ"Í<V®ThisExpressionÍ"Í&NªIdentifierÍ'Í<µ__animationPropertiesÂÂNªIdentifierÍ=ÍT·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍUÍ]¨rmElmtIdÂR³ExpressionStatementÍiÍ¡S®CallExpressionÍiÍ T°MemberExpressionÍiÍ–T°MemberExpressionÍiÍ~V®ThisExpressionÍiÍmNªIdentifierÍnÍ~°__nodeControllerÂÂNªIdentifierÍÍ–·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍ—ÍŸ¨rmElmtIdÂR³ExpressionStatementÍ«ÍçS®CallExpressionÍ«ÍæT°MemberExpressionÍ«ÍÜT°MemberExpressionÍ«ÍÄV®ThisExpressionÍ«Í¯NªIdentifierÍ°ÍÄ´__displayOrientationÂÂNªIdentifierÍÅÍÜ·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍİÍå¨rmElmtIdÂ_°MethodDefinitionÍôÍ¯ÂÂNªIdentifierÍôÍ°aboutToBeDeleted¦methodM²FunctionExpressionÍÍ¯ÀÂÂÂQ®BlockStatementÍÍ¯˜R³ExpressionStatementÍÍAS®CallExpressionÍÍ@T°MemberExpressionÍÍ>T°MemberExpressionÍÍ-V®ThisExpressionÍÍNªIdentifierÍÍ-¶__videoBackgroundColorÂÂNªIdentifierÍ.Í>°aboutToBeDeletedÂÂÂR³ExpressionStatementÍKÍuS®CallExpressionÍKÍtT°MemberExpressionÍKÍrT°MemberExpressionÍKÍaV®ThisExpressionÍKÍONªIdentifierÍPÍa±__statusBarHeightÂÂNªIdentifierÍbÍr°aboutToBeDeletedÂÂÂR³ExpressionStatementÍÍ¦S®CallExpressionÍÍ¥T°MemberExpressionÍÍ£T°MemberExpressionÍÍ’V®ThisExpressionÍÍƒNªIdentifierÍ„Í’®__navBarHeightÂÂNªIdentifierÍ“Í£°aboutToBeDeletedÂÂÂR³ExpressionStatementÍ°ÍŞS®CallExpressionÍ°ÍİT°MemberExpressionÍ°ÍÛT°MemberExpressionÍ°ÍÊV®ThisExpressionÍ°Í´NªIdentifierÍµÍÊµ__animationPropertiesÂÂNªIdentifierÍËÍÛ°aboutToBeDeletedÂÂÂR³ExpressionStatementÍèÍS®CallExpressionÍèÍT°MemberExpressionÍèÍT°MemberExpressionÍèÍıV®ThisExpressionÍèÍìNªIdentifierÍíÍı°__nodeControllerÂÂNªIdentifierÍşÍ°aboutToBeDeletedÂÂÂR³ExpressionStatementÍÍHS®CallExpressionÍÍGT°MemberExpressionÍÍET°MemberExpressionÍÍ4V®ThisExpressionÍÍNªIdentifierÍ Í4´__displayOrientationÂÂNªIdentifierÍ5ÍE°aboutToBeDeletedÂÂÂR³ExpressionStatementÍRÍ~S®CallExpressionÍRÍ}T°MemberExpressionÍRÍpS®CallExpressionÍRÍiT°MemberExpressionÍRÍgNªIdentifierÍRÍc±SubscriberManagerNªIdentifierÍdÍg£GetÂÂÂNªIdentifierÍjÍp¦deleteÂÂ‘S®CallExpressionÍqÍ|T°MemberExpressionÍqÍzV®ThisExpressionÍqÍuNªIdentifierÍvÍz¤id__ÂÂÂÂR³ExpressionStatementÍˆÍ¨S®CallExpressionÍˆÍ§T°MemberExpressionÍˆÍ¥V®ThisExpressionÍˆÍŒNªIdentifierÍÍ¥¸aboutToBeDeletedInternalÂÂÂ_°MethodDefinitionÍµÍÂÂNªIdentifierÍ¹ÍÍ´videoBackgroundColor£getM²FunctionExpressionÍÍÍÀÂÂÂQ®BlockStatementÍĞÍ‘\¯ReturnStatementÍÛÍS®CallExpressionÍâÍT°MemberExpressionÍâÍT°MemberExpressionÍâÍıV®ThisExpressionÍâÍæNªIdentifierÍçÍı¶__videoBackgroundColorÂÂNªIdentifierÍşÍ£getÂÂÂ_°MethodDefinitionÍÍpÂÂNªIdentifierÍÍ)´videoBackgroundColor£setM²FunctionExpressionÍ)ÍpÀÂÂÂ‘NªIdentifierÍ*Í2¨newValueQ®BlockStatementÍ4Íp‘R³ExpressionStatementÍ?ÍiS®CallExpressionÍ?ÍhT°MemberExpressionÍ?Í^T°MemberExpressionÍ?ÍZV®ThisExpressionÍ?ÍCNªIdentifierÍDÍZ¶__videoBackgroundColorÂÂNªIdentifierÍ[Í^£setÂÂ‘NªIdentifierÍ_Íg¨newValueÂ_°MethodDefinitionÍvÍÂÂÂNªIdentifierÍzÍ‰¯statusBarHeight£getM²FunctionExpressionÍ‰ÍÂÀÂÂÂQ®BlockStatementÍŒÍÂ‘\¯ReturnStatementÍ—Í»S®CallExpressionÍÍºT°MemberExpressionÍÍ¸T°MemberExpressionÍÍ´V®ThisExpressionÍÍ¢NªIdentifierÍ£Í´±__statusBarHeightÂÂNªIdentifierÍµÍ¸£getÂÂÂ_°MethodDefinitionÍÈÍÂÂNªIdentifierÍÌÍÛ¯statusBarHeight£setM²FunctionExpressionÍÛÍÀÂÂÂ‘NªIdentifierÍÜÍä¨newValueQ®BlockStatementÍæÍ‘R³ExpressionStatementÍñÍS®CallExpressionÍñÍT°MemberExpressionÍñÍT°MemberExpressionÍñÍV®ThisExpressionÍñÍõNªIdentifierÍöÍ±__statusBarHeightÂÂNªIdentifierÍÍ£setÂÂ‘NªIdentifierÍÍ¨newValueÂ_°MethodDefinitionÍ#ÍiÂÂNªIdentifierÍ'Í3¬navBarHeight£getM²FunctionExpressionÍ3ÍiÀÂÂÂQ®BlockStatementÍ6Íi‘\¯ReturnStatementÍAÍbS®CallExpressionÍHÍaT°MemberExpressionÍHÍ_T°MemberExpressionÍHÍ[V®ThisExpressionÍHÍLNªIdentifierÍMÍ[®__navBarHeightÂÂNªIdentifierÍ\Í_£getÂÂÂ_°MethodDefinitionÍoÍ¾ÂÂNªIdentifierÍsÍ¬navBarHeight£setM²FunctionExpressionÍÍ¾ÀÂÂÂ‘NªIdentifierÍ€Íˆ¨newValueQ®BlockStatementÍŠÍ¾‘R³ExpressionStatementÍ•Í·S®CallExpressionÍ•Í¶T°MemberExpressionÍ•Í¬T°MemberExpressionÍ•Í¨V®ThisExpressionÍ•Í™NªIdentifierÍšÍ¨®__navBarHeightÂÂNªIdentifierÍ©Í¬£setÂÂ‘NªIdentifierÍ­Íµ¨newValueÂ_°MethodDefinitionÍÄÍÂÂNªIdentifierÍÈÍÛ³animationProperties£getM²FunctionExpressionÍÛÍÀÂÂÂQ®BlockStatementÍŞÍ‘\¯ReturnStatementÍéÍS®CallExpressionÍğÍT°MemberExpressionÍğÍT°MemberExpressionÍğÍ
+V®ThisExpressionÍğÍôNªIdentifierÍõÍ
+µ__animationPropertiesÂÂNªIdentifierÍÍ£getÂÂÂ_°MethodDefinitionÍÍ{ÂÂNªIdentifierÍ"Í5³animationProperties£setM²FunctionExpressionÍ5Í{ÀÂÂÂ‘NªIdentifierÍ6Í>¨newValueQ®BlockStatementÍ@Í{‘R³ExpressionStatementÍKÍtS®CallExpressionÍKÍsT°MemberExpressionÍKÍiT°MemberExpressionÍKÍeV®ThisExpressionÍKÍONªIdentifierÍPÍeµ__animationPropertiesÂÂNªIdentifierÍfÍi£setÂÂ‘NªIdentifierÍjÍr¨newValueÂ_°MethodDefinitionÍÍËÂÂNªIdentifierÍ…Í“®nodeController£getM²FunctionExpressionÍ“ÍËÀÂÂÂQ®BlockStatementÍ–ÍË‘\¯ReturnStatementÍ¡ÍÄS®CallExpressionÍ¨ÍÃT°MemberExpressionÍ¨ÍÁT°MemberExpressionÍ¨Í½V®ThisExpressionÍ¨Í¬NªIdentifierÍ­Í½°__nodeControllerÂÂNªIdentifierÍ¾ÍÁ£getÂÂÂ_°MethodDefinitionÍÑÍ$ÂÂNªIdentifierÍÕÍã®nodeController£setM²FunctionExpressionÍãÍ$ÀÂÂÂ‘NªIdentifierÍäÍì¨newValueQ®BlockStatementÍîÍ$‘R³ExpressionStatementÍùÍS®CallExpressionÍùÍT°MemberExpressionÍùÍT°MemberExpressionÍùÍV®ThisExpressionÍùÍıNªIdentifierÍşÍ°__nodeControllerÂÂNªIdentifierÍÍ£setÂÂ‘NªIdentifierÍÍ¨newValueÂ_°MethodDefinitionÍ*Í|ÂÂNªIdentifierÍ.Í@²displayOrientation£getM²FunctionExpressionÍ@Í|ÀÂÂÂQ®BlockStatementÍCÍ|‘\¯ReturnStatementÍNÍuS®CallExpressionÍUÍtT°MemberExpressionÍUÍrT°MemberExpressionÍUÍnV®ThisExpressionÍUÍYNªIdentifierÍZÍn´__displayOrientationÂÂNªIdentifierÍoÍr£getÂÂÂ_°MethodDefinitionÍ‚ÍİÂÂNªIdentifierÍ†Í˜²displayOrientation£setM²FunctionExpressionÍ˜ÍİÀÂÂÂ‘NªIdentifierÍ™Í¡¨newValueQ®BlockStatementÍ£Íİ‘R³ExpressionStatementÍ®ÍÖS®CallExpressionÍ®ÍÕT°MemberExpressionÍ®ÍËT°MemberExpressionÍ®ÍÇV®ThisExpressionÍ®Í²NªIdentifierÍ³ÍÇ´__displayOrientationÂÂNªIdentifierÍÈÍË£setÂÂ‘NªIdentifierÍÌÍÔ¨newValueÂ_°MethodDefinitionÍãÍÂÂNªIdentifierÍãÍğ­aboutToAppear¦methodM²FunctionExpressionÍğÍÀÂÂÂQ®BlockStatementÍóÍ’U«IfStatementÍşÍØS®CallExpressionÍÍ&T°MemberExpressionÍÍ$NªIdentifierÍÍ«WindowUtilsNªIdentifierÍÍ$¶isExpandedOrHalfFoldedÂÂÂQ®BlockStatementÍ(Íx‘R³ExpressionStatementÍ7Ím]´AssignmentExpressionÍ7Íl¡=T°MemberExpressionÍ7ÍNV®ThisExpressionÍ7Í;NªIdentifierÍ<ÍN²displayOrientationÂÂT°MemberExpressionÍQÍlT°MemberExpressionÍQÍcNªIdentifierÍQÍW¦windowNªIdentifierÍXÍc«OrientationÂÂNªIdentifierÍdÍl¨PORTRAITÂÂQ®BlockStatementÍ‡ÍØ‘R³ExpressionStatementÍ–ÍÍ]´AssignmentExpressionÍ–ÍÌ¡=T°MemberExpressionÍ–Í­V®ThisExpressionÍ–ÍšNªIdentifierÍ›Í­²displayOrientationÂÂT°MemberExpressionÍ°ÍÌT°MemberExpressionÍ°ÍÂNªIdentifierÍ°Í¶¦windowNªIdentifierÍ·ÍÂ«OrientationÂÂNªIdentifierÍÃÍÌ©LANDSCAPEÂÂR³ExpressionStatementÍâÍüS®CallExpressionÍâÍûT°MemberExpressionÍâÍùV®ThisExpressionÍâÍæNªIdentifierÍçÍù²foldStatusChangeUIÂÂÂ_°MethodDefinitionÍ‡Í-ÂÂNªIdentifierÍ‡Í™²foldStatusChangeUI¦methodM²FunctionExpressionÍ™Í-ÀÂÂÂQ®BlockStatementÍœÍ-‘Ôrb–¤type¥start£end¥block§handler©finalizer¬TryStatementÍ§Í&Q®BlockStatementÍ«Íy“W³VariableDeclarationÍºÍë‘X²VariableDeclaratorÍ¾ÍêNªIdentifierÍ¾ÍĞ²beforeFoldedStatusS®CallExpressionÍÓÍêT°MemberExpressionÍÓÍèNªIdentifierÍÓÍÚ§displayNªIdentifierÍÛÍè­getFoldStatusÂÂÂ£letW³VariableDeclarationÍZÍ7‘X²VariableDeclaratorÍ^Í6NªIdentifierÍ^Íf¨callbackM·ArrowFunctionExpressionÍiÍ6ÀÂÂÂ‘NªIdentifierÍjÍn¤dataQ®BlockStatementÍsÍ6“U«IfStatementÍëÍŸa±LogicalExpressionÍïÍĞa±LogicalExpressionÍğÍˆa°BinaryExpressionÍğÍ.NªIdentifierÍğÍ²beforeFoldedStatus£===T°MemberExpressionÍÍ.T°MemberExpressionÍÍNªIdentifierÍÍ§displayNªIdentifierÍÍªFoldStatusÂÂNªIdentifierÍÍ.´FOLD_STATUS_EXPANDEDÂÂ¢||a°BinaryExpressionÍGÍˆNªIdentifierÍGÍY²beforeFoldedStatus£===T°MemberExpressionÍ^ÍˆT°MemberExpressionÍ^ÍpNªIdentifierÍ^Íe§displayNªIdentifierÍfÍpªFoldStatusÂÂNªIdentifierÍqÍˆ·FOLD_STATUS_HALF_FOLDEDÂÂ¢&&a°BinaryExpressionÍ¢ÍĞNªIdentifierÍ¢Í¦¤data£===T°MemberExpressionÍ«ÍĞT°MemberExpressionÍ«Í½NªIdentifierÍ«Í²§displayNªIdentifierÍ³Í½ªFoldStatusÂÂNªIdentifierÍ¾ÍĞ²FOLD_STATUS_FOLDEDÂÂQ®BlockStatementÍÒÍŸ“R³ExpressionStatementÍéÍ(S®CallExpressionÍéÍ'T°MemberExpressionÍéÍS®CallExpressionÍéÍT°MemberExpressionÍéÍNªIdentifierÍéÍù°CustomTransitionNªIdentifierÍúÍ«getInstanceÂÂÂNªIdentifierÍÍ²unRegisterNavParamÂÂ‘T°MemberExpressionÍÍ&V®ThisExpressionÍÍNªIdentifierÍ Í&¦pageIdÂÂÂR³ExpressionStatementÍ>ÍUR¯ChainExpressionÍ>ÍTS®CallExpressionÍ>ÍTT°MemberExpressionÍ>ÍMT°MemberExpressionÍ>ÍHV®ThisExpressionÍ>ÍBNªIdentifierÍCÍH¥stackÂÂNªIdentifierÍJÍM£popÂÃ‘P§LiteralÍNÍSÂ¥falseÂR³ExpressionStatementÍkÍŒS®CallExpressionÍkÍ‹T°MemberExpressionÍkÍ‰V®ThisExpressionÍkÍoNªIdentifierÍpÍ‰¹prePageDoFinishTransitionÂÂÂÀU«IfStatementÍÍûa±LogicalExpressionÍÍ™a°BinaryExpressionÍÍPNªIdentifierÍÍ!²beforeFoldedStatus£===T°MemberExpressionÍ&ÍPT°MemberExpressionÍ&Í8NªIdentifierÍ&Í-§displayNªIdentifierÍ.Í8ªFoldStatusÂÂNªIdentifierÍ9ÍP·FOLD_STATUS_HALF_FOLDEDÂÂ¢&&a°BinaryExpressionÍiÍ™NªIdentifierÍiÍm¤data£===T°MemberExpressionÍrÍ™T°MemberExpressionÍrÍ„NªIdentifierÍrÍy§displayNªIdentifierÍzÍ„ªFoldStatusÂÂNªIdentifierÍ…Í™´FOLD_STATUS_EXPANDEDÂÂQ®BlockStatementÍ›Íû‘R³ExpressionStatementÍ²Íè]´AssignmentExpressionÍ²Íç¡=T°MemberExpressionÍ²ÍÉV®ThisExpressionÍ²Í¶NªIdentifierÍ·ÍÉ²displayOrientationÂÂT°MemberExpressionÍÌÍçT°MemberExpressionÍÌÍŞNªIdentifierÍÌÍÒ¦windowNªIdentifierÍÓÍŞ«OrientationÂÂNªIdentifierÍßÍç¨PORTRAITÂÂÀR³ExpressionStatementÍÍ']´AssignmentExpressionÍÍ&¡=NªIdentifierÍÍ²beforeFoldedStatusNªIdentifierÍ"Í&¤data£letR³ExpressionStatementÍEÍnS®CallExpressionÍEÍmT°MemberExpressionÍEÍONªIdentifierÍEÍL§displayNªIdentifierÍMÍO¢onÂÂ’P§LiteralÍPÍb°foldStatusChange²'foldStatusChange'NªIdentifierÍdÍl¨callbackÂÔrc•¤type¥start£end¥param¤body«CatchClauseÍƒÍ&NªIdentifierÍŠÍ£errQ®BlockStatementÍÍ&’W³VariableDeclarationÍÍ®‘X²VariableDeclaratorÍ¢Í­NªIdentifierÍ¢Í§¥errorNªIdentifierÍªÍ­£err£letR³ExpressionStatementÍ¼ÍS®CallExpressionÍ¼ÍT°MemberExpressionÍ¼ÍÈNªIdentifierÍ¼ÍÂ¦LoggerNªIdentifierÍÃÍÈ¥errorÂÂ’NªIdentifierÍÉÍÌ£TAGÔrd•¤type¥start£end«expressions¦quasis¯TemplateLiteralÍÎÍ’T°MemberExpressionÍòÍüNªIdentifierÍòÍ÷¥errorNªIdentifierÍøÍü¤codeÂÂT°MemberExpressionÍ
+ÍNªIdentifierÍ
+Í¥errorNªIdentifierÍÍ§messageÂÂ“Ôre•¤type¥start£end¥value¤tail¯TemplateElementÍÏÍğÔrf’£raw¦cookedÙ!on foldStatusChangeUI err, code: Ù!on foldStatusChangeUI err, code: Âe¯TemplateElementÍıÍf«, message: «, message: Âe¯TemplateElementÍÍf  ÃÂÀ_°MethodDefinitionÍVÍeÂÂNªIdentifierÍVÍf°aboutToDisappear¦methodM²FunctionExpressionÍfÍeÀÂÂÂQ®BlockStatementÍiÍe‘b¬TryStatementÍtÍ^Q®BlockStatementÍxÍ²‘R³ExpressionStatementÍ‡Í§S®CallExpressionÍ‡Í¦T°MemberExpressionÍ‡Í’NªIdentifierÍ‡Í§displayNªIdentifierÍÍ’£offÂÂ‘P§LiteralÍ“Í¥°foldStatusChange²'foldStatusChange'Âc«CatchClauseÍ¼Í^NªIdentifierÍÃÍÆ£errQ®BlockStatementÍÈÍ^’W³VariableDeclarationÍ×Íç‘X²VariableDeclaratorÍÛÍæNªIdentifierÍÛÍà¥errorNªIdentifierÍãÍæ£err£letR³ExpressionStatementÍõÍSS®CallExpressionÍõÍRT°MemberExpressionÍõÍNªIdentifierÍõÍû¦LoggerNªIdentifierÍüÍ¥errorÂÂ’NªIdentifierÍÍ£TAGd¯TemplateLiteralÍÍQ’T°MemberExpressionÍ*Í4NªIdentifierÍ*Í/¥errorNªIdentifierÍ0Í4¤codeÂÂT°MemberExpressionÍBÍONªIdentifierÍBÍG¥errorNªIdentifierÍHÍO§messageÂÂ“e¯TemplateElementÍÍ(fÙ off foldStatusChange err, code: Ù off foldStatusChange err, code: Âe¯TemplateElementÍ5Í@f«, message: «, message: Âe¯TemplateElementÍPÍPf  ÃÂÀ_°MethodDefinitionÍÄÍ4/ÂÂNªIdentifierÍÄÍÑ­initialRender¦methodM²FunctionExpressionÍÑÍ4/ÀÂÂÂQ®BlockStatementÍÔÍ4/’R³ExpressionStatementÍßÍ4	S®CallExpressionÍßÍ4T°MemberExpressionÍßÍıV®ThisExpressionÍßÍãNªIdentifierÍäÍı¹observeComponentCreation2ÂÂ’M·ArrowFunctionExpressionÍşÍ3÷ÀÂÂÂ’NªIdentifierÍÿÍ¦elmtIdNªIdentifierÍÍ¯isInitialRenderQ®BlockStatementÍÍ3÷œR³ExpressionStatementÍ*Í+S®CallExpressionÍ*Í+T°MemberExpressionÍ*Í?NªIdentifierÍ*Í8®NavDestinationNªIdentifierÍ9Í?¦createÂÂ’M·ArrowFunctionExpressionÍ@Í*³ÀÂÂÂQ®BlockStatementÍFÍ*³˜R³ExpressionStatementÍYÍ!aS®CallExpressionÍYÍ!`T°MemberExpressionÍYÍwV®ThisExpressionÍYÍ]NªIdentifierÍ^Íw¹observeComponentCreation2ÂÂ’M·ArrowFunctionExpressionÍxÍ!XÀÂÂÂ’NªIdentifierÍyÍ¦elmtIdNªIdentifierÍÍ¯isInitialRenderQ®BlockStatementÍ•Í!X–R³ExpressionStatementÍ¬Í»S®CallExpressionÍ¬ÍºT°MemberExpressionÍ¬Í¸NªIdentifierÍ¬Í±¥StackNªIdentifierÍ²Í¸¦createÂÂÂR³ExpressionStatementÍÑÍöS®CallExpressionÍÑÍõT°MemberExpressionÍÑÍãNªIdentifierÍÑÍÖ¥StackNªIdentifierÍ×Íã¬alignContentÂÂ‘T°MemberExpressionÍäÍôNªIdentifierÍäÍí©AlignmentNªIdentifierÍîÍô¦CenterÂÂÂR³ExpressionStatementÍ Í 8S®CallExpressionÍ Í 7T°MemberExpressionÍ Í NªIdentifierÍ Í ¥StackNªIdentifierÍ Í ¥widthÂÂ‘T°MemberExpressionÍ Í 6T°MemberExpressionÍ Í 0V®ThisExpressionÍ Í NªIdentifierÍ Í 0³animationPropertiesÂÂNªIdentifierÍ 1Í 6¥widthÂÂÂR³ExpressionStatementÍ NÍ |S®CallExpressionÍ NÍ {T°MemberExpressionÍ NÍ ZNªIdentifierÍ NÍ S¥StackNªIdentifierÍ TÍ Z¦heightÂÂ‘T°MemberExpressionÍ [Í zT°MemberExpressionÍ [Í sV®ThisExpressionÍ [Í _NªIdentifierÍ `Í s³animationPropertiesÂÂNªIdentifierÍ tÍ z¦heightÂÂÂR³ExpressionStatementÍ ’Í öS®CallExpressionÍ ’Í õT°MemberExpressionÍ ’Í ¡NªIdentifierÍ ’Í —¥StackNªIdentifierÍ ˜Í ¡©translateÂÂ‘Z°ObjectExpressionÍ ¢Í ô’[¨PropertyÍ ¤Í ÊÂÂÂNªIdentifierÍ ¤Í ¥¡xT°MemberExpressionÍ §Í ÊT°MemberExpressionÍ §Í ¿V®ThisExpressionÍ §Í «NªIdentifierÍ ¬Í ¿³animationPropertiesÂÂNªIdentifierÍ ÀÍ ÊªtranslateXÂÂ¤init[¨PropertyÍ ÌÍ òÂÂÂNªIdentifierÍ ÌÍ Í¡yT°MemberExpressionÍ ÏÍ òT°MemberExpressionÍ ÏÍ çV®ThisExpressionÍ ÏÍ ÓNªIdentifierÍ ÔÍ ç³animationPropertiesÂÂNªIdentifierÍ èÍ òªtranslateYÂÂ¤initÂR³ExpressionStatementÍ!Í!ES®CallExpressionÍ!Í!DT°MemberExpressionÍ!Í!NªIdentifierÍ!Í!¥StackNªIdentifierÍ!Í!¦rotateÂÂ‘Z°ObjectExpressionÍ!Í!C‘[¨PropertyÍ!Í!AÂÂÂNªIdentifierÍ!Í! ¥angleT°MemberExpressionÍ!"Í!AT°MemberExpressionÍ!"Í!:V®ThisExpressionÍ!"Í!&NªIdentifierÍ!'Í!:³animationPropertiesÂÂNªIdentifierÍ!;Í!A¦rotateÂÂ¤initÂNªIdentifierÍ!ZÍ!_¥StackÂR³ExpressionStatementÍ!sÍ"YS®CallExpressionÍ!sÍ"XT°MemberExpressionÍ!sÍ!‘V®ThisExpressionÍ!sÍ!wNªIdentifierÍ!xÍ!‘¹observeComponentCreation2ÂÂ’M·ArrowFunctionExpressionÍ!’Í"HÀÂÂÂ’NªIdentifierÍ!“Í!™¦elmtIdNªIdentifierÍ!›Í!ª¯isInitialRenderQ®BlockStatementÍ!¯Í"H‘R³ExpressionStatementÍ"Í"5S®CallExpressionÍ"Í"4T°MemberExpressionÍ"Í"NªIdentifierÍ"Í"­NodeContainerNªIdentifierÍ"Í"¦createÂÂ‘T°MemberExpressionÍ" Í"3V®ThisExpressionÍ" Í"$NªIdentifierÍ"%Í"3®nodeControllerÂÂÂNªIdentifierÍ"JÍ"W­NodeContainerÂR³ExpressionStatementÍ"kÍ$S®CallExpressionÍ"kÍ$~T°MemberExpressionÍ"kÍ"‰V®ThisExpressionÍ"kÍ"oNªIdentifierÍ"pÍ"‰¹observeComponentCreation2ÂÂ’M·ArrowFunctionExpressionÍ"ŠÍ$vÀÂÂÂ’NªIdentifierÍ"‹Í"‘¦elmtIdNªIdentifierÍ"“Í"¢¯isInitialRenderQ®BlockStatementÍ"§Í$v”R³ExpressionStatementÍ"ÿÍ#S®CallExpressionÍ"ÿÍ#T°MemberExpressionÍ"ÿÍ#NªIdentifierÍ"ÿÍ#¥StackNªIdentifierÍ#Í#¦createÂÂÂR³ExpressionStatementÍ#eÍ#ŒS®CallExpressionÍ#eÍ#‹T°MemberExpressionÍ#eÍ#wNªIdentifierÍ#eÍ#j¥StackNªIdentifierÍ#kÍ#w¬alignContentÂÂ‘T°MemberExpressionÍ#xÍ#ŠNªIdentifierÍ#xÍ#©AlignmentNªIdentifierÍ#‚Í#Š¨TopStartÂÂÂR³ExpressionStatementÍ#ãÍ#÷S®CallExpressionÍ#ãÍ#öT°MemberExpressionÍ#ãÍ#îNªIdentifierÍ#ãÍ#è¥StackNªIdentifierÍ#éÍ#î¥widthÂÂ‘P§LiteralÍ#ïÍ#õ¤100%¦'100%'ÂR³ExpressionStatementÍ$NÍ$cS®CallExpressionÍ$NÍ$bT°MemberExpressionÍ$NÍ$ZNªIdentifierÍ$NÍ$S¥StackNªIdentifierÍ$TÍ$Z¦heightÂÂ‘P§LiteralÍ$[Í$a¤100%¦'100%'ÂNªIdentifierÍ$xÍ$}¥StackÂR³ExpressionStatementÍ$‘Í'¥S®CallExpressionÍ$‘Í'¤T°MemberExpressionÍ$‘Í$¯V®ThisExpressionÍ$‘Í$•NªIdentifierÍ$–Í$¯¹observeComponentCreation2ÂÂ’M·ArrowFunctionExpressionÍ$°Í'›ÀÂÂÂ’NªIdentifierÍ$±Í$·¦elmtIdNªIdentifierÍ$¹Í$È¯isInitialRenderQ®BlockStatementÍ$ÍÍ'›—R³ExpressionStatementÍ$äÍ%S®CallExpressionÍ$äÍ%T°MemberExpressionÍ$äÍ$úNªIdentifierÍ$äÍ$ê¦ButtonNªIdentifierÍ$ëÍ$ú¯createWithChildÂÂ‘Z°ObjectExpressionÍ$ûÍ%‘[¨PropertyÍ$ıÍ%ÂÂÂNªIdentifierÍ$ıÍ%¤typeT°MemberExpressionÍ%Í%NªIdentifierÍ%Í%ªButtonTypeNªIdentifierÍ%Í%¦CircleÂÂ¤initÂR³ExpressionStatementÍ%.Í%@S®CallExpressionÍ%.Í%?T°MemberExpressionÍ%.Í%;NªIdentifierÍ%.Í%4¦ButtonNªIdentifierÍ%5Í%;¦heightÂÂ‘P§LiteralÍ%<Í%>(¢40ÂR³ExpressionStatementÍ%VÍ%lS®CallExpressionÍ%VÍ%kT°MemberExpressionÍ%VÍ%hNªIdentifierÍ%VÍ%\¦ButtonNªIdentifierÍ%]Í%h«aspectRatioÂÂ‘P§LiteralÍ%iÍ%j¡1ÂR³ExpressionStatementÍ%‚Í%¦S®CallExpressionÍ%‚Í%¥T°MemberExpressionÍ%‚Í%˜NªIdentifierÍ%‚Í%ˆ¦ButtonNªIdentifierÍ%‰Í%˜¯backgroundColorÂÂ‘P§LiteralÍ%™Í%¤©#19FFFFFF«'#19FFFFFF'ÂR³ExpressionStatementÍ%¼Í&'S®CallExpressionÍ%¼Í&&T°MemberExpressionÍ%¼Í%ÉNªIdentifierÍ%¼Í%Â¦ButtonNªIdentifierÍ%ÃÍ%É¦marginÂÂ‘Z°ObjectExpressionÍ%ÊÍ&%’[¨PropertyÍ%åÍ%íÂÂÂNªIdentifierÍ%åÍ%é¤leftP§LiteralÍ%ëÍ%í¢16¤init[¨PropertyÍ&Í&ÂÂÂNªIdentifierÍ&Í&£topP§LiteralÍ&Í&¡8¤initÂR³ExpressionStatementÍ&=Í'S®CallExpressionÍ&=Í'T°MemberExpressionÍ&=Í&NNªIdentifierÍ&=Í&C¦ButtonNªIdentifierÍ&DÍ&NªalignRulesÂÂ‘Z°ObjectExpressionÍ&OÍ'’[¨PropertyÍ&jÍ&¤ÂÂÂNªIdentifierÍ&jÍ&m£topZ°ObjectExpressionÍ&oÍ&¤’[¨PropertyÍ&qÍ&ˆÂÂÂNªIdentifierÍ&qÍ&w¦anchorP§LiteralÍ&yÍ&ˆ­__container__¯'__container__'¤init[¨PropertyÍ&ŠÍ&¢ÂÂÂNªIdentifierÍ&ŠÍ&¥alignT°MemberExpressionÍ&‘Í&¢NªIdentifierÍ&‘Í&­VerticalAlignNªIdentifierÍ&ŸÍ&¢£TopÂÂ¤init¤init[¨PropertyÍ&¿Í&şÂÂÂNªIdentifierÍ&¿Í&Ã¤leftZ°ObjectExpressionÍ&ÅÍ&ş’[¨PropertyÍ&ÇÍ&ŞÂÂÂNªIdentifierÍ&ÇÍ&Í¦anchorP§LiteralÍ&ÏÍ&Ş­__container__¯'__container__'¤init[¨PropertyÍ&àÍ&üÂÂÂNªIdentifierÍ&àÍ&å¥alignT°MemberExpressionÍ&çÍ&üNªIdentifierÍ&çÍ&ö¯HorizontalAlignNªIdentifierÍ&÷Í&ü¥StartÂÂ¤init¤initÂR³ExpressionStatementÍ'-Í'ˆS®CallExpressionÍ'-Í'‡T°MemberExpressionÍ'-Í';NªIdentifierÍ'-Í'3¦ButtonNªIdentifierÍ'4Í';§onClickÂÂ‘M·ArrowFunctionExpressionÍ'<Í'†ÀÂÂÂQ®BlockStatementÍ'BÍ'†‘R³ExpressionStatementÍ']Í'oR¯ChainExpressionÍ']Í'nS®CallExpressionÍ']Í'nT°MemberExpressionÍ']Í'lT°MemberExpressionÍ']Í'gV®ThisExpressionÍ']Í'aNªIdentifierÍ'bÍ'g¥stackÂÂNªIdentifierÍ'iÍ'l£popÂÃÂÂNªIdentifierÍ'Í'£¦ButtonÂR³ExpressionStatementÍ'·Í*S®CallExpressionÍ'·Í*T°MemberExpressionÍ'·Í'ÕV®ThisExpressionÍ'·Í'»NªIdentifierÍ'¼Í'Õ¹observeComponentCreation2ÂÂ’M·ArrowFunctionExpressionÍ'ÖÍ)ıÀÂÂÂ’NªIdentifierÍ'×Í'İ¦elmtIdNªIdentifierÍ'ßÍ'î¯isInitialRenderQ®BlockStatementÍ'óÍ)ı“R³ExpressionStatementÍ(
+Í(™S®CallExpressionÍ(
+Í(˜T°MemberExpressionÍ(
+Í(NªIdentifierÍ(
+Í(«SymbolGlyphNªIdentifierÍ(Í(¦createÂÂ‘Z°ObjectExpressionÍ(Í(—•[¨PropertyÍ(Í(.ÂÂÂP§LiteralÍ(Í(#¢id¤"id"P§LiteralÍ(%Í(.Î€>©125833534¤init[¨PropertyÍ(0Í(=ÂÂÂP§LiteralÍ(0Í(6¤type¦"type"P§LiteralÍ(8Í(=Íœ@¥40000¤init[¨PropertyÍ(?Í(IÂÂÂNªIdentifierÍ(?Í(E¦paramsÔrg”¤type¥start£end¨elements¯ArrayExpressionÍ(GÍ(I¤init[¨PropertyÍ(KÍ(~ÂÂÂP§LiteralÍ(KÍ(WªbundleName¬"bundleName"P§LiteralÍ(YÍ(~Ù#com.example.landscapeportraittoggleÙ%"com.example.landscapeportraittoggle"¤init[¨PropertyÍ(€Í(•ÂÂÂP§LiteralÍ(€Í(ŒªmoduleName¬"moduleName"P§LiteralÍ(Í(•¥entry§"entry"¤initÂR³ExpressionStatementÍ(¯Í)CS®CallExpressionÍ(¯Í)BT°MemberExpressionÍ(¯Í(ÄNªIdentifierÍ(¯Í(º«SymbolGlyphNªIdentifierÍ(»Í(Ä©fontColorÂÂ‘g¯ArrayExpressionÍ(ÅÍ)A‘Z°ObjectExpressionÍ(ÆÍ)@•[¨PropertyÍ(ÈÍ(×ÂÂÂP§LiteralÍ(ÈÍ(Ì¢id¤"id"P§LiteralÍ(ÎÍ(×Î€‘©125831057¤init[¨PropertyÍ(ÙÍ(æÂÂÂP§LiteralÍ(ÙÍ(ß¤type¦"type"P§LiteralÍ(áÍ(æÍ'¥10001¤init[¨PropertyÍ(èÍ(òÂÂÂNªIdentifierÍ(èÍ(î¦paramsg¯ArrayExpressionÍ(ğÍ(ò¤init[¨PropertyÍ(ôÍ)'ÂÂÂP§LiteralÍ(ôÍ) ªbundleName¬"bundleName"P§LiteralÍ)Í)'Ù#com.example.landscapeportraittoggleÙ%"com.example.landscapeportraittoggle"¤init[¨PropertyÍ))Í)>ÂÂÂP§LiteralÍ))Í)5ªmoduleName¬"moduleName"P§LiteralÍ)7Í)>¥entry§"entry"¤initÂR³ExpressionStatementÍ)YÍ)êS®CallExpressionÍ)YÍ)éT°MemberExpressionÍ)YÍ)mNªIdentifierÍ)YÍ)d«SymbolGlyphNªIdentifierÍ)eÍ)m¨fontSizeÂÂ‘Z°ObjectExpressionÍ)nÍ)è•[¨PropertyÍ)pÍ)ÂÂÂP§LiteralÍ)pÍ)t¢id¤"id"P§LiteralÍ)vÍ)Î€5©125830965¤init[¨PropertyÍ)Í)ÂÂÂP§LiteralÍ)Í)‡¤type¦"type"P§LiteralÍ)‰Í)Í'¥10002¤init[¨PropertyÍ)Í)šÂÂÂNªIdentifierÍ)Í)–¦paramsg¯ArrayExpressionÍ)˜Í)š¤init[¨PropertyÍ)œÍ)ÏÂÂÂP§LiteralÍ)œÍ)¨ªbundleName¬"bundleName"P§LiteralÍ)ªÍ)ÏÙ#com.example.landscapeportraittoggleÙ%"com.example.landscapeportraittoggle"¤init[¨PropertyÍ)ÑÍ)æÂÂÂP§LiteralÍ)ÑÍ)İªmoduleName¬"moduleName"P§LiteralÍ)ßÍ)æ¥entry§"entry"¤initÂNªIdentifierÍ)ÿÍ*
+«SymbolGlyphÂR³ExpressionStatementÍ*Í*+S®CallExpressionÍ*Í**T°MemberExpressionÍ*Í*(NªIdentifierÍ*Í*$¦ButtonNªIdentifierÍ*%Í*(£popÂÂÂR³ExpressionStatementÍ*zÍ*†S®CallExpressionÍ*zÍ*…T°MemberExpressionÍ*zÍ*ƒNªIdentifierÍ*zÍ*¥StackNªIdentifierÍ*€Í*ƒ£popÂÂÂR³ExpressionStatementÍ*˜Í*¤S®CallExpressionÍ*˜Í*£T°MemberExpressionÍ*˜Í*¡NªIdentifierÍ*˜Í*¥StackNªIdentifierÍ*Í*¡£popÂÂÂZ°ObjectExpressionÍ*µÍ+’[¨PropertyÍ*·Í*ÊÂÂÂNªIdentifierÍ*·Í*ÁªmoduleNameP§LiteralÍ*ÃÍ*Ê¥entry§"entry"¤init[¨PropertyÍ*ÌÍ+ÂÂÂNªIdentifierÍ*ÌÍ*Ô¨pagePathP§LiteralÍ*ÖÍ+Ù6entry/src/main/ets/transitionbetweenpage/LandscapePlayÙ8"entry/src/main/ets/transitionbetweenpage/LandscapePlay"¤initÂR³ExpressionStatementÍ+ Í+]S®CallExpressionÍ+ Í+\T°MemberExpressionÍ+ Í+CNªIdentifierÍ+ Í+.®NavDestinationNªIdentifierÍ+/Í+C´preferredOrientationÂÂ‘T°MemberExpressionÍ+DÍ+[V®ThisExpressionÍ+DÍ+HNªIdentifierÍ+IÍ+[²displayOrientationÂÂÂR³ExpressionStatementÍ+kÍ+°S®CallExpressionÍ+kÍ+¯T°MemberExpressionÍ+kÍ+‰NªIdentifierÍ+kÍ+y®NavDestinationNªIdentifierÍ+zÍ+‰¯enableStatusBarÂÂ‘S®CallExpressionÍ+ŠÍ+®T°MemberExpressionÍ+ŠÍ+¬NªIdentifierÍ+ŠÍ+•«WindowUtilsNªIdentifierÍ+–Í+¬¶isExpandedOrHalfFoldedÂÂÂÂR³ExpressionStatementÍ+¾Í,S®CallExpressionÍ+¾Í,T°MemberExpressionÍ+¾Í+æNªIdentifierÍ+¾Í+Ì®NavDestinationNªIdentifierÍ+ÍÍ+æ¹enableNavigationIndicatorÂÂ‘S®CallExpressionÍ+çÍ,T°MemberExpressionÍ+çÍ,	NªIdentifierÍ+çÍ+ò«WindowUtilsNªIdentifierÍ+óÍ,	¶isExpandedOrHalfFoldedÂÂÂÂR³ExpressionStatementÍ,Í,8S®CallExpressionÍ,Í,7T°MemberExpressionÍ,Í,/NªIdentifierÍ,Í,)®NavDestinationNªIdentifierÍ,*Í,/¥widthÂÂ‘P§LiteralÍ,0Í,6¤100%¦'100%'ÂR³ExpressionStatementÍ,FÍ,dS®CallExpressionÍ,FÍ,cT°MemberExpressionÍ,FÍ,[NªIdentifierÍ,FÍ,T®NavDestinationNªIdentifierÍ,UÍ,[¦heightÂÂ‘P§LiteralÍ,\Í,b¤100%¦'100%'ÂR³ExpressionStatementÍ,rÍ,¬S®CallExpressionÍ,rÍ,«T°MemberExpressionÍ,rÍ,NªIdentifierÍ,rÍ,€®NavDestinationNªIdentifierÍ,Í,¯backgroundColorÂÂ‘T°MemberExpressionÍ,‘Í,ªV®ThisExpressionÍ,‘Í,•NªIdentifierÍ,–Í,ª´videoBackgroundColorÂÂÂR³ExpressionStatementÍ,ºÍ,ÜS®CallExpressionÍ,ºÍ,ÛT°MemberExpressionÍ,ºÍ,ÕNªIdentifierÍ,ºÍ,È®NavDestinationNªIdentifierÍ,ÉÍ,Õ¬hideTitleBarÂÂ‘P§LiteralÍ,ÖÍ,ÚÃ¤trueÂR³ExpressionStatementÍ,êÍ-S®CallExpressionÍ,êÍ-
+T°MemberExpressionÍ,êÍ-NªIdentifierÍ,êÍ,ø®NavDestinationNªIdentifierÍ,ùÍ-«hideToolBarÂÂ‘P§LiteralÍ-Í-	Ã¤trueÂR³ExpressionStatementÍ-Í-lS®CallExpressionÍ-Í-kT°MemberExpressionÍ-Í-5NªIdentifierÍ-Í-'®NavDestinationNªIdentifierÍ-(Í-5­onBackPressedÂÂ‘M·ArrowFunctionExpressionÍ-6Í-jÀÂÂÂQ®BlockStatementÍ-<Í-j‘\¯ReturnStatementÍ-OÍ-[P§LiteralÍ-VÍ-ZÃ¤trueÂR³ExpressionStatementÍ-zÍ.BS®CallExpressionÍ-zÍ.AT°MemberExpressionÍ-zÍ-”NªIdentifierÍ-zÍ-ˆ®NavDestinationNªIdentifierÍ-‰Í-”«onDisAppearÂÂ‘M·ArrowFunctionExpressionÍ-•Í.@ÀÂÂÂQ®BlockStatementÍ-›Í.@‘U«IfStatementÍ-®Í.1a°BinaryExpressionÍ-²Í-ÆT°MemberExpressionÍ-²Í-½V®ThisExpressionÍ-²Í-¶NªIdentifierÍ-·Í-½¦pageIdÂÂ£!==P§LiteralÍ-ÂÍ-Æ¢-1¤'-1'Q®BlockStatementÍ-ÈÍ.1‘R³ExpressionStatementÍ-ßÍ.S®CallExpressionÍ-ßÍ.T°MemberExpressionÍ-ßÍ.S®CallExpressionÍ-ßÍ-ıT°MemberExpressionÍ-ßÍ-ûNªIdentifierÍ-ßÍ-ï°CustomTransitionNªIdentifierÍ-ğÍ-û«getInstanceÂÂÂNªIdentifierÍ-şÍ.²unRegisterNavParamÂÂ‘T°MemberExpressionÍ.Í.V®ThisExpressionÍ.Í.NªIdentifierÍ.Í.¦pageIdÂÂÂÀÂR³ExpressionStatementÍ.PÍ3ìS®CallExpressionÍ.PÍ3ëT°MemberExpressionÍ.PÍ.fNªIdentifierÍ.PÍ.^®NavDestinationNªIdentifierÍ._Í.f§onReadyÂÂ‘M·ArrowFunctionExpressionÍ.gÍ3êÀÂÂÂ‘NªIdentifierÍ.hÍ.k£ctxQ®BlockStatementÍ.pÍ3ê‘U«IfStatementÍ.ƒÍ3 T°MemberExpressionÍ.‡Í.›NªIdentifierÍ.‡Í.Š£ctxNªIdentifierÍ.‹Í.›°navDestinationIdÂÂQ®BlockStatementÍ.Í3 –R³ExpressionStatementÍ.´Í.×]´AssignmentExpressionÍ.´Í.Ö¡=T°MemberExpressionÍ.´Í.¿V®ThisExpressionÍ.´Í.¸NªIdentifierÍ.¹Í.¿¦pageIdÂÂT°MemberExpressionÍ.ÂÍ.ÖNªIdentifierÍ.ÂÍ.Å£ctxNªIdentifierÍ.ÆÍ.Ö°navDestinationIdÂÂR³ExpressionStatementÍ.íÍ/]´AssignmentExpressionÍ.íÍ/¡=T°MemberExpressionÍ.íÍ.÷V®ThisExpressionÍ.íÍ.ñNªIdentifierÍ.òÍ.÷¥stackÂÂT°MemberExpressionÍ.úÍ/NªIdentifierÍ.úÍ.ı£ctxNªIdentifierÍ.şÍ/©pathStackÂÂW³VariableDeclarationÍ/Í/=‘X²VariableDeclaratorÍ/"Í/<NªIdentifierÍ/"Í/'¥paramT°MemberExpressionÍ/*Í/<T°MemberExpressionÍ/*Í/6NªIdentifierÍ/*Í/-£ctxNªIdentifierÍ/.Í/6¨pathInfoÂÂNªIdentifierÍ/7Í/<¥paramÂÂ£letR³ExpressionStatementÍ/SÍ/z]´AssignmentExpressionÍ/SÍ/y¡=T°MemberExpressionÍ/SÍ/dV®ThisExpressionÍ/SÍ/WNªIdentifierÍ/XÍ/d¬nodeRectInfoÂÂT°MemberExpressionÍ/gÍ/yNªIdentifierÍ/gÍ/l¥paramNªIdentifierÍ/mÍ/y¬nodeRectInfoÂÂR³ExpressionStatementÍ/Í/Ë]´AssignmentExpressionÍ/Í/Ê¡=T°MemberExpressionÍ/Í/®V®ThisExpressionÍ/Í/”NªIdentifierÍ/•Í/®¹prePageDoFinishTransitionÂÂT°MemberExpressionÍ/±Í/ÊNªIdentifierÍ/±Í/¶¥paramNªIdentifierÍ/·Í/Ê³DoDefaultTransitionÂÂR³ExpressionStatementÍ0aÍ3\S®CallExpressionÍ0aÍ3[T°MemberExpressionÍ0aÍ0S®CallExpressionÍ0aÍ0T°MemberExpressionÍ0aÍ0}NªIdentifierÍ0aÍ0q°CustomTransitionNªIdentifierÍ0rÍ0}«getInstanceÂÂÂNªIdentifierÍ0€Í0°registerNavParamÂÂ“T°MemberExpressionÍ0‘Í0œV®ThisExpressionÍ0‘Í0•NªIdentifierÍ0–Í0œ¦pageIdÂÂM·ArrowFunctionExpressionÍ0Í3TÀÂÂÂ“NªIdentifierÍ0ŸÍ0¥¦isPushNªIdentifierÍ0§Í0­¦isExitNªIdentifierÍ0¯Í0¾¯transitionProxyQ®BlockStatementÍ0ÃÍ3T‘U«IfStatementÍ0ŞÍ3=S®CallExpressionÍ0âÍ1T°MemberExpressionÍ0âÍ1NªIdentifierÍ0âÍ0í«WindowUtilsNªIdentifierÍ0îÍ1¶isExpandedOrHalfFoldedÂÂÂQ®BlockStatementÍ1Í2‘R³ExpressionStatementÍ1yÍ1úS®CallExpressionÍ1yÍ1ùT°MemberExpressionÍ1yÍ1¥T°MemberExpressionÍ1yÍ1‘V®ThisExpressionÍ1yÍ1}NªIdentifierÍ1~Í1‘³animationPropertiesÂÂNªIdentifierÍ1’Í1¥³doAnimationFoldableÂÂ•T°MemberExpressionÍ1¦Í1·V®ThisExpressionÍ1¦Í1ªNªIdentifierÍ1«Í1·¬nodeRectInfoÂÂNªIdentifierÍ1¹Í1¿¦isPushNªIdentifierÍ1ÁÍ1Ç¦isExitNªIdentifierÍ1ÉÍ1Ø¯transitionProxyT°MemberExpressionÍ1ÚÍ1øV®ThisExpressionÍ1ÚÍ1ŞNªIdentifierÍ1ßÍ1ø¹prePageDoFinishTransitionÂÂÂQ®BlockStatementÍ24Í3=‘R³ExpressionStatementÍ2©Í3"S®CallExpressionÍ2©Í3!T°MemberExpressionÍ2©Í2ÍT°MemberExpressionÍ2©Í2ÁV®ThisExpressionÍ2©Í2­NªIdentifierÍ2®Í2Á³animationPropertiesÂÂNªIdentifierÍ2ÂÍ2Í«doAnimationÂÂ•T°MemberExpressionÍ2ÎÍ2ßV®ThisExpressionÍ2ÎÍ2ÒNªIdentifierÍ2ÓÍ2ß¬nodeRectInfoÂÂNªIdentifierÍ2áÍ2ç¦isPushNªIdentifierÍ2éÍ2ï¦isExitNªIdentifierÍ2ñÍ3 ¯transitionProxyT°MemberExpressionÍ3Í3 V®ThisExpressionÍ3Í3NªIdentifierÍ3Í3 ¹prePageDoFinishTransitionÂÂÂP§LiteralÍ3VÍ3ZÍĞ¤2000ÂÀÂNªIdentifierÍ3ùÍ4®NavDestinationÂR³ExpressionStatementÍ4Í4(S®CallExpressionÍ4Í4'T°MemberExpressionÍ4Í4%NªIdentifierÍ4Í4!®NavDestinationNªIdentifierÍ4"Í4%£popÂÂÂ_°MethodDefinitionÍ45Í4mÂÂNªIdentifierÍ45Í4=¨rerender¦methodM²FunctionExpressionÍ4=Í4mÀÂÂÂQ®BlockStatementÍ4@Í4m‘R³ExpressionStatementÍ4KÍ4fS®CallExpressionÍ4KÍ4eT°MemberExpressionÍ4KÍ4cV®ThisExpressionÍ4KÍ4ONªIdentifierÍ4PÍ4c³updateDirtyElementsÂÂÂÀ˜Ôrh•¤type¥start£endªspecifiers¦source±ImportDeclarationÌ€ÌÄ‘Ôri•¤type¥start£end¨imported¥local¯ImportSpecifierÌ‰ÌœNªIdentifierÌ‰Ìœ³AnimationPropertiesNªIdentifierÌ‰Ìœ³AnimationPropertiesP§LiteralÌ¤ÌÃ½../common/AnimationProperties¿'../common/AnimationProperties'h±ImportDeclarationÌÆÍ‘i¯ImportSpecifierÌÏÌÛNªIdentifierÌÏÌÛ¬RectInfoInPxNªIdentifierÌÏÌÛ¬RectInfoInPxP§LiteralÌãÍ »../utils/ComponentAttrUtils½'../utils/ComponentAttrUtils'h±ImportDeclarationÍÍA‘i¯ImportSpecifierÍÍNªIdentifierÍÍ°CustomTransitionNªIdentifierÍÍ°CustomTransitionP§LiteralÍ$Í@º../common/CustomTransition¼'../common/CustomTransition'h±ImportDeclarationÍCÍ‡‘i¯ImportSpecifierÍLÍ_NªIdentifierÍLÍ_³VideoNodeControllerNªIdentifierÍLÍ_³VideoNodeControllerP§LiteralÍgÍ†½../common/VideoNodeController¿'../common/VideoNodeController'h±ImportDeclarationÍ‰Í­‘Ôrj”¤type¥start£end¥local¶ImportDefaultSpecifierÍÍ—NªIdentifierÍÍ—§displayP§LiteralÍÍ¬­@ohos.display¯"@ohos.display"h±ImportDeclarationÍ¯ÍÑ‘j¶ImportDefaultSpecifierÍ¶Í¼NªIdentifierÍ¶Í¼¦windowP§LiteralÍÂÍĞ¬@ohos.window®"@ohos.window"h±ImportDeclarationÍÓÍ‘i¯ImportSpecifierÍÜÍçNªIdentifierÍÜÍç«WindowUtilsNªIdentifierÍÜÍç«WindowUtilsP§LiteralÍïÍ´../utils/WindowUtils¶'../utils/WindowUtils'h±ImportDeclarationÍÍ.‘j¶ImportDefaultSpecifierÍÍNªIdentifierÍÍ¦LoggerP§LiteralÍÍ-°../common/Logger²'../common/Logger'

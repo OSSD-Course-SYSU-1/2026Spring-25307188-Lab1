@@ -1,0 +1,1101 @@
+Ôr@Ÿªassertions¤code´customTransformCache¬dependencies¢id¤meta±moduleSideEffects¬originalCode±originalSourcemap«resolvedIds®sourcemapChainµsyntheticNamedExportsµtransformDependencies®transformFiles¨cacheAstÔrAÚm–if (!("finalizeConstruction" in ViewPU.prototype)) {
+    Reflect.set(ViewPU.prototype, "finalizeConstruction", () => { });
+}
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import display from "@ohos.display";
+/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import window from "@ohos.window";
+import settings from "@ohos.settings";
+import { AVPlayerUtil } from '../utils/AVPlayerUtil';
+import Logger from '../common/Logger';
+import { WindowUtils } from '../utils/WindowUtils';
+import { getVideoSize } from '../common/CommonUtils';
+const TAG = 'VideoPlayViewLogTag';
+export class VideoPlayView extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__statusBarHeight = this.createStorageLink('statusBarHeight', 0, "statusBarHeight");
+        this.__navStack = this.initializeConsume("navStack", "navStack", null);
+        this.__aspect = new ObservedPropertySimplePU(16 / 9, this, "aspect");
+        this.__xComponentWidth = new ObservedPropertySimplePU(0, this, "xComponentWidth");
+        this.__xComponentHeight = new ObservedPropertySimplePU(0, this, "xComponentHeight");
+        this.__windowHeight = new ObservedPropertySimplePU(0, this, "windowHeight");
+        this.__windowWidth = new ObservedPropertySimplePU(0, this, "windowWidth");
+        this.__isLandscape = this.createStorageLink('isLandscape', false, "isLandscape");
+        this.__isVideoLock = this.createStorageLink('isVideoLock', false, "isVideoLock");
+        this.__orientationLockState = new ObservedPropertySimplePU('1', this, "orientationLockState");
+        this.xComponentController = new XComponentController();
+        this.player = undefined;
+        this.windowClass = undefined;
+        this.context = this.getUIContext().getHostContext();
+        this.onBackPressedCall = () => {
+            return true;
+        };
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.aspect !== undefined) {
+            this.aspect = params.aspect;
+        }
+        if (params.xComponentWidth !== undefined) {
+            this.xComponentWidth = params.xComponentWidth;
+        }
+        if (params.xComponentHeight !== undefined) {
+            this.xComponentHeight = params.xComponentHeight;
+        }
+        if (params.windowHeight !== undefined) {
+            this.windowHeight = params.windowHeight;
+        }
+        if (params.windowWidth !== undefined) {
+            this.windowWidth = params.windowWidth;
+        }
+        if (params.orientationLockState !== undefined) {
+            this.orientationLockState = params.orientationLockState;
+        }
+        if (params.xComponentController !== undefined) {
+            this.xComponentController = params.xComponentController;
+        }
+        if (params.player !== undefined) {
+            this.player = params.player;
+        }
+        if (params.windowClass !== undefined) {
+            this.windowClass = params.windowClass;
+        }
+        if (params.context !== undefined) {
+            this.context = params.context;
+        }
+        if (params.onBackPressedCall !== undefined) {
+            this.onBackPressedCall = params.onBackPressedCall;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__statusBarHeight.purgeDependencyOnElmtId(rmElmtId);
+        this.__navStack.purgeDependencyOnElmtId(rmElmtId);
+        this.__aspect.purgeDependencyOnElmtId(rmElmtId);
+        this.__xComponentWidth.purgeDependencyOnElmtId(rmElmtId);
+        this.__xComponentHeight.purgeDependencyOnElmtId(rmElmtId);
+        this.__windowHeight.purgeDependencyOnElmtId(rmElmtId);
+        this.__windowWidth.purgeDependencyOnElmtId(rmElmtId);
+        this.__isLandscape.purgeDependencyOnElmtId(rmElmtId);
+        this.__isVideoLock.purgeDependencyOnElmtId(rmElmtId);
+        this.__orientationLockState.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__statusBarHeight.aboutToBeDeleted();
+        this.__navStack.aboutToBeDeleted();
+        this.__aspect.aboutToBeDeleted();
+        this.__xComponentWidth.aboutToBeDeleted();
+        this.__xComponentHeight.aboutToBeDeleted();
+        this.__windowHeight.aboutToBeDeleted();
+        this.__windowWidth.aboutToBeDeleted();
+        this.__isLandscape.aboutToBeDeleted();
+        this.__isVideoLock.aboutToBeDeleted();
+        this.__orientationLockState.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get statusBarHeight() {
+        return this.__statusBarHeight.get();
+    }
+    set statusBarHeight(newValue) {
+        this.__statusBarHeight.set(newValue);
+    }
+    get navStack() {
+        return this.__navStack.get();
+    }
+    set navStack(newValue) {
+        this.__navStack.set(newValue);
+    }
+    get aspect() {
+        return this.__aspect.get();
+    }
+    set aspect(newValue) {
+        this.__aspect.set(newValue);
+    }
+    get xComponentWidth() {
+        return this.__xComponentWidth.get();
+    }
+    set xComponentWidth(newValue) {
+        this.__xComponentWidth.set(newValue);
+    }
+    get xComponentHeight() {
+        return this.__xComponentHeight.get();
+    }
+    set xComponentHeight(newValue) {
+        this.__xComponentHeight.set(newValue);
+    }
+    get windowHeight() {
+        return this.__windowHeight.get();
+    }
+    set windowHeight(newValue) {
+        this.__windowHeight.set(newValue);
+    }
+    get windowWidth() {
+        return this.__windowWidth.get();
+    }
+    set windowWidth(newValue) {
+        this.__windowWidth.set(newValue);
+    }
+    get isLandscape() {
+        return this.__isLandscape.get();
+    }
+    set isLandscape(newValue) {
+        this.__isLandscape.set(newValue);
+    }
+    get isVideoLock() {
+        return this.__isVideoLock.get();
+    }
+    set isVideoLock(newValue) {
+        this.__isVideoLock.set(newValue);
+    }
+    get orientationLockState() {
+        return this.__orientationLockState.get();
+    }
+    set orientationLockState(newValue) {
+        this.__orientationLockState.set(newValue);
+    }
+    // [EndExclude set_orientation]
+    aboutToAppear() {
+        // [StartExclude set_orientation]
+        // Status bar rotation lock switch status
+        this.getOrientationLockState();
+        try {
+            // [EndExclude set_orientation]
+            this.windowClass = this.context.windowStage.getMainWindowSync(); // Obtains the window instance
+            // [StartExclude set_orientation]
+            // Initialize window orientation
+            this.setOrientation(window.Orientation.USER_ROTATION_PORTRAIT);
+            this.windowHeight = this.getUIContext().px2vp(this.windowClass.getWindowProperties().windowRect.height);
+            this.windowWidth = this.getUIContext().px2vp(this.windowClass.getWindowProperties().windowRect.width);
+            this.setXComponentSize();
+            // [Start on_window_size_change]
+            // [Start calculate_video_size]
+            // [Start on_window_size_change_detail]
+            // Listen for window size changes.
+            this.windowClass.on('windowSizeChange', (size) => {
+                // [StartExclude on_window_size_change]
+                // Detect screen orientation in the window resize listener
+                this.windowHeight = this.getUIContext().px2vp(size.height);
+                this.windowWidth = this.getUIContext().px2vp(size.width);
+                this.setXComponentSize();
+                // [StartExclude calculate_video_size]
+                let displayClass = display.getDefaultDisplaySync();
+                let orientation = displayClass.orientation;
+                if (orientation === display.Orientation.LANDSCAPE || orientation === display.Orientation.LANDSCAPE_INVERTED) {
+                    // Set full-screen playback to true in landscape mode
+                    this.isLandscape = true;
+                }
+                else {
+                    if (!WindowUtils.isExpandedOrHalfFolded() && !this.isVideoLock) {
+                        // When not expanded and unlocked, set the fullscreen playback flag to false
+                        this.isLandscape = false;
+                        this.setOrientation(window.Orientation.USER_ROTATION_PORTRAIT);
+                    }
+                }
+                // Folded mode landscape playback, set to auto-rotate with the sensor
+                if (this.isLandscape && WindowUtils.isFolded() && this.isVideoLock) {
+                    this.setOrientation(window.Orientation.AUTO_ROTATION_LANDSCAPE);
+                }
+                // Play in full-screen mode and set to rotate automatically according to the sensor
+                if (this.isLandscape && WindowUtils.isExpandedOrHalfFolded()) {
+                    this.setOrientation(window.Orientation.AUTO_ROTATION);
+                }
+                // [EndExclude calculate_video_size]
+                // [EndExclude on_window_size_change]
+            });
+            // [End on_window_size_change_detail]
+            // [End calculate_video_size]
+            // [End on_window_size_change]
+        }
+        catch (err) {
+            let error = err;
+            Logger.error(TAG, `aboutToAppear err, error code: ${error.code}, error message: ${error.message}`);
+        }
+        // [EndExclude set_orientation]
+    }
+    // [StartExclude set_orientation]
+    setXComponentSize() {
+        let videoSize = getVideoSize(this.windowHeight, this.windowWidth, this.aspect);
+        this.xComponentHeight = videoSize.height;
+        this.xComponentWidth = videoSize.width;
+    }
+    // [EndExclude set_orientation]
+    // Set window orientation.
+    setOrientation(orientation) {
+        // Encapsulates the setPreferredOrientation interface
+        this.windowClass?.setPreferredOrientation(orientation).then(() => {
+            Logger.info(`setWin0dowOrientation ${orientation} Succeeded`);
+        }).catch((err) => {
+            let error = err;
+            Logger.error(TAG, `setWindowOrientation ${orientation} err, code: ${error.code}, message: ${error.message}`);
+        });
+    }
+    // [StartExclude set_orientation]
+    getOrientationLockState() {
+        // Get the rotation lock on state
+        this.orientationLockState = settings.getValueSync(this.context, settings.general.ACCELEROMETER_ROTATION_STATUS, settings.domainName.DEVICE_SHARED);
+        // [Start lock_status_change]
+        // Monitor the status of the rotation lock switch in the status bar
+        settings.registerKeyObserver(this.context, settings.general.ACCELEROMETER_ROTATION_STATUS, settings.domainName.DEVICE_SHARED, () => {
+            this.orientationLockState =
+                settings.getValueSync(this.context, settings.general.ACCELEROMETER_ROTATION_STATUS, settings.domainName.DEVICE_SHARED);
+        });
+        // [End lock_status_change]
+    }
+    aboutToDisappear() {
+        settings.unregisterKeyObserver(this.context, settings.general.ACCELEROMETER_ROTATION_STATUS, settings.domainName.DEVICE_SHARED);
+        this.player?.release();
+        this.setOrientation(window.Orientation.PORTRAIT);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Stack.create();
+            Stack.width('100%');
+            Stack.backgroundColor({ "id": 125831015, "type": 10001, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" });
+            Stack.height(this.isLandscape ? '100%' : this.xComponentHeight + this.statusBarHeight);
+            Stack.backgroundColor(Color.Black);
+            Stack.padding({ top: this.isLandscape ? 0 : this.statusBarHeight });
+        }, Stack);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Column.create();
+        }, Column);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            // [Start X_component]
+            // [Start X_component_size]
+            XComponent.create({ id: 'video_player_id', type: XComponentType.SURFACE, controller: this.xComponentController }, "com.example.landscapeportraittoggle/entry");
+            // [Start X_component]
+            // [Start X_component_size]
+            XComponent.onLoad(() => {
+                // [StartExclude X_component]
+                try {
+                    this.player = new AVPlayerUtil(this.context);
+                    this.player.setSurfaceId(this.xComponentController.getXComponentSurfaceId());
+                    this.player.initPlayer('videoTest.mp4', (aspect) => {
+                        this.aspect = aspect;
+                        this.setXComponentSize();
+                    });
+                }
+                catch (err) {
+                    let error = err;
+                    Logger.error(TAG, `initPlayer err, error code: ${error.code}, error message: ${error.message}`);
+                }
+                // [EndExclude X_component]
+            });
+            // [Start X_component]
+            // [Start X_component_size]
+            XComponent.width(this.xComponentWidth);
+            // [Start X_component]
+            // [Start X_component_size]
+            XComponent.height(this.xComponentHeight);
+        }, XComponent);
+        Column.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            RelativeContainer.create();
+            RelativeContainer.width('100%');
+            RelativeContainer.height('100%');
+        }, RelativeContainer);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            If.create();
+            if (!this.isVideoLock) {
+                this.ifElseBranchUpdateFunction(0, () => {
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        // [Start icon_back]
+                        Button.createWithChild({ type: ButtonType.Circle });
+                        // [Start icon_back]
+                        Button.height(40);
+                        // [Start icon_back]
+                        Button.aspectRatio(1);
+                        // [Start icon_back]
+                        Button.backgroundColor('#19FFFFFF');
+                        // [Start icon_back]
+                        Button.margin({
+                            left: 16,
+                            top: this.isLandscape ? this.statusBarHeight : 8
+                        });
+                        // [Start icon_back]
+                        Button.onClick(() => {
+                            // Exit the current page if not in landscape mode
+                            if (!this.isLandscape) {
+                                this.navStack?.pop();
+                                return;
+                            }
+                            // [StartExclude icon_back]
+                            if (WindowUtils.isExpandedOrHalfFolded()) {
+                                this.isLandscape = false;
+                            }
+                            else {
+                                // [EndExclude icon_back]
+                                // Set the window orientation to portrait
+                                this.setOrientation(window.Orientation.USER_ROTATION_PORTRAIT);
+                                // [StartExclude icon_back]
+                            }
+                            // [EndExclude icon_back]
+                        });
+                    }, Button);
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        SymbolGlyph.create({ "id": 125833534, "type": 40000, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" });
+                        SymbolGlyph.fontColor([{ "id": 125831057, "type": 10001, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" }]);
+                        SymbolGlyph.fontSize({ "id": 125830965, "type": 10002, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" });
+                    }, SymbolGlyph);
+                    // [Start icon_back]
+                    Button.pop();
+                });
+            }
+            else {
+                this.ifElseBranchUpdateFunction(1, () => {
+                });
+            }
+        }, If);
+        If.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            If.create();
+            if (this.isLandscape) {
+                this.ifElseBranchUpdateFunction(0, () => {
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        // [Start is_video_lock_image]
+                        Image.create(this.isVideoLock ? { "id": 16777244, "type": 20000, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" } : { "id": 16777245, "type": 20000, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" });
+                        // [Start is_video_lock_image]
+                        Image.height(24);
+                        // [Start is_video_lock_image]
+                        Image.width(24);
+                        // [Start is_video_lock_image]
+                        Image.fillColor(Color.White);
+                        // [Start is_video_lock_image]
+                        Image.alignRules({
+                            top: { anchor: '__container__', align: VerticalAlign.Center },
+                            left: { anchor: '__container__', align: HorizontalAlign.Start }
+                        });
+                        // [Start is_video_lock_image]
+                        Image.margin({ left: this.statusBarHeight });
+                        // [Start is_video_lock_image]
+                        Image.offset({ y: -12 });
+                        // [Start is_video_lock_image]
+                        Image.onClick(() => {
+                            // Set video lock status
+                            this.isVideoLock = !this.isVideoLock;
+                            // [StartExclude is_video_lock_image]
+                            // If the device is in an expanded state or the rotation lock in the status bar is turned on,
+                            // the window rotation policy will not be changed.
+                            if (WindowUtils.isExpandedOrHalfFolded() || this.orientationLockState === '0') {
+                                return;
+                            }
+                            // [EndExclude is_video_lock_image]
+                            // [Start is_video_lock]
+                            if (this.isVideoLock) {
+                                // If landscape mode is locked, then set to AUTO_ROTATION_LANDSCAPE.
+                                this.setOrientation(window.Orientation.AUTO_ROTATION_LANDSCAPE);
+                            }
+                            else {
+                                // Otherwise, set the window orientation to auto-rotate.
+                                this.setOrientation(window.Orientation.AUTO_ROTATION);
+                            }
+                            // [End is_video_lock]
+                        });
+                    }, Image);
+                });
+            }
+            else {
+                this.ifElseBranchUpdateFunction(1, () => {
+                });
+            }
+        }, If);
+        If.pop();
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            If.create();
+            if (!this.isLandscape) {
+                this.ifElseBranchUpdateFunction(0, () => {
+                    this.observeComponentCreation2((elmtId, isInitialRender) => {
+                        // [Start icon_zoom_in]
+                        SymbolGlyph.create({ "id": 125832700, "type": 40000, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" });
+                        // [Start icon_zoom_in]
+                        SymbolGlyph.fontColor([{ "id": 125831057, "type": 10001, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" }]);
+                        // [Start icon_zoom_in]
+                        SymbolGlyph.fontSize(24);
+                        // [Start icon_zoom_in]
+                        SymbolGlyph.alignRules({
+                            bottom: { anchor: '__container__', align: VerticalAlign.Bottom },
+                            right: { anchor: '__container__', align: HorizontalAlign.End }
+                        });
+                        // [Start icon_zoom_in]
+                        SymbolGlyph.margin({
+                            right: 16,
+                            bottom: 8
+                        });
+                        // [Start icon_zoom_in]
+                        SymbolGlyph.onClick(() => {
+                            if (WindowUtils.isExpandedOrHalfFolded()) {
+                                // When the device is folded or half-folded,
+                                // the playback mode is set to landscape mode, and the window rotation is set to auto-rotate.
+                                this.isLandscape = true;
+                                this.setOrientation(window.Orientation.AUTO_ROTATION);
+                            }
+                            else {
+                                // In a non-expanded state, such as when folded, set the window orientation to landscape.
+                                this.setOrientation(window.Orientation.USER_ROTATION_LANDSCAPE);
+                            }
+                        });
+                    }, SymbolGlyph);
+                });
+            }
+            else {
+                this.ifElseBranchUpdateFunction(1, () => {
+                });
+            }
+        }, If);
+        If.pop();
+        RelativeContainer.pop();
+        Stack.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+class VideoDetailView extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        if (super["initAllowComponentFreeze"] && typeof super["initAllowComponentFreeze"] === "function") {
+            super["initAllowComponentFreeze"](true);
+        }
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+    }
+    aboutToBeDeleted() {
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Scroll.create();
+        }, Scroll);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            // [StartExclude freeze_when_inactive]
+            Text.create('Hello');
+            // [StartExclude freeze_when_inactive]
+            Text.fontSize(14);
+            // [StartExclude freeze_when_inactive]
+            Text.fontColor({ "id": 125830998, "type": 10001, params: [], "bundleName": "com.example.landscapeportraittoggle", "moduleName": "entry" });
+        }, Text);
+        // [StartExclude freeze_when_inactive]
+        Text.pop();
+        Scroll.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+// [End freeze_when_inactive]
+// [Start Image_item]
+function ImageItem(imageSrc, parent = null) {
+    const __imageSrc__ = imageSrc;
+    (parent ? parent : this).observeComponentCreation2((elmtId, isInitialRender, imageSrc = __imageSrc__) => {
+        Stack.create({});
+    }, Stack);
+    (parent ? parent : this).observeComponentCreation2((elmtId, isInitialRender, imageSrc = __imageSrc__) => {
+        Image.create(imageSrc);
+        Image.width('100%');
+        Image.height('100%');
+        Image.autoResize(true);
+        Image.borderRadius(8);
+        Image.objectFit(ImageFit.Fill);
+        Image.backgroundColor('#1AFFFFFF');
+    }, Image);
+    Stack.pop();
+}
+class TabsView extends ViewPU {
+    constructor(parent, params, __localStorage, elmtId = -1, paramsLambda = undefined, extraInfo) {
+        super(parent, __localStorage, elmtId, extraInfo);
+        if (typeof paramsLambda === "function") {
+            this.paramsGenerator_ = paramsLambda;
+        }
+        this.__isLayoutFullScreen = new ObservedPropertySimplePU(false, this, "isLayoutFullScreen");
+        this.setInitiallyProvidedValue(params);
+        this.finalizeConstruction();
+    }
+    setInitiallyProvidedValue(params) {
+        if (params.isLayoutFullScreen !== undefined) {
+            this.isLayoutFullScreen = params.isLayoutFullScreen;
+        }
+    }
+    updateStateVars(params) {
+    }
+    purgeVariableDependenciesOnElmtId(rmElmtId) {
+        this.__isLayoutFullScreen.purgeDependencyOnElmtId(rmElmtId);
+    }
+    aboutToBeDeleted() {
+        this.__isLayoutFullScreen.aboutToBeDeleted();
+        SubscriberManager.Get().delete(this.id__());
+        this.aboutToBeDeletedInternal();
+    }
+    get isLayoutFullScreen() {
+        return this.__isLayoutFullScreen.get();
+    }
+    set isLayoutFullScreen(newValue) {
+        this.__isLayoutFullScreen.set(newValue);
+    }
+    initialRender() {
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            Tabs.create();
+            Tabs.barHeight(this.isLayoutFullScreen ? 0 : 50);
+        }, Tabs);
+        this.observeComponentCreation2((elmtId, isInitialRender) => {
+            TabContent.create(() => {
+                this.observeComponentCreation2((elmtId, isInitialRender) => {
+                    Text.create('Hello');
+                    Text.fontWeight(FontWeight.Regular);
+                    Text.fontColor(Color.Red);
+                }, Text);
+                Text.pop();
+            });
+        }, TabContent);
+        TabContent.pop();
+        Tabs.pop();
+    }
+    rerender() {
+        this.updateDirtyElements();
+    }
+}
+//# sourceMappingURL=VideoPlayView.js.mapÂ—Ùg hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.display.d.tsÙf hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.window.d.tsÙh hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.settings.d.tsÙKC:\LandscapePortraitToggle-master\entry\src\main\ets\utils\AVPlayerUtil.etsÙFC:\LandscapePortraitToggle-master\entry\src\main\ets\common\Logger.etsÙJC:\LandscapePortraitToggle-master\entry\src\main\ets\utils\WindowUtils.etsÙKC:\LandscapePortraitToggle-master\entry\src\main\ets\common\CommonUtils.etsÙWC:\LandscapePortraitToggle-master\entry\src\main\ets\transitioninpage\VideoPlayView.etsÔrBœªmoduleName±isLocalDependency¯isNodeEntryFile§pkgPath±belongProjectPath§pkgNameªpkgVersion±dependencyPkgInfo¯hostModulesInfo°belongModulePath§checker¬shouldEmitJs¥entryÃÂÙ'C:\LandscapePortraitToggle-master\entryÙ!C:\LandscapePortraitToggle-master¥entry¥1.0.0Ô  ‘ÔrC’²hostDependencyName®hostModuleName¯./VideoPlayView¥entryÙ'C:\LandscapePortraitToggle-master\entryÔrDÜ ®¬getNodeCount²getIdentifierCount®getSymbolCount¬getTypeCountµgetInstantiationCountµgetRelationCacheSizes±isUndefinedSymbol±isArgumentsSymbol¯isUnknownSymbol¯getMergedSymbol®getDiagnostics´getGlobalDiagnostics´getRecursionIdentity¶getUnmatchedProperties¹getTypeOfSymbolAtLocation¯getTypeOfSymbolÙ(getSymbolsOfParameterPropertyDeclaration·getDeclaredTypeOfSymbol³getPropertiesOfType±getPropertyOfTypeÙ"getPrivateIdentifierPropertyOfType·getTypeOfPropertyOfType²getIndexInfoOfType³getIndexInfosOfTypeºgetIndexInfosOfIndexSymbol³getSignaturesOfType²getIndexTypeOfType¬getIndexType¬getBaseTypes¸getBaseTypeOfLiteralType®getWidenedType³getTypeFromTypeNode°getParameterTypeÙ$getParameterIdentifierNameAtPosition¸getPromisedTypeOfPromise®getAwaitedType¸getReturnTypeOfSignature®isNullableType¯getNullableType²getNonNullableType²getNonOptionalType°getTypeArguments®typeToTypeNodeÙ$indexInfoToIndexSignatureDeclaration¿signatureToSignatureDeclaration²symbolToEntityName²symbolToExpression¬symbolToNodeÙ!symbolToTypeParameterDeclarations¼symbolToParameterDeclarationºtypeParameterToDeclaration±getSymbolsInScope³getSymbolAtLocation·getIndexInfosAtLocationÙ!getShorthandAssignmentValueSymbolÙ#getExportSpecifierLocalTargetSymbol·getExportSymbolOfSymbol±getTypeAtLocationºgetTypeAtLocationForLinterÙ tryGetTypeAtLocationWithoutCheckºgetTypeOfAssignmentPatternÙ*getPropertySymbolOfDestructuringAssignment±signatureToString¬typeToString®symbolToStringµtypePredicateToString®writeSignature©writeType«writeSymbol²writeTypePredicate¼getAugmentedPropertiesOfType®getRootSymbols²getSymbolOfExpando±getContextualTypeÙ(getContextualTypeForObjectLiteralElementÙ#getContextualTypeForArgumentAtIndexÙ getContextualTypeForJsxAttribute²isContextSensitiveÙ!getTypeOfPropertyOfContextualTypeµgetFullyQualifiedNameÙ#tryGetResolvedSignatureWithoutCheck´getResolvedSignatureÙ/getResolvedSignatureForStringLiteralCompletionsÙ$getResolvedSignatureForSignatureHelpµgetExpandedParameters¹hasEffectiveRestParameterºcontainsArgumentsReference°getConstantValueµisValidPropertyAccessÙ#isValidPropertyAccessForCompletions»getSignatureFromDeclarationºisImplementationOfOverload¹getImmediateAliasedSymbol°getAliasedSymbol¯getEmitResolver²getExportsOfModule¿getExportsAndPropertiesOfModuleÙ forEachExportAndPropertyOfModule¯getSymbolWalker±getAmbientModules¹getJsxIntrinsicTagNamesAt³isOptionalParameter»tryGetMemberInModuleExportsÙ(tryGetMemberInModuleExportsAndProperties´tryFindAmbientModuleÙ(tryFindAmbientModuleWithoutAugmentations¯getApparentType¬getUnionType²isTypeAssignableTo³createAnonymousType¯createSignature¬createSymbol¯createIndexInfoªgetAnyType­getStringType­getNumberType±createPromiseType¯createArrayType¹getElementTypeOfArrayType®getBooleanType¬getFalseType«getTrueType«getVoidType°getUndefinedType«getNullType¯getESSymbolType¬getNeverType¯getOptionalType®getPromiseType²getPromiseLikeType´getAsyncIterableType²isSymbolAccessible«isArrayType«isTupleType¯isArrayLikeTypeÙ#isTypeInvalidDueToUnionDiscriminantºgetExactOptionalProperties¿getAllPossiblePropertiesOfTypesÙ(getSuggestedSymbolForNonexistentPropertyÙ#getSuggestionForNonexistentPropertyÙ,getSuggestedSymbolForNonexistentJSXAttributeÙ&getSuggestedSymbolForNonexistentSymbolÙ!getSuggestionForNonexistentSymbolÙ&getSuggestedSymbolForNonexistentModuleÙ!getSuggestionForNonexistentExportÙ+getSuggestedSymbolForNonexistentClassMember·getBaseConstraintOfType»getDefaultFromTypeParameter«resolveName¯getJsxNamespaceµgetJsxFragmentFactory¸getAccessibleSymbolChain»getTypePredicateOfSignature¹resolveExternalModuleName»resolveExternalModuleSymbol°tryGetThisTypeAt¹getTypeArgumentConstraint¸getSuggestionDiagnostics¸runWithCancellationTokenÙ3getLocalTypeParametersOfClassOrInterfaceOrTypeAlias´isDeclarationVisible´isPropertyAccessible»getTypeOnlyAliasDeclaration¿getMemberOverrideModifierStatusÙ!isTypeParameterPossiblyReferenced²getConstEnumRelate´clearConstEnumRelateµdeleteConstEnumRelateÙ$getTypeArgumentsForResolvedSignatureµgetCheckedSourceFilesÙ"collectHaveTsNoCheckFilesForLinter·clearQualifiedNameCache®isStaticRecord²isStaticSourceFileÔ  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  Ô  ÃÃÚ6/*
+ * Copyright (c) 2026 Huawei Device Co., Ltd.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { display, window } from '@kit.ArkUI'
+import { common } from '@kit.AbilityKit'
+import { BusinessError, settings } from '@kit.BasicServicesKit'
+import { AVPlayerUtil } from '../utils/AVPlayerUtil'
+import Logger from '../common/Logger'
+import { WindowUtils } from '../utils/WindowUtils'
+import { getVideoSize } from '../common/CommonUtils'
+
+const TAG = 'VideoPlayViewLogTag';
+
+// [Start set_orientation]
+@Component
+export struct VideoPlayView {
+  // [StartExclude set_orientation]
+  @StorageLink('statusBarHeight') statusBarHeight: number = 0;
+  @Consume navStack: NavPathStack | null = null;
+  @State aspect: number = 16 / 9; // default video height/width ratio value
+  // [Start xComponent_size]
+  @State xComponentWidth: number = 0;
+  @State xComponentHeight: number = 0;
+  // [End xComponent_size]
+  @State windowHeight: number = 0;
+  @State windowWidth: number = 0;
+  @StorageLink('isLandscape') isLandscape: boolean = false; // Whether it is in full-screen playback state
+  @StorageLink('isVideoLock') isVideoLock: boolean = false; // Whether the video playback is locked
+  @State orientationLockState: string = '1'; // control center switch rotation ,value 1:enable 0ï¼šdisable
+  private xComponentController: XComponentController = new XComponentController();
+  private player?: AVPlayerUtil;
+  // [EndExclude set_orientation]
+  private windowClass: window.Window | undefined;
+  private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+  // [StartExclude set_orientation]
+   onBackPressedCall: () => boolean = () => {
+    return true;
+  };
+  // [EndExclude set_orientation]
+  aboutToAppear(): void {
+    // [StartExclude set_orientation]
+    // Status bar rotation lock switch status
+    this.getOrientationLockState();
+    try {
+    // [EndExclude set_orientation]
+      this.windowClass = this.context.windowStage.getMainWindowSync();  // Obtains the window instance
+    // [StartExclude set_orientation]
+      // Initialize window orientation
+      this.setOrientation(window.Orientation.USER_ROTATION_PORTRAIT);
+      this.windowHeight = this.getUIContext().px2vp(this.windowClass.getWindowProperties().windowRect.height);
+      this.windowWidth = this.getUIContext().px2vp(this.windowClass.getWindowProperties().windowRect.width);
+      this.setXComponentSize();
+      // [Start on_window_size_change]
+      // [Start calculate_video_size]
+      // [Start on_window_size_change_detail]
+      // Listen for window size changes.
+      this.windowClass.on('windowSizeChange', (size) => {
+        // [StartExclude on_window_size_change]
+        // Detect screen orientation in the window resize listener
+        this.windowHeight = this.getUIContext().px2vp(size.height);
+        this.windowWidth = this.getUIContext().px2vp(size.width);
+        this.setXComponentSize();
+        // [StartExclude calculate_video_size]
+        let displayClass: display.Display = display.getDefaultDisplaySync();
+        let orientation: display.Orientation = displayClass.orientation;
+
+        if (orientation === display.Orientation.LANDSCAPE || orientation === display.Orientation.LANDSCAPE_INVERTED) {
+          // Set full-screen playback to true in landscape mode
+          this.isLandscape = true;
+        } else {
+          if (!WindowUtils.isExpandedOrHalfFolded() && !this.isVideoLock) {
+            // When not expanded and unlocked, set the fullscreen playback flag to false
+            this.isLandscape = false;
+            this.setOrientation(window.Orientation.USER_ROTATION_PORTRAIT);
+          }
+        }
+        // Folded mode landscape playback, set to auto-rotate with the sensor
+        if (this.isLandscape && WindowUtils.isFolded() && this.isVideoLock) {
+          this.setOrientation(window.Orientation.AUTO_ROTATION_LANDSCAPE);
+        }
+        // Play in full-screen mode and set to rotate automatically according to the sensor
+        if (this.isLandscape && WindowUtils.isExpandedOrHalfFolded()) {
+          this.setOrientation(window.Orientation.AUTO_ROTATION);
+        }
+        // [EndExclude calculate_video_size]
+        // [EndExclude on_window_size_change]
+      })
+      // [End on_window_size_change_detail]
+      // [End calculate_video_size]
+      // [End on_window_size_change]
+    } catch (err) {
+      let error = err as BusinessError;
+      Logger.error(TAG, `aboutToAppear err, error code: ${error.code}, error message: ${error.message}`);
+    }
+    // [EndExclude set_orientation]
+  }
+  // [StartExclude set_orientation]
+  setXComponentSize():void{
+    let videoSize: Size = getVideoSize(this.windowHeight, this.windowWidth, this.aspect);
+    this.xComponentHeight = videoSize.height;
+    this.xComponentWidth = videoSize.width;
+  }
+  // [EndExclude set_orientation]
+
+  // Set window orientation.
+  setOrientation(orientation: window.Orientation) {
+    // Encapsulates the setPreferredOrientation interface
+    this.windowClass?.setPreferredOrientation(orientation).then(() => {
+      Logger.info(`setWin0dowOrientation ${orientation} Succeeded`);
+    }).catch((err: BusinessError) => {
+      let error = err as BusinessError;
+      Logger.error(TAG, `setWindowOrientation ${orientation} err, code: ${error.code}, message: ${error.message}`);
+    })
+  }
+  // [StartExclude set_orientation]
+
+  getOrientationLockState(): void {
+    // Get the rotation lock on state
+    this.orientationLockState = settings.getValueSync(this.context, settings.general.ACCELEROMETER_ROTATION_STATUS,
+      settings.domainName.DEVICE_SHARED);
+    // [Start lock_status_change]
+    // Monitor the status of the rotation lock switch in the status bar
+    settings.registerKeyObserver(this.context, settings.general.ACCELEROMETER_ROTATION_STATUS,
+      settings.domainName.DEVICE_SHARED, () => {
+        this.orientationLockState =
+          settings.getValueSync(this.context, settings.general.ACCELEROMETER_ROTATION_STATUS,
+            settings.domainName.DEVICE_SHARED);
+      })
+    // [End lock_status_change]
+  }
+
+  aboutToDisappear(): void {
+    settings.unregisterKeyObserver(this.context, settings.general.ACCELEROMETER_ROTATION_STATUS,
+      settings.domainName.DEVICE_SHARED);
+    this.player?.release();
+    this.setOrientation(window.Orientation.PORTRAIT);
+  }
+
+  build() {
+    Stack() {
+      Column() {
+        // [Start X_component]
+        // [Start X_component_size]
+        XComponent({ id: 'video_player_id', type: XComponentType.SURFACE, controller: this.xComponentController })
+          // [Start X_component_size]
+          .onLoad(() => {
+            // [StartExclude X_component]
+            try {
+              this.player = new AVPlayerUtil(this.context);
+              this.player.setSurfaceId(this.xComponentController.getXComponentSurfaceId());
+              this.player.initPlayer('videoTest.mp4', (aspect: number) => {
+                this.aspect = aspect;
+                this.setXComponentSize();
+              });
+            } catch (err) {
+              let error = err as BusinessError;
+              Logger.error(TAG, `initPlayer err, error code: ${error.code}, error message: ${error.message}`);
+            }
+            // [EndExclude X_component]
+          })
+          // [End X_component_size]
+          // Bind the width and height state variables to the XComponent.
+          .width(this.xComponentWidth)
+          .height(this.xComponentHeight)
+        // [End X_component]
+        // [End X_component_size]
+      }
+
+      RelativeContainer() {
+        if (!this.isVideoLock) {
+          // [Start icon_back]
+          Button({ type: ButtonType.Circle }) {
+            SymbolGlyph($r('sys.symbol.chevron_backward'))
+              .fontColor([$r('sys.color.icon_on_primary')])
+              .fontSize($r('sys.float.Title_M'))
+          }
+          // [StartExclude icon_back]
+          .height(40)
+          .aspectRatio(1)
+          .backgroundColor('#19FFFFFF')
+          .margin({
+            left: 16,
+            top: this.isLandscape ? this.statusBarHeight : 8
+          })
+          // [EndExclude icon_back]
+          .onClick(() => {
+            // Exit the current page if not in landscape mode
+            if (!this.isLandscape) {
+              this.navStack?.pop();
+              return;
+            }
+            // [StartExclude icon_back]
+            if (WindowUtils.isExpandedOrHalfFolded()) {
+              this.isLandscape = false;
+            } else {
+              // [EndExclude icon_back]
+              // Set the window orientation to portrait
+              this.setOrientation(window.Orientation.USER_ROTATION_PORTRAIT);
+              // [StartExclude icon_back]
+            }
+            // [EndExclude icon_back]
+          })
+          // [End icon_back]
+        }
+
+        if (this.isLandscape) {
+          // [Start is_video_lock_image]
+          Image(this.isVideoLock ? $r('app.media.icon_lock') : $r('app.media.icon_lock_open'))
+          // [StartExclude is_video_lock_image]
+            .height(24)
+            .width(24)
+            .fillColor(Color.White)
+            .alignRules({
+              top: { anchor: '__container__', align: VerticalAlign.Center },
+              left: { anchor: '__container__', align: HorizontalAlign.Start }
+            })
+            .margin({ left: this.statusBarHeight })
+            .offset({ y: -12 })
+            // [EndExclude is_video_lock_image]
+            .onClick(() => {
+              // Set video lock status
+              this.isVideoLock = !this.isVideoLock;
+              // [StartExclude is_video_lock_image]
+              // If the device is in an expanded state or the rotation lock in the status bar is turned on,
+              // the window rotation policy will not be changed.
+              if (WindowUtils.isExpandedOrHalfFolded() || this.orientationLockState === '0') {
+                return;
+              }
+              // [EndExclude is_video_lock_image]
+              // [Start is_video_lock]
+              if (this.isVideoLock) {
+                // If landscape mode is locked, then set to AUTO_ROTATION_LANDSCAPE.
+                this.setOrientation(window.Orientation.AUTO_ROTATION_LANDSCAPE);
+              } else {
+                // Otherwise, set the window orientation to auto-rotate.
+                this.setOrientation(window.Orientation.AUTO_ROTATION);
+              }
+              // [End is_video_lock]
+            })
+          // [End is_video_lock_image]
+        }
+
+        if (!this.isLandscape) {
+          // [Start icon_zoom_in]
+          SymbolGlyph($r('sys.symbol.arrow_up_left_and_arrow_down_right'))
+          // [StartExclude icon_zoom_in]
+            .fontColor([$r('sys.color.icon_on_primary')])
+            .fontSize(24)
+            .alignRules({
+              bottom: { anchor: '__container__', align: VerticalAlign.Bottom },
+              right: { anchor: '__container__', align: HorizontalAlign.End }
+            })
+            .margin({
+              right: 16,
+              bottom: 8
+            })
+            // [EndExclude icon_zoom_in]
+            .onClick(() => {
+              if (WindowUtils.isExpandedOrHalfFolded()) {
+                // When the device is folded or half-folded,
+                // the playback mode is set to landscape mode, and the window rotation is set to auto-rotate.
+                this.isLandscape = true;
+                this.setOrientation(window.Orientation.AUTO_ROTATION);
+              } else {
+                // In a non-expanded state, such as when folded, set the window orientation to landscape.
+                this.setOrientation(window.Orientation.USER_ROTATION_LANDSCAPE);
+              }
+            })
+          // [End icon_zoom_in]
+        }
+      }
+      .width('100%')
+      .height('100%')
+    }
+    .width('100%')
+    .backgroundColor($r('sys.color.comp_background_focus'))
+    .height(this.isLandscape ? '100%' : this.xComponentHeight + this.statusBarHeight)
+    .backgroundColor(Color.Black)
+    .padding({ top: this.isLandscape ? 0 : this.statusBarHeight })
+  }
+  // [EndExclude set_orientation]
+}
+// [End set_orientation]
+
+// [Start freeze_when_inactive]
+@Component({ freezeWhenInactive: true })
+  // Added custom component freezing function
+struct VideoDetailView {
+  build() {
+    Scroll() {
+      // [StartExclude freeze_when_inactive]
+      Text('Hello')
+        .fontSize(14)
+        .fontColor($r('sys.color.mask_secondary'))
+      // [EndExclude freeze_when_inactive]
+    }
+  }
+}
+
+// [End freeze_when_inactive]
+
+// [Start Image_item]
+@Builder
+function ImageItem(imageSrc: ResourceStr) {
+  Stack({}) {
+    Image(imageSrc)
+      .width('100%')
+      .height('100%')
+      .autoResize(true)// Use auto_resize attributes on images
+      .borderRadius(8)
+      .objectFit(ImageFit.Fill)
+      .backgroundColor('#1AFFFFFF')
+  }
+}
+
+// [End Image_item]
+
+// [Start Tabs_view]
+@Component
+struct TabsView {
+  @State isLayoutFullScreen: boolean = false
+
+  build() {
+    Tabs() {
+      // [StartExclude Tabs_view]
+      TabContent() {
+        Text('Hello')
+          .fontWeight(FontWeight.Regular)
+          .fontColor(Color.Red)
+      }
+
+      // [EndExclude Tabs_view]
+    }
+    // Hide the height of the Tabs tab bar by whether the user needs to click to enter the full screen and hide it
+    .barHeight(this.isLayoutFullScreen ? 0 : 50)
+  }
+}
+
+// [End Tabs_view]ÀÔrE—­@ohos.display¬@ohos.window®@ohos.settings°../common/Logger´../utils/WindowUtilsµ../utils/AVPlayerUtilµ../common/CommonUtilsÔrF—ªassertions¨external¢id¤meta±moduleSideEffectsªresolvedByµsyntheticNamedExportsAÃÙg hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.display.d.tsAÃªoh-resolveÂFAÃÙf hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.window.d.tsAÃªoh-resolveÂFAÃÙh hvigor_ignore_C:_Program Files_Huawei_DevEco Studio_sdk_default_openharmony_ets_api_@ohos.settings.d.tsÔrG‘¯hostModulesInfo‘C®@ohos.settings¥entryÃªoh-resolveÂFAÂÙFC:\LandscapePortraitToggle-master\entry\src\main\ets\common\Logger.etsAÃªoh-resolveÂFAÂÙJC:\LandscapePortraitToggle-master\entry\src\main\ets\utils\WindowUtils.etsAÃªoh-resolveÂFAÂÙKC:\LandscapePortraitToggle-master\entry\src\main\ets\utils\AVPlayerUtil.etsAÃªoh-resolveÂFAÂÙKC:\LandscapePortraitToggle-master\entry\src\main\ets\common\CommonUtils.etsAÃªoh-resolveÂ“ÔrH–§version¤fileªsourceRoot§sources¥names¨mappings°VideoPlayView.js ‘±VideoPlayView.etsÜQ‘”    ‘” –”   ” 	” ”  ”# ,”$ ,‘”    ‘” –”   ” ” ”  ”! ,”" ,–”   ” ”  ” (”% ?”& ?˜”   ” ”	 	” ” ” ”4 4”5 4–”   ” ” ” ”% %”& %˜”   ” ”	 	” ” ” ”2 2”3 2˜”   ” ”	 	” ” ” ”4 4”5 4–”   ” ”	 	” ”! !”" "””   ” ” ” ‘”  ””8 ”ÌI  ”ÌK <”ÌL =’”ÌI +”ÌM /””5 ”7 ”: ”;  ’”>  #”?  $’”? !$”Ì@ !%’”; # ”< #!’”: $”; $ ””4 %”ÌA %”ÌC %5”ÌH %:””4 &”ÌA &”ÌC &5”ÌH &:’”ÌC '(”ÌF '+””$ (7”( (;”< (ÌO”> (ÌQ˜” ,” ,” ,”( ,%”* ,'”+ ,(”9 ,6”; ,ÌS“”! .&”$ .)”& .+”” /” /” /” /’” 0”	 0‘” "’” "” 1’” "” 1’” ” ’” ” ’” 	” ’” 	” ’”  	”  ’”  	”  ’” !	” !’” !	” !’” #	” #’” #	” #’” $	” $’” $	” $’” %” %)’” %” %)’” &” &)’” &” &)’” '	” '’” '	” '’” 1”# 1!’” 2” 2’” 3”) 3%’” 4”1 4-–” 5” 5” 5	”$ 5 ”& 5"”' 5#’” 6” 6’” 7”+ 7#Ü ” 8” 8
+” 8” 8” 8”# 8”$ 8”+ 8%”, 8&”7 81”8 82”ÌI 8ÌC”ÌK 8ÌE”ÌL 8ÌF”ÌM 8ÌH”Ìk 8Ìf’” 9”- 9%’” :”, :&œ” ;” ;
+” ;” ;”  ;”& ; ”' ;!”2 ;,”3 ;-”ÌI ;ÌC”ÌJ ;ÌD”ÌK ;ÌEÜ ” <” <
+” <” <”  <”$ <”% <”1 <+”3 <-”4 <.”9 <3”: <4”> <8”? <9”ÌJ <ÌD”ÌK <ÌE”Ì^ <ÌX”Ì` <ÌZ”Ìa <Ì[”Ìk <Ìe”Ìl <Ìf”Ìr <Ìl”Ìs <Ìm”Ìt <ÌnÜ ” =” =
+” =” =” =”# =”$ =”0 =*”2 =,”3 =-”8 =2”9 =3”= =7”> =8”ÌI =ÌC”ÌJ =ÌD”Ì] =ÌW”Ì_ =ÌY”Ì` =ÌZ”Ìj =Ìd”Ìk =Ìe”Ìp =Ìj”Ìq =Ìk”Ìr =Ìl–” >” >
+” >”" >”$ >”% >’” ?”, ?&’” Ì@”+ Ì@%’” ÌA”3 ÌA-’” ÌB”. ÌB(” ÌC” ÌC
+” ÌC” ÌC” ÌC” ÌC”  ÌC”2 ÌC,”4 ÌC.”5 ÌC/”9 ÌC3”; ÌC5”= ÌC7’” ÌD”7 ÌD/’” ÌE”ÌJ ÌEÌBÜ ” ÌF” ÌF” ÌF”! ÌF”$ ÌF”( ÌF ”) ÌF!”5 ÌF-”7 ÌF/”8 ÌF0”= ÌF5”> ÌF6”ÌB ÌF:”ÌC ÌF;”ÌI ÌFÌA”ÌJ ÌFÌB”ÌK ÌFÌCÜ ” ÌG” ÌG” ÌG”  ÌG”# ÌG”' ÌG”( ÌG ”4 ÌG,”6 ÌG.”7 ÌG/”< ÌG4”= ÌG5”ÌA ÌG9”ÌB ÌG:”ÌG ÌG?”ÌH ÌGÌ@”ÌI ÌGÌA–” ÌH” ÌH” ÌH”& ÌH”( ÌH ”) ÌH!’” ÌI”6 ÌI.™” ÌJ” ÌJ”  ÌJ”# ÌJ,”* ÌJ3”+ ÌJ4”Ì@ ÌJÌI”ÌB ÌJÌK”ÌC ÌJÌL˜” ÌK” ÌK” ÌK”" ÌK/”. ÌK;”/ ÌK<”: ÌKÌG”; ÌKÌHÜ ” ÌM” ÌM” ÌM”$ ÌM”+ ÌM#”, ÌM$”7 ÌM/”8 ÌM0”ÌA ÌM9”ÌE ÌM=”ÌP ÌMÌH”ÌU ÌMÌM”Ì\ ÌMÌT”Ì] ÌMÌU”Ìh ÌMÌ`”Ìi ÌMÌa”Ì{ ÌMÌs”Ì} ÌMÌu’” ÌN
+”ÌI ÌN?—” ÌO
+” ÌO” ÌO”$ ÌO”' ÌO”+ ÌO!”, ÌO"‘” ÌP	‘” ÌP” ÌQ
+” ÌQ” ÌQ”$ ÌQ”% ÌQ”; ÌQ1”= ÌQ3”ÌA ÌQ7”ÌB ÌQ8”ÌF ÌQ<”ÌG ÌQ=”ÌR ÌQÌH”ÌT ÌQÌJ’” ÌR”Ìd ÌRÌX—” ÌS” ÌS” ÌS”( ÌS”+ ÌS”0 ÌS$”1 ÌS%œ” ÌT” ÌT” ÌT”+ ÌT”, ÌT ”2 ÌT&”3 ÌT'”> ÌT2”? ÌT3”ÌU ÌTÌI”ÌV ÌTÌJ”ÌW ÌTÌK‘” ÌU‘” ÌV	’” ÌW”ÌU ÌWÌMŸ” ÌX” ÌX” ÌX” ÌX”$ ÌX”( ÌX ”3 ÌX+”4 ÌX,”< ÌX4”> ÌX6”ÌB ÌX:”ÌF ÌX>”ÌG ÌX?”ÌR ÌXÌJ”ÌT ÌXÌLœ” ÌY
+” ÌY” ÌY”' ÌY”( ÌY”. ÌY$”/ ÌY%”: ÌY0”; ÌY1”ÌR ÌYÌH”ÌS ÌYÌI”ÌT ÌYÌJ‘” ÌZ	’” Ì[”Ìc Ì[Ì[›” Ì\” Ì\” Ì\” Ì\”$ Ì\”( Ì\ ”3 Ì\+”4 Ì\,”ÌJ Ì\ÌB”ÌL Ì\ÌD”ÌN Ì\ÌFœ” Ì]
+” Ì]” Ì]”' Ì]”( Ì]”. Ì]$”/ Ì]%”: Ì]0”; Ì]1”ÌH Ì]>”ÌI Ì]?”ÌJ Ì]Ì@‘” Ì^	’” Ì_”4 Ì_,’” Ì`”5 Ì`-”” Ìa” Ìa” Ìa” Ìa’” Ìb”1 Ìb+’” Ìc”) Ìc#’” Ìd”* Ìd$‘”	 Ìe”” Ìe” Ìe” Ìe” Ìe–” Ìf” Ìf
+” Ìf” Ìf” Ìf&” Ìf'Ü ” Ìg” Ìg” Ìg” Ìg” Ìg” Ìg” Ìg”Ì@ Ìg:”ÌE Ìg?”ÌF ÌgÌ@”ÌJ ÌgÌD”Ì^ ÌgÌX”Ìc ÌgÌ]”Ìd ÌgÌ^”Ìk ÌgÌe”Ìm ÌgÌg”Ìn ÌgÌh”Ìo ÌgÌi‘”	 Ìh’” Ìi”' Ìi#’” Ìj” Ìj’” Ìk”% Ìk#’” Ìl” ÌlÜ ” Ìm” Ìm” Ìm” Ìm”$ Ìm&”% Ìm'”) Ìm+”* Ìm,”6 Ìm8”8 Ìm:”< Ìm>”= Ìm?”ÌH ÌmÌJ”ÌJ ÌmÌL”ÌN ÌmÌP”ÌO ÌmÌQ”ÌU ÌmÌW”ÌV ÌmÌX”ÌW ÌmÌY™” Ìn” Ìn” Ìn	” Ìn”  Ìn”) Ìn%”* Ìn&”0 Ìn,”1 Ìn-™” Ìo” Ìo” Ìo	” Ìo” Ìo”( Ìo$”) Ìo%”. Ìo*”/ Ìo+’” Ìp” Ìp’” Ìq”# Ìq!’” Ìs” Ìs”” Ìt” Ìt” Ìt” Ìt0’” Ìu”= Ìu9” Ìv” Ìv” Ìv	” Ìv” Ìv”1 Ìv-”2 Ìv.”= Ìv9”> Ìv:”? Ìv;”ÌC Ìv?”ÌD ÌvÌ@”ÌG ÌvÌC”ÌI ÌvÌEš” Ìw” Ìw” Ìw” Ìw” Ìw”1 Ìw+”< Ìw6”ÌH ÌwÌB”ÌI ÌwÌC”ÌJ ÌwÌDš” Ìx”	 Ìx”
+ Ìx” Ìx” Ìx” Ìx” Ìx” Ìx ” Ìx"” Ìx$–” Ìy” Ìy
+” Ìy” Ìy” Ìy&” Ìy'Ü ” Ìz” Ìz” Ìz” Ìz” Ìz” Ìz” Ìz”6 Ìz0”ÌA Ìz;”ÌP ÌzÌJ”ÌU ÌzÌO”ÌV ÌzÌP”ÌZ ÌzÌT”Ìh ÌzÌb”Ìm ÌzÌg”Ìn ÌzÌh”Ìu ÌzÌo”Ìw ÌzÌq”Ìx ÌzÌr”Ìy ÌzÌs”” Ì{”	 Ì{”
+ Ì{” Ì{’” Ì|” Ì|’” Ì}”% Ì}#’” Ì” Ì’” Ì€”) Ì€%Ü ” Ì” Ì” Ì	”! Ì”$ Ì ”, Ì(”- Ì)”9 Ì5”: Ì6”> Ì:”? Ì;”ÌF ÌÌB”ÌH ÌÌD”ÌP ÌÌL”ÌQ ÌÌM”ÌX ÌÌT”ÌY ÌÌU”Ìv ÌÌr”Ìx Ì‚”Ì€ Ì‚”Ì Ì‚”Ì‹ Ì‚”ÌŒ Ì‚”Ì™ Ì‚'”Ìš Ì‚(”Ì› Ì‚)’” Ìƒ”% Ìƒ!’” Ì„”ÌK Ì„ÌGÜ ” Ì…” Ì…” Ì…”$ Ì… ”% Ì…!”) Ì…%”* Ì…&”1 Ì…-”3 Ì…/”; Ì…7”< Ì…8”ÌC Ì…?”ÌD Ì…Ì@”Ìa Ì…Ì]”Ìc Ì†”Ìk Ì†”Ìl Ì†”Ìv Ì†”Ìw Ì†”Ì„ Ì†'”Ì† Ì†)”Ì‰ Ì†,”Ì‹ Ì†.”” Ì‡” Ì‡” Ì‡”% Ì‡!Ü ” Ìˆ
+” Ìˆ” Ìˆ”% Ìˆ”& Ìˆ ”* Ìˆ$”+ Ìˆ%”2 Ìˆ,”4 Ìˆ.”< Ìˆ6”= Ìˆ7”ÌD Ìˆ>”ÌE Ìˆ?”Ìb ÌˆÌ\”Ìd Ì‰”Ìl Ì‰”Ìm Ì‰”Ìw Ì‰”Ìx Ì‰ ”Ì… Ì‰-”Ì† Ì‰.”Ì‡ Ì‰/”” ÌŠ”	 ÌŠ”
+ ÌŠ” ÌŠ’” Ì‹”# Ì‹’” ÌŒ” ÌŒ’” Ì” ÌÜ ” Ì” Ì” Ì”& Ì"”' Ì#”+ Ì'”, Ì(”3 Ì/”5 Ì1”= Ì9”> Ì:”ÌE ÌÌA”ÌF ÌÌB”Ìc ÌÌ_”Ìe Ì”Ìm Ì”Ìn Ì”Ìx Ì”Ìy Ì”Ì† Ì'”Ì‡ Ì(”Ìˆ Ì)˜” Ì‘” Ì‘” Ì‘	” Ì‘” Ì‘” Ì‘” Ì‘” Ì‘œ” Ì’” Ì’” Ì’	” Ì’” Ì’”" Ì’”# Ì’”. Ì’*”/ Ì’+”7 Ì’3”8 Ì’4”9 Ì’5’” Ì“” Ì“‘” Ì•’” Ì–” Ì–	–” Ì–” Ì–	” Í” Í
+” Í” Í”” Ì–” Ì–	” Í”! ÍÜ ” Ì–” Ì–	” Í” Í” Í” Í” Í”) Í”* Í”+ Í”, Í”2 Í%”3 Í&”4 Í'”5 Í(”9 Í,”: Í-”ÌJ Í=”ÌM ÍÌ@”ÌQ ÍÌD”ÌR ÍÌE”Ìa ÍÌT˜” Ì–” Ì–	” Í ”! Í ”" Í ”' Í ”( Í ”- Í  Ü ” Ì–” Ì–	” Í!” Í!” Í!” Í!” Í!”! Í!”% Í!”& Í!”1 Í!$”2 Í!%”3 Í!&”4 Í!'”5 Í!(”6 Í!)”7 Í!*”8 Í!+”< Í!/”= Í!0”ÌL Í!?”ÌN Í!ÌA’” Ì—” Ì—’” Ì˜”" Ì˜’” Ì™”' Ì™#Ü ” Ìš” Ìš” Ìš”  Ìš”" Ìš”$ Ìš”5 Ìš*”7 Ìš,”; Ìš0”= Ìš2”ÌK ÌšÌ@”ÌL ÌšÌA”ÌS ÌšÌH”ÌU ÌšÌJ”Ì_ ÌšÌT”Ìa ÌšÌV”Ìe ÌšÌZ”Ìf ÌšÌ[”Ìz ÌšÌo”Ì| ÌšÌq’” Ì˜”" Ì˜’” Ì™”' Ì™#—” Ìš” Ìš” Ìœ” Ìœ” Ìœ”! Ìœ”# Ìœ’” Ì”- Ì)’” Ì” Ì” ÌŸ” ÌŸ” ÌŸ” ÌŸ”" ÌŸ”& ÌŸ ”2 ÌŸ,”3 ÌŸ-”7 ÌŸ1”8 ÌŸ2”? ÌŸ9”Ì@ ÌŸ:”ÌA ÌŸ;Ÿ” Ì ” Ì ” Ì ” Ì ”  Ì ”, Ì &”- Ì '”1 Ì +”2 Ì ,”ÌF Ì Ì@”ÌG Ì ÌA”Ì] Ì ÌW”Ì_ Ì ÌY”Ì` Ì ÌZ”Ìa Ì Ì[” Ì¡” Ì¡” Ì¡” Ì¡”  Ì¡”* Ì¡$”+ Ì¡%”: Ì¡4”< Ì¡6”= Ì¡7”ÌC Ì¡ÌE”ÌE Ì¡ÌG”ÌG Ì¡ÌI—” Ì¢” Ì¢” Ì¢”# Ì¢”& Ì¢”, Ì¢$”- Ì¢%–” Ì£” Ì£” Ì£”. Ì£&”0 Ì£(”1 Ì£)”” Ì¤” Ì¤” Ì¤” Ì¤‘” Ì¥”” Ì¥” Ì¥” Ì¥” Ì¥–” Ì¦” Ì¦” Ì¦”  Ì¦”# Ì¦.”$ Ì¦/Ü ” Ì§” Ì§” Ì§”  Ì§”! Ì§”$ Ì§”& Ì§ ”ÌE Ì§?”ÌJ Ì§ÌD”ÌK Ì§ÌE”ÌO Ì§ÌI”Ìc Ì§Ì]”Ìh Ì§Ìb”Ìi Ì§Ìc”Ìp Ì§Ìj”Ìr Ì§Ìl”Ìs Ì§Ìm”Ìt Ì§Ìn‘” Ì¨’” Ì©”+ Ì©'’” Ìª
+” Ìª’” Ì˜”" Ì˜’” Ì™”' Ì™#˜” Ìš” Ìš” Ì­” Ì­” Ì­”! Ì­”" Ì­”1 Ì­%’” Ì˜”" Ì˜’” Ì™”' Ì™#˜” Ìš” Ìš” Ì®” Ì®” Ì®”" Ì®”# Ì®”3 Ì®'’” Ì—” Ì—’” Ì³” Ì³–” Ì³” Ì³” Í”# Í”$ Í”* Í–” Ì³” Ì³” Í”$ Í”% Í”+ Í—” Ì´” Ì´” Ì´” Ì´” Ì´”! Ì´”# Ì´’” Ìµ
+”, Ìµš” Ì¶
+” Ì¶”/ Ì¶”1 Ì¶”5 Ì¶”7 Ì¶”ÌA Ì¶#”ÌB Ì¶$”ÌH Ì¶*”ÌJ Ì¶,’” Ìµ
+”, Ìµ–” Ì¶
+” Ì¶” Ì¼”% Ì¼”& Ì¼”( Ì¼’” Ìµ
+”, Ìµ–” Ì¶
+” Ì¶” Ì½”* Ì½”+ Ì½”, Ì½’” Ìµ
+”, Ìµ–” Ì¶
+” Ì¶” Ì¾”. Ì¾”/ Ì¾”: Ì¾&’” Ìµ
+”, Ìµ•” Ì¶
+” Ì¶” Ì¿”% Ì¿”& Ì¿”” ÌÀ”  ÌÀ”" ÌÀ”$ ÌÀÜ ” ÌÁ” ÌÁ”! ÌÁ”% ÌÁ”& ÌÁ”1 ÌÁ!”2 ÌÁ"”3 ÌÁ#”4 ÌÁ$”8 ÌÁ(”9 ÌÁ)”ÌH ÌÁ8”ÌI ÌÁ9”ÌJ ÌÁ:”ÌK ÌÁ;”ÌL ÌÁ<‘” ÌÂ’” Ìµ
+”, Ìµ—” Ì¶
+” Ì¶” ÌÄ”& ÌÄ”' ÌÄ”* ÌÄ”, ÌÄ’” ÌÅ”ÌM ÌÅ=—” ÌÆ”  ÌÆ”! ÌÆ”% ÌÆ”& ÌÆ”1 ÌÆ!”3 ÌÆ#˜”  ÌÇ”$ ÌÇ”% ÌÇ”- ÌÇ”/ ÌÇ”2 ÌÇ ”4 ÌÇ"”5 ÌÇ#’”  ÌÈ”' ÌÈ‘” ÌÉ’” ÌÊ”7 ÌÊ'—” ÌË”  ÌË”+ ÌË”, ÌË”ÌB ÌË2”ÌD ÌË4”ÌF ÌË6—”  ÌÌ”$ ÌÌ”% ÌÌ”0 ÌÌ”3 ÌÌ!”8 ÌÌ&”9 ÌÌ'‘” ÌÍ‘”! ÌÍ’”  ÌÎ”9 ÌÎ'’”  ÌÏ”ÌI ÌÏ7œ”  ÌĞ”$ ÌĞ”% ÌĞ”3 ÌĞ!”4 ÌĞ"”: ÌĞ(”; ÌĞ)”ÌF ÌĞ4”ÌG ÌĞ5”Ì] ÌĞÌK”Ì^ ÌĞÌL”Ì_ ÌĞÌM’”  ÌÑ”; ÌÑ)‘” ÌÒ’” ÌÓ”5 ÌÓ%’” ÌÔ
+” ÌÔ’” Ì·”# Ì·–” Ì·”# Ì·”$ Ì¸”- Ì¸”. Ì¸”Ìª Ì¸:”” Ì·”# Ì·”$ Ì¹”, Ì¹’” Ìµ
+”( Ìµ’” Ì¶
+” Ì¶‘” ÌÖ	‘” ÌÖ	–” ÌØ” ÌØ” ÌØ” ÌØ”  ÌØ”" ÌØ’” ÌÙ
+”6 ÌÙ(›” ÌÚ
+” ÌÚ”% ÌÚ”) ÌÚ”* ÌÚ”5 ÌÚ ”6 ÌÚ!”7 ÌÚ"”Ì² ÌÚ=”Ì³ ÌÚ>”Í- ÌÚÌ]’” ÌÙ
+”6 ÌÙ(–” ÌÚ
+” ÌÚ” ÌÜ”$ ÌÜ”% ÌÜ”' ÌÜ’” ÌÙ
+”6 ÌÙ(–” ÌÚ
+” ÌÚ” Ìİ”# Ìİ”$ Ìİ”& Ìİ’” ÌÙ
+”6 ÌÙ(˜” ÌÚ
+” ÌÚ” ÌŞ”' ÌŞ”( ÌŞ”- ÌŞ”. ÌŞ”3 ÌŞ"’” ÌÙ
+”6 ÌÙ(•” ÌÚ
+” ÌÚ” Ìß”( Ìß”) Ìß” Ìà” Ìà”! Ìà”# Ìà”) Ìà”+ Ìà”: Ìà,”< Ìà.”ÌA Ìà3”ÌC Ìà5”ÌP ÌàÌB”ÌQ ÌàÌC”ÌW ÌàÌI”ÌY ÌàÌK” Ìá”  Ìá”" Ìá”$ Ìá”* Ìá”, Ìá”; Ìá-”= Ìá/”ÌB Ìá4”ÌD Ìá6”ÌS ÌáÌE”ÌT ÌáÌF”ÌY ÌáÌK”Ì[ ÌáÌM‘” Ìâ’” ÌÙ
+”6 ÌÙ(œ” ÌÚ
+” ÌÚ” Ìã”$ Ìã”% Ìã”' Ìã”+ Ìã”- Ìã”1 Ìã ”2 Ìã!”ÌA Ìã0”ÌC Ìã2’” ÌÙ
+”6 ÌÙ(›” ÌÚ
+” ÌÚ” Ìä”$ Ìä”% Ìä”' Ìä”( Ìä”* Ìä”+ Ìä”- Ìä”/ Ìä’” ÌÙ
+”6 ÌÙ(—” ÌÚ
+” ÌÚ” Ìæ”% Ìæ”& Ìæ”) Ìæ”+ Ìæ’” Ìç”4 Ìç&š” Ìè”  Ìè”! Ìè”, Ìè”/ Ìè!”0 Ìè"”4 Ìè&”5 Ìè'”Ì@ Ìè2”ÌA Ìè3’” Ìé”ÌA Ìé3’” Ìê”Ìy ÌêÌk’” Ìë”ÌN ÌëÌ@” Ìì”  Ìì”+ Ìì”, Ìì”ÌB Ìì4”ÌD Ìì6”ÌH Ìì:”ÌL Ìì>”ÌM Ìì?”Ìa ÌìÌS”Ìf ÌìÌX”Ìi ÌìÌ[”Ìk ÌìÌ]’”  Ìí”' Ìí‘” Ìî’” Ìï”? Ìï1’” Ìğ”4 Ìğ&–” Ìñ”  Ìñ”$ Ìñ”% Ìñ”0 Ìñ"”2 Ìñ$’”  Ìò”Ìd ÌòÌTœ”  Ìó”$ Ìó”% Ìó”3 Ìó#”4 Ìó$”: Ìó*”; Ìó+”ÌF Ìó6”ÌG Ìó7”Ì^ ÌóÌN”Ì_ ÌóÌO”Ì` ÌóÌP‘” Ìô‘”! Ìô’”  Ìõ”ÌX ÌõÌHœ”  Ìö”$ Ìö”% Ìö”3 Ìö#”4 Ìö$”: Ìö*”; Ìö+”ÌF Ìö6”ÌG Ìö7”ÌT ÌöÌD”ÌU ÌöÌE”ÌV ÌöÌF‘” Ì÷’” Ìø”2 Ìø$’” Ìù” Ìù‘” Ìû	‘” Ìû	—” Ìı” Ìı” Ìı” Ìı” Ìı”! Ìı”# Ìı’” Ìş
+”/ Ìş!’” Ìÿ
+”# Ìÿ’” Ìş
+”/ Ìş!–” Ìÿ
+”# Ìÿ”$ Í”- Í”. Í”Ìª Í8’” Ìş
+”/ Ìş!–” Ìÿ
+”# Ìÿ”$ Í”, Í”- Í”/ Í’” Ìş
+”/ Ìş!•” Ìÿ
+”# Ìÿ”$ Í”. Í”/ Í” Í”" Í”$ Í”& Í”, Í”. Í ”= Í/”? Í1”ÌD Í6”ÌF Í8”ÌS ÍÌE”ÌT ÍÌF”ÌZ ÍÌL”Ì\ ÍÌN” Í”! Í”# Í”% Í”+ Í”- Í”< Í.”> Í0”ÌC Í5”ÌE Í7”ÌT ÍÌF”ÌU ÍÌG”ÌX ÍÌJ”ÌZ ÍÌL‘” Í’” Ìş
+”/ Ìş!•” Ìÿ
+”# Ìÿ”$ Í”* Í”+ Í”” Í”! Í”# Í”% Í”” Í	”" Í	”$ Í	”% Í	‘” Í
+’” Ìş
+”/ Ìş!—” Ìÿ
+”# Ìÿ”$ Í”+ Í”, Í”/ Í”1 Í—” Í”  Í”+ Í”, Í”ÌB Í4”ÌD Í6”ÌF Í8’”  Í”ÌL Í<’”  Í”Ì} ÍÌm—”  Í”$ Í”% Í”0 Í ”3 Í#”7 Í'”8 Í(œ”  Í”$ Í”% Í”3 Í#”4 Í$”: Í*”; Í+”ÌF Í6”ÌG Í7”ÌT ÍÌD”ÌU ÍÌE”ÌV ÍÌF‘” Í‘”! Í’”  Í”Ìy ÍÌiœ”  Í”$ Í”% Í”3 Í#”4 Í$”: Í*”; Í+”ÌF Í6”ÌG Í7”Ì^ ÍÌN”Ì_ ÍÌO”Ì` ÍÌP‘” Í’” Í” Í‘” Í	‘” Í	’” Ì³” Ì³’” Ì–” Ì–	‘” Í"’” Í*” Í*‘” Í( ’”. Í(!”2 Í(%‘” Í$‘” Í+’” Í,” Í,
+’” Í-”2 Í-,”” Í.” Í.
+” Í.” Í.’” Í-”2 Í-,–” Í.” Í.
+” Í/	” Í/” Í/” Í/’” Í-”2 Í-,”” Í.” Í.
+” Í0	” Í0’” Í-”. Í-,’” Í.” Í.
+’” Í,” Í,
+‘” Í3’”  Í6 ” Í6’”  Í8 ” Í8•”  Í9 ”	 Í:	” Í:” Í:” Í:(‘” Í:‘”ÌQ Í:”” Í;” Í;” Í;” Í;
+‘”ÌQ Í:”” Í<” Í<	” Í<
+” Í<–” Í<” Í<	” Í=” Í=” Í=” Í=–” Í<” Í<	” Í>” Í>” Í>” Í>–” Í<” Í<	” Í?” Í?” Í?” Í?–” Í<” Í<	” Í@” Í@” Í@” Í@˜” Í<” Í<	” ÍA” ÍA” ÍA”  ÍA”! ÍA”% ÍA–” Í<” Í<	” ÍB” ÍB” ÍB”) ÍB"’” Í;”	 Í;‘” ÍD’” ÍJ” ÍJ‘” ÍI ’”ÌA ÍK'”ÌF ÍK,‘” ÍD’” ÍK	” ÍK’” ÍK	” ÍK‘” ÍM’” ÍN” ÍNÜ ” ÍN” ÍN” ÍY” ÍY” ÍY” ÍY”  ÍY”2 ÍY&”3 ÍY'”4 ÍY(”5 ÍY)”6 ÍY*”7 ÍY+”8 ÍY,”9 ÍY-”; ÍY/”” ÍQ” ÍQ”  ÍQ”' ÍQ˜” ÍQ” ÍQ” ÍR”# ÍR”$ ÍR”. ÍR ”/ ÍR!”6 ÍR(˜” ÍQ” ÍQ” ÍS”" ÍS”# ÍS”( ÍS”) ÍS”, ÍS’” ÍQ” ÍQ’” ÍN” ÍN‘” ÍZÔrI–§version¤file§sources®sourcesContent¥names¨mappingsÀ‘À‘ÀÜV‘”    ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”  	 ‘”  
+ ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”   ‘”    ‘”  ! ‘”  " ‘”  # ‘”  $ ‘”  % ‘”  & ‘”  ' ‘”  ( ‘”  ) ‘”  * ‘”  + ‘”  , ‘”  - ‘”  . ‘”  / ‘”  0 ‘”  1 ‘”  2 ‘”  3 ‘”  4 ‘”  5 ‘”  6 ‘”  7 ‘”  8 ‘”  9 ‘”  : ‘”  ; ‘”  < ‘”  = ‘”  > ‘”  ? ‘”  Ì@ ‘”  ÌA ‘”  ÌB ‘”  ÌC ‘”  ÌD ‘”  ÌE ‘”  ÌF ‘”  ÌG ‘”  ÌH ‘”  ÌI ‘”  ÌJ ‘”  ÌK ‘”  ÌL ‘”  ÌM ‘”  ÌN ‘”  ÌO ‘”  ÌP ‘”  ÌQ ‘”  ÌR ‘”  ÌS ‘”  ÌT ‘”  ÌU ‘”  ÌV ‘”  ÌW ‘”  ÌX ‘”  ÌY ‘”  ÌZ ‘”  Ì[ ‘”  Ì\ ‘”  Ì] ‘”  Ì^ ‘”  Ì_ ‘”  Ì` ‘”  Ìa ‘”  Ìb ‘”  Ìc ‘”  Ìd ‘”  Ìe ‘”  Ìf ‘”  Ìg ‘”  Ìh ‘”  Ìi ‘”  Ìj ‘”  Ìk ‘”  Ìl ‘”  Ìm ‘”  Ìn ‘”  Ìo ‘”  Ìp ‘”  Ìq ‘”  Ìr ‘”  Ìs ‘”  Ìt ‘”  Ìu ‘”  Ìv ‘”  Ìw ‘”  Ìx ‘”  Ìy ‘”  Ìz ‘”  Ì{ ‘”  Ì| ‘”  Ì} ‘”  Ì~ ‘”  Ì ‘”  Ì€ ‘”  Ì ‘”  Ì‚ ‘”  Ìƒ ‘”  Ì„ ‘”  Ì… ‘”  Ì† ‘”  Ì‡ ‘”  Ìˆ ‘”  Ì‰ ‘”  ÌŠ ‘”  Ì‹ ‘”  ÌŒ ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì ‘”  Ì‘ ‘”  Ì’ ‘”  Ì“ ‘”  Ì” ‘”  Ì• ‘”  Ì– ‘”  Ì— ‘”  Ì˜ ‘”  Ì™ ‘”  Ìš ‘”  Ì› ‘”  Ìœ ‘”  Ì ‘”  Ì ‘”  ÌŸ ‘”  Ì  ‘”  Ì¡ ‘”  Ì¢ ‘”  Ì£ ‘”  Ì¤ ‘”  Ì¥ ‘”  Ì¦ ‘”  Ì§ ‘”  Ì¨ ‘”  Ì© ‘”  Ìª ‘”  Ì« ‘”  Ì¬ ‘”  Ì­ ‘”  Ì® ‘”  Ì¯ ‘”  Ì° ‘”  Ì± ‘”  Ì² ‘”  Ì³ ‘”  Ì´ ‘”  Ìµ ‘”  Ì¶ ‘”  Ì· ‘”  Ì¸ ‘”  Ì¹ ‘”  Ìº ‘”  Ì» ‘”  Ì¼ ‘”  Ì½ ‘”  Ì¾ ‘”  Ì¿ ‘”  ÌÀ ‘”  ÌÁ ‘”  ÌÂ ‘”  ÌÃ ‘”  ÌÄ ‘”  ÌÅ ‘”  ÌÆ ‘”  ÌÇ ‘”  ÌÈ ‘”  ÌÉ ‘”  ÌÊ ‘”  ÌË ‘”  ÌÌ ‘”  ÌÍ ‘”  ÌÎ ‘”  ÌÏ ‘”  ÌĞ ‘”  ÌÑ ‘”  ÌÒ ‘”  ÌÓ ‘”  ÌÔ ‘”  ÌÕ ‘”  ÌÖ ‘”  Ì× ‘”  ÌØ ‘”  ÌÙ ‘”  ÌÚ ‘”  ÌÛ ‘”  ÌÜ ‘”  Ìİ ‘”  ÌŞ ‘”  Ìß ‘”  Ìà ‘”  Ìá ‘”  Ìâ ‘”  Ìã ‘”  Ìä ‘”  Ìå ‘”  Ìæ ‘”  Ìç ‘”  Ìè ‘”  Ìé ‘”  Ìê ‘”  Ìë ‘”  Ìì ‘”  Ìí ‘”  Ìî ‘”  Ìï ‘”  Ìğ ‘”  Ìñ ‘”  Ìò ‘”  Ìó ‘”  Ìô ‘”  Ìõ ‘”  Ìö ‘”  Ì÷ ‘”  Ìø ‘”  Ìù ‘”  Ìú ‘”  Ìû ‘”  Ìü ‘”  Ìı ‘”  Ìş ‘”  Ìÿ ‘”  Í  ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í	 ‘”  Í
+ ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í  ‘”  Í! ‘”  Í" ‘”  Í# ‘”  Í$ ‘”  Í% ‘”  Í& ‘”  Í' ‘”  Í( ‘”  Í) ‘”  Í* ‘”  Í+ ‘”  Í, ‘”  Í- ‘”  Í. ‘”  Í/ ‘”  Í0 ‘”  Í1 ‘”  Í2 ‘”  Í3 ‘”  Í4 ‘”  Í5 ‘”  Í6 ‘”  Í7 ‘”  Í8 ‘”  Í9 ‘”  Í: ‘”  Í; ‘”  Í< ‘”  Í= ‘”  Í> ‘”  Í? ‘”  Í@ ‘”  ÍA ‘”  ÍB ‘”  ÍC ‘”  ÍD ‘”  ÍE ‘”  ÍF ‘”  ÍG ‘”  ÍH ‘”  ÍI ‘”  ÍJ ‘”  ÍK ‘”  ÍL ‘”  ÍM ‘”  ÍN ‘”  ÍO ‘”  ÍP ‘”  ÍQ ‘”  ÍR ‘”  ÍS ‘”  ÍT ‘”  ÍU ‘”  ÍV ‘”  ÍW ‘”  ÍX ‘”  ÍY ‘”  ÍZ ‘”  Í[ ‘”  Í\ ‘”  Í] ‘”  Í^ ‘”  Í_ ‘”  Í` ‘”  Ía ‘”  Íb ‘”  Íc ‘”  Íd ‘”  Íe ‘”  Íf ‘”  Íg ‘”  Íh ‘”  Íi ‘”  Íj ‘”  Ík ‘”  Íl ‘”  Ím ‘”  Ín ‘”  Ío ‘”  Íp ‘”  Íq ‘”  Ír ‘”  Ís ‘”  Ít ‘”  Íu ‘”  Ív ‘”  Íw ‘”  Íx ‘”  Íy ‘”  Íz ‘”  Í{ ‘”  Í| ‘”  Í} ‘”  Í~ ‘”  Í ‘”  Í€ ‘”  Í ‘”  Í‚ ‘”  Íƒ ‘”  Í„ ‘”  Í… ‘”  Í† ‘”  Í‡ ‘”  Íˆ ‘”  Í‰ ‘”  ÍŠ ‘”  Í‹ ‘”  ÍŒ ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í‘ ‘”  Í’ ‘”  Í“ ‘”  Í” ‘”  Í• ‘”  Í– ‘”  Í— ‘”  Í˜ ‘”  Í™ ‘”  Íš ‘”  Í› ‘”  Íœ ‘”  Í ‘”  Í ‘”  ÍŸ ‘”  Í  ‘”  Í¡ ‘”  Í¢ ‘”  Í£ ‘”  Í¤ ‘”  Í¥ ‘”  Í¦ ‘”  Í§ ‘”  Í¨ ‘”  Í© ‘”  Íª ‘”  Í« ‘”  Í¬ ‘”  Í­ ‘”  Í® ‘”  Í¯ ‘”  Í° ‘”  Í± ‘”  Í² ‘”  Í³ ‘”  Í´ ‘”  Íµ ‘”  Í¶ ‘”  Í· ‘”  Í¸ ‘”  Í¹ ‘”  Íº ‘”  Í» ‘”  Í¼ ‘”  Í½ ‘”  Í¾ ‘”  Í¿ ‘”  ÍÀ ‘”  ÍÁ ‘”  ÍÂ ‘”  ÍÃ ‘”  ÍÄ ‘”  ÍÅ ‘”  ÍÆ ‘”  ÍÇ ‘”  ÍÈ ‘”  ÍÉ ‘”  ÍÊ ‘”  ÍË ‘”  ÍÌ ‘”  ÍÍ ‘”  ÍÎ ‘”  ÍÏ ‘”  ÍĞ ‘”  ÍÑ ‘”  ÍÒ ‘”  ÍÓ ‘”  ÍÔ ‘”  ÍÕ ‘”  ÍÖ ‘”  Í× ‘”  ÍØ ‘”  ÍÙ ‘”  ÍÚ ‘”  ÍÛ ‘”  ÍÜ ‘”  Íİ ‘”  ÍŞ ‘”  Íß ‘”  Íà ‘”  Íá ‘”  Íâ ‘”  Íã ‘”  Íä ‘”  Íå ‘”  Íæ ‘”  Íç ‘”  Íè ‘”  Íé ‘”  Íê ‘”  Íë ‘”  Íì ‘”  Íí ‘”  Íî ‘”  Íï ‘”  Íğ ‘”  Íñ ‘”  Íò ‘”  Íó ‘”  Íô ‘”  Íõ ‘”  Íö ‘”  Í÷ ‘”  Íø ‘”  Íù ‘”  Íú ‘”  Íû ‘”  Íü ‘”  Íı ‘”  Íş ‘”  Íÿ ‘”  Í  ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í	 ‘”  Í
+ ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í ‘”  Í  ‘”  Í! ‘”  Í" ‘”  Í# ‘”  Í$ ‘”  Í% ‘”  Í& ‘”  Í' ‘”  Í( ‘”  Í) ‘”  Í* ‘”  Í+ ‘”  Í, ‘”  Í- ‘”  Í. ‘”  Í/ ‘”  Í0 ‘”  Í1 ‘”  Í2 ‘”  Í3 ‘”  Í4 ‘”  Í5 ‘”  Í6 ‘”  Í7 ‘”  Í8 ‘”  Í9 ‘”  Í: ‘”  Í; ‘”  Í< ‘”  Í= ‘”  Í> ‘”  Í? ‘”  Í@ ‘”  ÍA ‘”  ÍB ‘”  ÍC ‘”  ÍD ‘”  ÍE ‘”  ÍF ‘”  ÍG ‘”  ÍH ‘”  ÍI ‘”  ÍJ ‘”  ÍK ‘”  ÍL ‘”  ÍM ‘”  ÍN ‘”  ÍO ‘”  ÍP ‘”  ÍQ ‘”  ÍR ‘”  ÍS ‘”  ÍT ‘”  ÍU ÔrJ’§missing¦pluginÃ¦genAbcÂÔ  ÔrK”²dynamicImportCache¹exportAllDeclarationCache»exportNamedDeclarationCache«importCache‘ÔrL–¤type¥start£end«declarationªspecifiers¦source¶ExportNamedDeclarationÍ½Í\¦ÔrM–¤type¥start£end¢idªsuperClass¤body°ClassDeclarationÍÄÍ\¦ÔrN”¤type¥start£end¤nameªIdentifierÍÊÍ×­VideoPlayViewNªIdentifierÍàÍæ¦ViewPUÔrO”¤type¥start£end¤body©ClassBodyÍçÍ\¦Ü  ÔrP˜¤type¥start£end¦static¨computed£key¤kind¥value°MethodDefinitionÍîÍôÂÂNªIdentifierÍîÍù«constructor«constructorÔrQ™¤type¥start£end¢idªexpression©generator¥async¦params¤body²FunctionExpressionÍùÍôÀÂÂÂ–NªIdentifierÍúÍ ¦parentNªIdentifierÍÍ¦paramsNªIdentifierÍ
+Í®__localStorageÔrR•¤type¥start£end¤left¥right±AssignmentPatternÍÍ%NªIdentifierÍÍ ¦elmtIdÔrS–¤type¥start£end¨operator¦prefix¨argument¯UnaryExpressionÍ#Í%¡-ÃÔrT•¤type¥start£end¥value£raw§LiteralÍ$Í%¡1R±AssignmentPatternÍ'Í?NªIdentifierÍ'Í3¬paramsLambdaNªIdentifierÍ6Í?©undefinedNªIdentifierÍAÍJ©extraInfoO®BlockStatementÍLÍôÜ ÔrU”¤type¥start£endªexpression³ExpressionStatementÍWÍˆÔrV–¤type¥start£end¦callee©arguments¨optional®CallExpressionÍWÍ‡ÔrW“¤type¥start£end¥SuperÍWÍ\”NªIdentifierÍ]Íc¦parentNªIdentifierÍeÍs®__localStorageNªIdentifierÍuÍ{¦elmtIdNªIdentifierÍ}Í†©extraInfoÂÔrX–¤type¥start£end¤testªconsequent©alternate«IfStatementÍ’ÍùÔrY–¤type¥start£end¤left¨operator¥right°BinaryExpressionÍ–Í¸S¯UnaryExpressionÍ–Í©¦typeofÃNªIdentifierÍÍ©¬paramsLambda£===T§LiteralÍ®Í¸¨functionª"function"O®BlockStatementÍºÍù‘U³ExpressionStatementÍÉÍîÔrZ–¤type¥start£end¨operator¤left¥right´AssignmentExpressionÍÉÍí¡=Ôr[—¤type¥start£end¦object¨property¨computed¨optional°MemberExpressionÍÉÍŞW®ThisExpressionÍÉÍÍNªIdentifierÍÎÍŞ°paramsGenerator_ÂÂNªIdentifierÍáÍí¬paramsLambdaÀU³ExpressionStatementÍÍ\Z´AssignmentExpressionÍÍ[¡=[°MemberExpressionÍÍW®ThisExpressionÍÍNªIdentifierÍÍ±__statusBarHeightÂÂV®CallExpressionÍÍ[[°MemberExpressionÍÍ2W®ThisExpressionÍÍ NªIdentifierÍ!Í2±createStorageLinkÂÂ“T§LiteralÍ3ÍD¯statusBarHeight±'statusBarHeight'T§LiteralÍFÍG ¡0T§LiteralÍIÍZ¯statusBarHeight±"statusBarHeight"ÂU³ExpressionStatementÍfÍ­Z´AssignmentExpressionÍfÍ¬¡=[°MemberExpressionÍfÍuW®ThisExpressionÍfÍjNªIdentifierÍkÍuª__navStackÂÂV®CallExpressionÍxÍ¬[°MemberExpressionÍxÍW®ThisExpressionÍxÍ|NªIdentifierÍ}Í±initializeConsumeÂÂ“T§LiteralÍÍ™¨navStackª"navStack"T§LiteralÍ›Í¥¨navStackª"navStack"T§LiteralÍ§Í«À¤nullÂU³ExpressionStatementÍ·ÍüZ´AssignmentExpressionÍ·Íû¡=[°MemberExpressionÍ·ÍÄW®ThisExpressionÍ·Í»NªIdentifierÍ¼ÍÄ¨__aspectÂÂÔr\•¤type¥start£end¦callee©arguments­NewExpressionÍÇÍûNªIdentifierÍËÍã¸ObservedPropertySimplePU“Y°BinaryExpressionÍäÍêT§LiteralÍäÍæ¢16¡/T§LiteralÍéÍê	¡9W®ThisExpressionÍìÍğT§LiteralÍòÍú¦aspect¨"aspect"U³ExpressionStatementÍ	Í	XZ´AssignmentExpressionÍ	Í	W¡=[°MemberExpressionÍ	Í	W®ThisExpressionÍ	Í	
+NªIdentifierÍ	Í	±__xComponentWidthÂÂ\­NewExpressionÍ	Í	WNªIdentifierÍ	#Í	;¸ObservedPropertySimplePU“T§LiteralÍ	<Í	= ¡0W®ThisExpressionÍ	?Í	CT§LiteralÍ	EÍ	V¯xComponentWidth±"xComponentWidth"U³ExpressionStatementÍ	bÍ	¶Z´AssignmentExpressionÍ	bÍ	µ¡=[°MemberExpressionÍ	bÍ	yW®ThisExpressionÍ	bÍ	fNªIdentifierÍ	gÍ	y²__xComponentHeightÂÂ\­NewExpressionÍ	|Í	µNªIdentifierÍ	€Í	˜¸ObservedPropertySimplePU“T§LiteralÍ	™Í	š ¡0W®ThisExpressionÍ	œÍ	 T§LiteralÍ	¢Í	´°xComponentHeight²"xComponentHeight"U³ExpressionStatementÍ	ÀÍ
+Z´AssignmentExpressionÍ	ÀÍ
+¡=[°MemberExpressionÍ	ÀÍ	ÓW®ThisExpressionÍ	ÀÍ	ÄNªIdentifierÍ	ÅÍ	Ó®__windowHeightÂÂ\­NewExpressionÍ	ÖÍ
+NªIdentifierÍ	ÚÍ	ò¸ObservedPropertySimplePU“T§LiteralÍ	óÍ	ô ¡0W®ThisExpressionÍ	öÍ	úT§LiteralÍ	üÍ
+
+¬windowHeight®"windowHeight"U³ExpressionStatementÍ
+Í
+`Z´AssignmentExpressionÍ
+Í
+_¡=[°MemberExpressionÍ
+Í
+(W®ThisExpressionÍ
+Í
+NªIdentifierÍ
+Í
+(­__windowWidthÂÂ\­NewExpressionÍ
++Í
+_NªIdentifierÍ
+/Í
+G¸ObservedPropertySimplePU“T§LiteralÍ
+HÍ
+I ¡0W®ThisExpressionÍ
+KÍ
+OT§LiteralÍ
+QÍ
+^«windowWidth­"windowWidth"U³ExpressionStatementÍ
+jÍ
+»Z´AssignmentExpressionÍ
+jÍ
+º¡=[°MemberExpressionÍ
+jÍ
+|W®ThisExpressionÍ
+jÍ
+nNªIdentifierÍ
+oÍ
+|­__isLandscapeÂÂV®CallExpressionÍ
+Í
+º[°MemberExpressionÍ
+Í
+•W®ThisExpressionÍ
+Í
+ƒNªIdentifierÍ
+„Í
+•±createStorageLinkÂÂ“T§LiteralÍ
+–Í
+£«isLandscape­'isLandscape'T§LiteralÍ
+¥Í
+ªÂ¥falseT§LiteralÍ
+¬Í
+¹«isLandscape­"isLandscape"ÂU³ExpressionStatementÍ
+ÅÍZ´AssignmentExpressionÍ
+ÅÍ¡=[°MemberExpressionÍ
+ÅÍ
+×W®ThisExpressionÍ
+ÅÍ
+ÉNªIdentifierÍ
+ÊÍ
+×­__isVideoLockÂÂV®CallExpressionÍ
+ÚÍ[°MemberExpressionÍ
+ÚÍ
+ğW®ThisExpressionÍ
+ÚÍ
+ŞNªIdentifierÍ
+ßÍ
+ğ±createStorageLinkÂÂ“T§LiteralÍ
+ñÍ
+ş«isVideoLock­'isVideoLock'T§LiteralÍ ÍÂ¥falseT§LiteralÍÍ«isVideoLock­"isVideoLock"ÂU³ExpressionStatementÍ Í~Z´AssignmentExpressionÍ Í}¡=[°MemberExpressionÍ Í;W®ThisExpressionÍ Í$NªIdentifierÍ%Í;¶__orientationLockStateÂÂ\­NewExpressionÍ>Í}NªIdentifierÍBÍZ¸ObservedPropertySimplePU“T§LiteralÍ[Í^¡1£'1'W®ThisExpressionÍ`ÍdT§LiteralÍfÍ|´orientationLockState¶"orientationLockState"U³ExpressionStatementÍˆÍ¿Z´AssignmentExpressionÍˆÍ¾¡=[°MemberExpressionÍˆÍ¡W®ThisExpressionÍˆÍŒNªIdentifierÍÍ¡´xComponentControllerÂÂ\­NewExpressionÍ¤Í¾NªIdentifierÍ¨Í¼´XComponentControllerU³ExpressionStatementÍÉÍáZ´AssignmentExpressionÍÉÍà¡=[°MemberExpressionÍÉÍÔW®ThisExpressionÍÉÍÍNªIdentifierÍÎÍÔ¦playerÂÂNªIdentifierÍ×Íà©undefinedU³ExpressionStatementÍëÍZ´AssignmentExpressionÍëÍ¡=[°MemberExpressionÍëÍûW®ThisExpressionÍëÍïNªIdentifierÍğÍû«windowClassÂÂNªIdentifierÍşÍ©undefinedU³ExpressionStatementÍÍFZ´AssignmentExpressionÍÍE¡=[°MemberExpressionÍÍW®ThisExpressionÍÍNªIdentifierÍÍ§contextÂÂV®CallExpressionÍ!ÍE[°MemberExpressionÍ!ÍCV®CallExpressionÍ!Í4[°MemberExpressionÍ!Í2W®ThisExpressionÍ!Í%NªIdentifierÍ&Í2¬getUIContextÂÂÂNªIdentifierÍ5ÍC®getHostContextÂÂÂU³ExpressionStatementÍPÍ–Z´AssignmentExpressionÍPÍ•¡=[°MemberExpressionÍPÍfW®ThisExpressionÍPÍTNªIdentifierÍUÍf±onBackPressedCallÂÂQ·ArrowFunctionExpressionÍiÍ•ÀÂÂÂO®BlockStatementÍoÍ•‘Ôr]”¤type¥start£end¨argument¯ReturnStatementÍ~ÍŠT§LiteralÍ…Í‰Ã¤trueU³ExpressionStatementÍ ÍÇV®CallExpressionÍ ÍÆ[°MemberExpressionÍ Í¾W®ThisExpressionÍ Í¤NªIdentifierÍ¥Í¾¹setInitiallyProvidedValueÂÂ‘NªIdentifierÍ¿ÍÅ¦paramsÂU³ExpressionStatementÍÑÍíV®CallExpressionÍÑÍì[°MemberExpressionÍÑÍêW®ThisExpressionÍÑÍÕNªIdentifierÍÖÍê´finalizeConstructionÂÂÂP°MethodDefinitionÍúÍ0ÂÂNªIdentifierÍúÍ¹setInitiallyProvidedValue¦methodQ²FunctionExpressionÍÍ0ÀÂÂÂ‘NªIdentifierÍÍ¦paramsO®BlockStatementÍÍ0›X«IfStatementÍ'Í~Y°BinaryExpressionÍ+ÍF[°MemberExpressionÍ+Í8NªIdentifierÍ+Í1¦paramsNªIdentifierÍ2Í8¦aspectÂÂ£!==NªIdentifierÍ=ÍF©undefinedO®BlockStatementÍHÍ~‘U³ExpressionStatementÍWÍsZ´AssignmentExpressionÍWÍr¡=[°MemberExpressionÍWÍbW®ThisExpressionÍWÍ[NªIdentifierÍ\Íb¦aspectÂÂ[°MemberExpressionÍeÍrNªIdentifierÍeÍk¦paramsNªIdentifierÍlÍr¦aspectÂÂÀX«IfStatementÍˆÍúY°BinaryExpressionÍŒÍ°[°MemberExpressionÍŒÍ¢NªIdentifierÍŒÍ’¦paramsNªIdentifierÍ“Í¢¯xComponentWidthÂÂ£!==NªIdentifierÍ§Í°©undefinedO®BlockStatementÍ²Íú‘U³ExpressionStatementÍÁÍïZ´AssignmentExpressionÍÁÍî¡=[°MemberExpressionÍÁÍÕW®ThisExpressionÍÁÍÅNªIdentifierÍÆÍÕ¯xComponentWidthÂÂ[°MemberExpressionÍØÍîNªIdentifierÍØÍŞ¦paramsNªIdentifierÍßÍî¯xComponentWidthÂÂÀX«IfStatementÍÍyY°BinaryExpressionÍÍ-[°MemberExpressionÍÍNªIdentifierÍÍ¦paramsNªIdentifierÍÍ°xComponentHeightÂÂ£!==NªIdentifierÍ$Í-©undefinedO®BlockStatementÍ/Íy‘U³ExpressionStatementÍ>ÍnZ´AssignmentExpressionÍ>Ím¡=[°MemberExpressionÍ>ÍSW®ThisExpressionÍ>ÍBNªIdentifierÍCÍS°xComponentHeightÂÂ[°MemberExpressionÍVÍmNªIdentifierÍVÍ\¦paramsNªIdentifierÍ]Ím°xComponentHeightÂÂÀX«IfStatementÍƒÍìY°BinaryExpressionÍ‡Í¨[°MemberExpressionÍ‡ÍšNªIdentifierÍ‡Í¦paramsNªIdentifierÍÍš¬windowHeightÂÂ£!==NªIdentifierÍŸÍ¨©undefinedO®BlockStatementÍªÍì‘U³ExpressionStatementÍ¹ÍáZ´AssignmentExpressionÍ¹Íà¡=[°MemberExpressionÍ¹ÍÊW®ThisExpressionÍ¹Í½NªIdentifierÍ¾ÍÊ¬windowHeightÂÂ[°MemberExpressionÍÍÍàNªIdentifierÍÍÍÓ¦paramsNªIdentifierÍÔÍà¬windowHeightÂÂÀX«IfStatementÍöÍ\Y°BinaryExpressionÍúÍ[°MemberExpressionÍúÍNªIdentifierÍúÍ ¦paramsNªIdentifierÍÍ«windowWidthÂÂ£!==NªIdentifierÍÍ©undefinedO®BlockStatementÍÍ\‘U³ExpressionStatementÍ+ÍQZ´AssignmentExpressionÍ+ÍP¡=[°MemberExpressionÍ+Í;W®ThisExpressionÍ+Í/NªIdentifierÍ0Í;«windowWidthÂÂ[°MemberExpressionÍ>ÍPNªIdentifierÍ>ÍD¦paramsNªIdentifierÍEÍP«windowWidthÂÂÀX«IfStatementÍfÍçY°BinaryExpressionÍjÍ“[°MemberExpressionÍjÍ…NªIdentifierÍjÍp¦paramsNªIdentifierÍqÍ…´orientationLockStateÂÂ£!==NªIdentifierÍŠÍ“©undefinedO®BlockStatementÍ•Íç‘U³ExpressionStatementÍ¤ÍÜZ´AssignmentExpressionÍ¤ÍÛ¡=[°MemberExpressionÍ¤Í½W®ThisExpressionÍ¤Í¨NªIdentifierÍ©Í½´orientationLockStateÂÂ[°MemberExpressionÍÀÍÛNªIdentifierÍÀÍÆ¦paramsNªIdentifierÍÇÍÛ´orientationLockStateÂÂÀX«IfStatementÍñÍrY°BinaryExpressionÍõÍ[°MemberExpressionÍõÍNªIdentifierÍõÍû¦paramsNªIdentifierÍüÍ´xComponentControllerÂÂ£!==NªIdentifierÍÍ©undefinedO®BlockStatementÍ Ír‘U³ExpressionStatementÍ/ÍgZ´AssignmentExpressionÍ/Íf¡=[°MemberExpressionÍ/ÍHW®ThisExpressionÍ/Í3NªIdentifierÍ4ÍH´xComponentControllerÂÂ[°MemberExpressionÍKÍfNªIdentifierÍKÍQ¦paramsNªIdentifierÍRÍf´xComponentControllerÂÂÀX«IfStatementÍ|ÍÓY°BinaryExpressionÍ€Í›[°MemberExpressionÍ€ÍNªIdentifierÍ€Í†¦paramsNªIdentifierÍ‡Í¦playerÂÂ£!==NªIdentifierÍ’Í›©undefinedO®BlockStatementÍÍÓ‘U³ExpressionStatementÍ¬ÍÈZ´AssignmentExpressionÍ¬ÍÇ¡=[°MemberExpressionÍ¬Í·W®ThisExpressionÍ¬Í°NªIdentifierÍ±Í·¦playerÂÂ[°MemberExpressionÍºÍÇNªIdentifierÍºÍÀ¦paramsNªIdentifierÍÁÍÇ¦playerÂÂÀX«IfStatementÍİÍCY°BinaryExpressionÍáÍ[°MemberExpressionÍáÍóNªIdentifierÍáÍç¦paramsNªIdentifierÍèÍó«windowClassÂÂ£!==NªIdentifierÍøÍ©undefinedO®BlockStatementÍÍC‘U³ExpressionStatementÍÍ8Z´AssignmentExpressionÍÍ7¡=[°MemberExpressionÍÍ"W®ThisExpressionÍÍNªIdentifierÍÍ"«windowClassÂÂ[°MemberExpressionÍ%Í7NªIdentifierÍ%Í+¦paramsNªIdentifierÍ,Í7«windowClassÂÂÀX«IfStatementÍMÍ§Y°BinaryExpressionÍQÍm[°MemberExpressionÍQÍ_NªIdentifierÍQÍW¦paramsNªIdentifierÍXÍ_§contextÂÂ£!==NªIdentifierÍdÍm©undefinedO®BlockStatementÍoÍ§‘U³ExpressionStatementÍ~ÍœZ´AssignmentExpressionÍ~Í›¡=[°MemberExpressionÍ~ÍŠW®ThisExpressionÍ~Í‚NªIdentifierÍƒÍŠ§contextÂÂ[°MemberExpressionÍÍ›NªIdentifierÍÍ“¦paramsNªIdentifierÍ”Í›§contextÂÂÀX«IfStatementÍ±Í)Y°BinaryExpressionÍµÍÛ[°MemberExpressionÍµÍÍNªIdentifierÍµÍ»¦paramsNªIdentifierÍ¼ÍÍ±onBackPressedCallÂÂ£!==NªIdentifierÍÒÍÛ©undefinedO®BlockStatementÍİÍ)‘U³ExpressionStatementÍìÍZ´AssignmentExpressionÍìÍ¡=[°MemberExpressionÍìÍW®ThisExpressionÍìÍğNªIdentifierÍñÍ±onBackPressedCallÂÂ[°MemberExpressionÍÍNªIdentifierÍÍ¦paramsNªIdentifierÍÍ±onBackPressedCallÂÂÀP°MethodDefinitionÍ6ÍVÂÂNªIdentifierÍ6ÍE¯updateStateVars¦methodQ²FunctionExpressionÍEÍVÀÂÂÂ‘NªIdentifierÍFÍL¦paramsO®BlockStatementÍNÍVP°MethodDefinitionÍ\ÍÂÂNªIdentifierÍ\Í}Ù!purgeVariableDependenciesOnElmtId¦methodQ²FunctionExpressionÍ}ÍÀÂÂÂ‘NªIdentifierÍ~Í†¨rmElmtIdO®BlockStatementÍˆÍšU³ExpressionStatementÍ“ÍÌV®CallExpressionÍ“ÍË[°MemberExpressionÍ“ÍÁ[°MemberExpressionÍ“Í©W®ThisExpressionÍ“Í—NªIdentifierÍ˜Í©±__statusBarHeightÂÂNªIdentifierÍªÍÁ·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍÂÍÊ¨rmElmtIdÂU³ExpressionStatementÍÖÍV®CallExpressionÍÖÍ[°MemberExpressionÍÖÍı[°MemberExpressionÍÖÍåW®ThisExpressionÍÖÍÚNªIdentifierÍÛÍåª__navStackÂÂNªIdentifierÍæÍı·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍşÍ¨rmElmtIdÂU³ExpressionStatementÍÍBV®CallExpressionÍÍA[°MemberExpressionÍÍ7[°MemberExpressionÍÍW®ThisExpressionÍÍNªIdentifierÍÍ¨__aspectÂÂNªIdentifierÍ Í7·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍ8Í@¨rmElmtIdÂU³ExpressionStatementÍLÍ…V®CallExpressionÍLÍ„[°MemberExpressionÍLÍz[°MemberExpressionÍLÍbW®ThisExpressionÍLÍPNªIdentifierÍQÍb±__xComponentWidthÂÂNªIdentifierÍcÍz·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍ{Íƒ¨rmElmtIdÂU³ExpressionStatementÍÍÉV®CallExpressionÍÍÈ[°MemberExpressionÍÍ¾[°MemberExpressionÍÍ¦W®ThisExpressionÍÍ“NªIdentifierÍ”Í¦²__xComponentHeightÂÂNªIdentifierÍ§Í¾·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍ¿ÍÇ¨rmElmtIdÂU³ExpressionStatementÍÓÍ	V®CallExpressionÍÓÍ[°MemberExpressionÍÓÍş[°MemberExpressionÍÓÍæW®ThisExpressionÍÓÍ×NªIdentifierÍØÍæ®__windowHeightÂÂNªIdentifierÍçÍş·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍÿÍ¨rmElmtIdÂU³ExpressionStatementÍÍHV®CallExpressionÍÍG[°MemberExpressionÍÍ=[°MemberExpressionÍÍ%W®ThisExpressionÍÍNªIdentifierÍÍ%­__windowWidthÂÂNªIdentifierÍ&Í=·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍ>ÍF¨rmElmtIdÂU³ExpressionStatementÍRÍ‡V®CallExpressionÍRÍ†[°MemberExpressionÍRÍ|[°MemberExpressionÍRÍdW®ThisExpressionÍRÍVNªIdentifierÍWÍd­__isLandscapeÂÂNªIdentifierÍeÍ|·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍ}Í…¨rmElmtIdÂU³ExpressionStatementÍ‘ÍÆV®CallExpressionÍ‘ÍÅ[°MemberExpressionÍ‘Í»[°MemberExpressionÍ‘Í£W®ThisExpressionÍ‘Í•NªIdentifierÍ–Í£­__isVideoLockÂÂNªIdentifierÍ¤Í»·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍ¼ÍÄ¨rmElmtIdÂU³ExpressionStatementÍĞÍV®CallExpressionÍĞÍ[°MemberExpressionÍĞÍ[°MemberExpressionÍĞÍëW®ThisExpressionÍĞÍÔNªIdentifierÍÕÍë¶__orientationLockStateÂÂNªIdentifierÍìÍ·purgeDependencyOnElmtIdÂÂ‘NªIdentifierÍÍ¨rmElmtIdÂP°MethodDefinitionÍÍ…ÂÂNªIdentifierÍÍ+°aboutToBeDeleted¦methodQ²FunctionExpressionÍ+Í…ÀÂÂÂO®BlockStatementÍ.Í…œU³ExpressionStatementÍ9ÍcV®CallExpressionÍ9Íb[°MemberExpressionÍ9Í`[°MemberExpressionÍ9ÍOW®ThisExpressionÍ9Í=NªIdentifierÍ>ÍO±__statusBarHeightÂÂNªIdentifierÍPÍ`°aboutToBeDeletedÂÂÂU³ExpressionStatementÍmÍV®CallExpressionÍmÍ[°MemberExpressionÍmÍ[°MemberExpressionÍmÍ|W®ThisExpressionÍmÍqNªIdentifierÍrÍ|ª__navStackÂÂNªIdentifierÍ}Í°aboutToBeDeletedÂÂÂU³ExpressionStatementÍšÍ»V®CallExpressionÍšÍº[°MemberExpressionÍšÍ¸[°MemberExpressionÍšÍ§W®ThisExpressionÍšÍNªIdentifierÍŸÍ§¨__aspectÂÂNªIdentifierÍ¨Í¸°aboutToBeDeletedÂÂÂU³ExpressionStatementÍÅÍïV®CallExpressionÍÅÍî[°MemberExpressionÍÅÍì[°MemberExpressionÍÅÍÛW®ThisExpressionÍÅÍÉNªIdentifierÍÊÍÛ±__xComponentWidthÂÂNªIdentifierÍÜÍì°aboutToBeDeletedÂÂÂU³ExpressionStatementÍùÍ$V®CallExpressionÍùÍ#[°MemberExpressionÍùÍ![°MemberExpressionÍùÍW®ThisExpressionÍùÍıNªIdentifierÍşÍ²__xComponentHeightÂÂNªIdentifierÍÍ!°aboutToBeDeletedÂÂÂU³ExpressionStatementÍ.ÍUV®CallExpressionÍ.ÍT[°MemberExpressionÍ.ÍR[°MemberExpressionÍ.ÍAW®ThisExpressionÍ.Í2NªIdentifierÍ3ÍA®__windowHeightÂÂNªIdentifierÍBÍR°aboutToBeDeletedÂÂÂU³ExpressionStatementÍ_Í…V®CallExpressionÍ_Í„[°MemberExpressionÍ_Í‚[°MemberExpressionÍ_ÍqW®ThisExpressionÍ_ÍcNªIdentifierÍdÍq­__windowWidthÂÂNªIdentifierÍrÍ‚°aboutToBeDeletedÂÂÂU³ExpressionStatementÍÍµV®CallExpressionÍÍ´[°MemberExpressionÍÍ²[°MemberExpressionÍÍ¡W®ThisExpressionÍÍ“NªIdentifierÍ”Í¡­__isLandscapeÂÂNªIdentifierÍ¢Í²°aboutToBeDeletedÂÂÂU³ExpressionStatementÍ¿ÍåV®CallExpressionÍ¿Íä[°MemberExpressionÍ¿Íâ[°MemberExpressionÍ¿ÍÑW®ThisExpressionÍ¿ÍÃNªIdentifierÍÄÍÑ­__isVideoLockÂÂNªIdentifierÍÒÍâ°aboutToBeDeletedÂÂÂU³ExpressionStatementÍïÍV®CallExpressionÍïÍ[°MemberExpressionÍïÍ[°MemberExpressionÍïÍ
+W®ThisExpressionÍïÍóNªIdentifierÍôÍ
+¶__orientationLockStateÂÂNªIdentifierÍÍ°aboutToBeDeletedÂÂÂU³ExpressionStatementÍ(ÍTV®CallExpressionÍ(ÍS[°MemberExpressionÍ(ÍFV®CallExpressionÍ(Í?[°MemberExpressionÍ(Í=NªIdentifierÍ(Í9±SubscriberManagerNªIdentifierÍ:Í=£GetÂÂÂNªIdentifierÍ@ÍF¦deleteÂÂ‘V®CallExpressionÍGÍR[°MemberExpressionÍGÍPW®ThisExpressionÍGÍKNªIdentifierÍLÍP¤id__ÂÂÂÂU³ExpressionStatementÍ^Í~V®CallExpressionÍ^Í}[°MemberExpressionÍ^Í{W®ThisExpressionÍ^ÍbNªIdentifierÍcÍ{¸aboutToBeDeletedInternalÂÂÂP°MethodDefinitionÍ‹Í×ÂÂNªIdentifierÍÍ¯statusBarHeight£getQ²FunctionExpressionÍÍ×ÀÂÂÂO®BlockStatementÍ¡Í×‘]¯ReturnStatementÍ¬ÍĞV®CallExpressionÍ³ÍÏ[°MemberExpressionÍ³ÍÍ[°MemberExpressionÍ³ÍÉW®ThisExpressionÍ³Í·NªIdentifierÍ¸ÍÉ±__statusBarHeightÂÂNªIdentifierÍÊÍÍ£getÂÂÂP°MethodDefinitionÍİÍ2ÂÂNªIdentifierÍáÍğ¯statusBarHeight£setQ²FunctionExpressionÍğÍ2ÀÂÂÂ‘NªIdentifierÍñÍù¨newValueO®BlockStatementÍûÍ2‘U³ExpressionStatementÍÍ+V®CallExpressionÍÍ*[°MemberExpressionÍÍ [°MemberExpressionÍÍW®ThisExpressionÍÍ
+NªIdentifierÍÍ±__statusBarHeightÂÂNªIdentifierÍÍ £setÂÂ‘NªIdentifierÍ!Í)¨newValueÂP°MethodDefinitionÍ8ÍvÂÂNªIdentifierÍ<ÍD¨navStack£getQ²FunctionExpressionÍDÍvÀÂÂÂO®BlockStatementÍGÍv‘]¯ReturnStatementÍRÍoV®CallExpressionÍYÍn[°MemberExpressionÍYÍl[°MemberExpressionÍYÍhW®ThisExpressionÍYÍ]NªIdentifierÍ^Íhª__navStackÂÂNªIdentifierÍiÍl£getÂÂÂP°MethodDefinitionÍ|ÍÃÂÂNªIdentifierÍ€Íˆ¨navStack£setQ²FunctionExpressionÍˆÍÃÀÂÂÂ‘NªIdentifierÍ‰Í‘¨newValueO®BlockStatementÍ“ÍÃ‘U³ExpressionStatementÍÍ¼V®CallExpressionÍÍ»[°MemberExpressionÍÍ±[°MemberExpressionÍÍ­W®ThisExpressionÍÍ¢NªIdentifierÍ£Í­ª__navStackÂÂNªIdentifierÍ®Í±£setÂÂ‘NªIdentifierÍ²Íº¨newValueÂP°MethodDefinitionÍÉÍÂÂNªIdentifierÍÍÍÓ¦aspect£getQ²FunctionExpressionÍÓÍÀÂÂÂO®BlockStatementÍÖÍ‘]¯ReturnStatementÍáÍüV®CallExpressionÍèÍû[°MemberExpressionÍèÍù[°MemberExpressionÍèÍõW®ThisExpressionÍèÍìNªIdentifierÍíÍõ¨__aspectÂÂNªIdentifierÍöÍù£getÂÂÂP°MethodDefinitionÍ	ÍLÂÂNªIdentifierÍÍ¦aspect£setQ²FunctionExpressionÍÍLÀÂÂÂ‘NªIdentifierÍÍ¨newValueO®BlockStatementÍÍL‘U³ExpressionStatementÍ)ÍEV®CallExpressionÍ)ÍD[°MemberExpressionÍ)Í:[°MemberExpressionÍ)Í6W®ThisExpressionÍ)Í-NªIdentifierÍ.Í6¨__aspectÂÂNªIdentifierÍ7Í:£setÂÂ‘NªIdentifierÍ;ÍC¨newValueÂP°MethodDefinitionÍRÍÂÂNªIdentifierÍVÍe¯xComponentWidth£getQ²FunctionExpressionÍeÍÀÂÂÂO®BlockStatementÍhÍ‘]¯ReturnStatementÍsÍ—V®CallExpressionÍzÍ–[°MemberExpressionÍzÍ”[°MemberExpressionÍzÍW®ThisExpressionÍzÍ~NªIdentifierÍÍ±__xComponentWidthÂÂNªIdentifierÍ‘Í”£getÂÂÂP°MethodDefinitionÍ¤ÍùÂÂNªIdentifierÍ¨Í·¯xComponentWidth£setQ²FunctionExpressionÍ·ÍùÀÂÂÂ‘NªIdentifierÍ¸ÍÀ¨newValueO®BlockStatementÍÂÍù‘U³ExpressionStatementÍÍÍòV®CallExpressionÍÍÍñ[°MemberExpressionÍÍÍç[°MemberExpressionÍÍÍãW®ThisExpressionÍÍÍÑNªIdentifierÍÒÍã±__xComponentWidthÂÂNªIdentifierÍäÍç£setÂÂ‘NªIdentifierÍèÍğ¨newValueÂP°MethodDefinitionÍÿÍMÂÂNªIdentifierÍÍ°xComponentHeight£getQ²FunctionExpressionÍÍMÀÂÂÂO®BlockStatementÍÍM‘]¯ReturnStatementÍ!ÍFV®CallExpressionÍ(ÍE[°MemberExpressionÍ(ÍC[°MemberExpressionÍ(Í?W®ThisExpressionÍ(Í,NªIdentifierÍ-Í?²__xComponentHeightÂÂNªIdentifierÍ@ÍC£getÂÂÂP°MethodDefinitionÍSÍªÂÂNªIdentifierÍWÍg°xComponentHeight£setQ²FunctionExpressionÍgÍªÀÂÂÂ‘NªIdentifierÍhÍp¨newValueO®BlockStatementÍrÍª‘U³ExpressionStatementÍ}Í£V®CallExpressionÍ}Í¢[°MemberExpressionÍ}Í˜[°MemberExpressionÍ}Í”W®ThisExpressionÍ}ÍNªIdentifierÍ‚Í”²__xComponentHeightÂÂNªIdentifierÍ•Í˜£setÂÂ‘NªIdentifierÍ™Í¡¨newValueÂP°MethodDefinitionÍ°ÍöÂÂNªIdentifierÍ´ÍÀ¬windowHeight£getQ²FunctionExpressionÍÀÍöÀÂÂÂO®BlockStatementÍÃÍö‘]¯ReturnStatementÍÎÍïV®CallExpressionÍÕÍî[°MemberExpressionÍÕÍì[°MemberExpressionÍÕÍèW®ThisExpressionÍÕÍÙNªIdentifierÍÚÍè®__windowHeightÂÂNªIdentifierÍéÍì£getÂÂÂP°MethodDefinitionÍüÍKÂÂNªIdentifierÍ Í¬windowHeight£setQ²FunctionExpressionÍÍKÀÂÂÂ‘NªIdentifierÍÍ¨newValueO®BlockStatementÍÍK‘U³ExpressionStatementÍ"ÍDV®CallExpressionÍ"ÍC[°MemberExpressionÍ"Í9[°MemberExpressionÍ"Í5W®ThisExpressionÍ"Í&NªIdentifierÍ'Í5®__windowHeightÂÂNªIdentifierÍ6Í9£setÂÂ‘NªIdentifierÍ:ÍB¨newValueÂP°MethodDefinitionÍQÍ•ÂÂNªIdentifierÍUÍ`«windowWidth£getQ²FunctionExpressionÍ`Í•ÀÂÂÂO®BlockStatementÍcÍ•‘]¯ReturnStatementÍnÍV®CallExpressionÍuÍ[°MemberExpressionÍuÍ‹[°MemberExpressionÍuÍ‡W®ThisExpressionÍuÍyNªIdentifierÍzÍ‡­__windowWidthÂÂNªIdentifierÍˆÍ‹£getÂÂÂP°MethodDefinitionÍ›ÍèÂÂNªIdentifierÍŸÍª«windowWidth£setQ²FunctionExpressionÍªÍèÀÂÂÂ‘NªIdentifierÍ«Í³¨newValueO®BlockStatementÍµÍè‘U³ExpressionStatementÍÀÍáV®CallExpressionÍÀÍà[°MemberExpressionÍÀÍÖ[°MemberExpressionÍÀÍÒW®ThisExpressionÍÀÍÄNªIdentifierÍÅÍÒ­__windowWidthÂÂNªIdentifierÍÓÍÖ£setÂÂ‘NªIdentifierÍ×Íß¨newValueÂP°MethodDefinitionÍîÍ2ÂÂNªIdentifierÍòÍı«isLandscape£getQ²FunctionExpressionÍıÍ2ÀÂÂÂO®BlockStatementÍ Í2‘]¯ReturnStatementÍÍ+V®CallExpressionÍÍ*[°MemberExpressionÍÍ([°MemberExpressionÍÍ$W®ThisExpressionÍÍNªIdentifierÍÍ$­__isLandscapeÂÂNªIdentifierÍ%Í(£getÂÂÂP°MethodDefinitionÍ8Í…ÂÂNªIdentifierÍ<ÍG«isLandscape£setQ²FunctionExpressionÍGÍ…ÀÂÂÂ‘NªIdentifierÍHÍP¨newValueO®BlockStatementÍRÍ…‘U³ExpressionStatementÍ]Í~V®CallExpressionÍ]Í}[°MemberExpressionÍ]Ís[°MemberExpressionÍ]ÍoW®ThisExpressionÍ]ÍaNªIdentifierÍbÍo­__isLandscapeÂÂNªIdentifierÍpÍs£setÂÂ‘NªIdentifierÍtÍ|¨newValueÂP°MethodDefinitionÍ‹ÍÏÂÂNªIdentifierÍÍš«isVideoLock£getQ²FunctionExpressionÍšÍÏÀÂÂÂO®BlockStatementÍÍÏ‘]¯ReturnStatementÍ¨ÍÈV®CallExpressionÍ¯ÍÇ[°MemberExpressionÍ¯ÍÅ[°MemberExpressionÍ¯ÍÁW®ThisExpressionÍ¯Í³NªIdentifierÍ´ÍÁ­__isVideoLockÂÂNªIdentifierÍÂÍÅ£getÂÂÂP°MethodDefinitionÍÕÍ"ÂÂNªIdentifierÍÙÍä«isVideoLock£setQ²FunctionExpressionÍäÍ"ÀÂÂÂ‘NªIdentifierÍåÍí¨newValueO®BlockStatementÍïÍ"‘U³ExpressionStatementÍúÍV®CallExpressionÍúÍ[°MemberExpressionÍúÍ[°MemberExpressionÍúÍW®ThisExpressionÍúÍşNªIdentifierÍÿÍ­__isVideoLockÂÂNªIdentifierÍÍ£setÂÂ‘NªIdentifierÍÍ¨newValueÂP°MethodDefinitionÍ(Í~ÂÂNªIdentifierÍ,Í@´orientationLockState£getQ²FunctionExpressionÍ@Í~ÀÂÂÂO®BlockStatementÍCÍ~‘]¯ReturnStatementÍNÍwV®CallExpressionÍUÍv[°MemberExpressionÍUÍt[°MemberExpressionÍUÍpW®ThisExpressionÍUÍYNªIdentifierÍZÍp¶__orientationLockStateÂÂNªIdentifierÍqÍt£getÂÂÂP°MethodDefinitionÍ„ÍãÂÂNªIdentifierÍˆÍœ´orientationLockState£setQ²FunctionExpressionÍœÍãÀÂÂÂ‘NªIdentifierÍÍ¥¨newValueO®BlockStatementÍ§Íã‘U³ExpressionStatementÍ²ÍÜV®CallExpressionÍ²ÍÛ[°MemberExpressionÍ²ÍÑ[°MemberExpressionÍ²ÍÍW®ThisExpressionÍ²Í¶NªIdentifierÍ·ÍÍ¶__orientationLockStateÂÂNªIdentifierÍÎÍÑ£setÂÂ‘NªIdentifierÍÒÍÚ¨newValueÂP°MethodDefinitionÍÍ*ÄÂÂNªIdentifierÍÍ­aboutToAppear¦methodQ²FunctionExpressionÍÍ*ÄÀÂÂÂO®BlockStatementÍÍ*Ä’U³ExpressionStatementÍ‡Í¦V®CallExpressionÍ‡Í¥[°MemberExpressionÍ‡Í£W®ThisExpressionÍ‡Í‹NªIdentifierÍŒÍ£·getOrientationLockStateÂÂÂÔr^–¤type¥start£end¥block§handler©finalizer¬TryStatementÍ°Í*”O®BlockStatementÍ´Í)ã–U³ExpressionStatementÍğÍ0Z´AssignmentExpressionÍğÍ/¡=[°MemberExpressionÍğÍ W®ThisExpressionÍğÍôNªIdentifierÍõÍ «windowClassÂÂV®CallExpressionÍÍ/[°MemberExpressionÍÍ-[°MemberExpressionÍÍ[°MemberExpressionÍÍW®ThisExpressionÍÍNªIdentifierÍÍ§contextÂÂNªIdentifierÍÍ«windowStageÂÂNªIdentifierÍÍ-±getMainWindowSyncÂÂÂU³ExpressionStatementÍºÍùV®CallExpressionÍºÍø[°MemberExpressionÍºÍÍW®ThisExpressionÍºÍ¾NªIdentifierÍ¿ÍÍ®setOrientationÂÂ‘[°MemberExpressionÍÎÍ÷[°MemberExpressionÍÎÍàNªIdentifierÍÎÍÔ¦windowNªIdentifierÍÕÍà«OrientationÂÂNªIdentifierÍáÍ÷¶USER_ROTATION_PORTRAITÂÂÂU³ExpressionStatementÍ Í oZ´AssignmentExpressionÍ Í n¡=[°MemberExpressionÍ Í W®ThisExpressionÍ Í NªIdentifierÍ Í ¬windowHeightÂÂV®CallExpressionÍ Í n[°MemberExpressionÍ Í 4V®CallExpressionÍ Í .[°MemberExpressionÍ Í ,W®ThisExpressionÍ Í NªIdentifierÍ  Í ,¬getUIContextÂÂÂNªIdentifierÍ /Í 4¥px2vpÂÂ‘[°MemberExpressionÍ 5Í m[°MemberExpressionÍ 5Í fV®CallExpressionÍ 5Í [[°MemberExpressionÍ 5Í Y[°MemberExpressionÍ 5Í EW®ThisExpressionÍ 5Í 9NªIdentifierÍ :Í E«windowClassÂÂNªIdentifierÍ FÍ Y³getWindowPropertiesÂÂÂNªIdentifierÍ \Í fªwindowRectÂÂNªIdentifierÍ gÍ m¦heightÂÂÂU³ExpressionStatementÍ }Í ãZ´AssignmentExpressionÍ }Í â¡=[°MemberExpressionÍ }Í W®ThisExpressionÍ }Í NªIdentifierÍ ‚Í «windowWidthÂÂV®CallExpressionÍ Í â[°MemberExpressionÍ Í ©V®CallExpressionÍ Í £[°MemberExpressionÍ Í ¡W®ThisExpressionÍ Í ”NªIdentifierÍ •Í ¡¬getUIContextÂÂÂNªIdentifierÍ ¤Í ©¥px2vpÂÂ‘[°MemberExpressionÍ ªÍ á[°MemberExpressionÍ ªÍ ÛV®CallExpressionÍ ªÍ Ğ[°MemberExpressionÍ ªÍ Î[°MemberExpressionÍ ªÍ ºW®ThisExpressionÍ ªÍ ®NªIdentifierÍ ¯Í º«windowClassÂÂNªIdentifierÍ »Í Î³getWindowPropertiesÂÂÂNªIdentifierÍ ÑÍ ÛªwindowRectÂÂNªIdentifierÍ ÜÍ á¥widthÂÂÂU³ExpressionStatementÍ ñÍ!
+V®CallExpressionÍ ñÍ!	[°MemberExpressionÍ ñÍ!W®ThisExpressionÍ ñÍ õNªIdentifierÍ öÍ!±setXComponentSizeÂÂÂU³ExpressionStatementÍ!ØÍ)NV®CallExpressionÍ!ØÍ)M[°MemberExpressionÍ!ØÍ!ë[°MemberExpressionÍ!ØÍ!èW®ThisExpressionÍ!ØÍ!ÜNªIdentifierÍ!İÍ!è«windowClassÂÂNªIdentifierÍ!éÍ!ë¢onÂÂ’T§LiteralÍ!ìÍ!ş°windowSizeChange²'windowSizeChange'Q·ArrowFunctionExpressionÍ" Í)LÀÂÂÂ‘NªIdentifierÍ"Í"¤sizeO®BlockStatementÍ"
+Í)L˜U³ExpressionStatementÍ"¢Í"İZ´AssignmentExpressionÍ"¢Í"Ü¡=[°MemberExpressionÍ"¢Í"³W®ThisExpressionÍ"¢Í"¦NªIdentifierÍ"§Í"³¬windowHeightÂÂV®CallExpressionÍ"¶Í"Ü[°MemberExpressionÍ"¶Í"ÏV®CallExpressionÍ"¶Í"É[°MemberExpressionÍ"¶Í"ÇW®ThisExpressionÍ"¶Í"ºNªIdentifierÍ"»Í"Ç¬getUIContextÂÂÂNªIdentifierÍ"ÊÍ"Ï¥px2vpÂÂ‘[°MemberExpressionÍ"ĞÍ"ÛNªIdentifierÍ"ĞÍ"Ô¤sizeNªIdentifierÍ"ÕÍ"Û¦heightÂÂÂU³ExpressionStatementÍ"ïÍ#(Z´AssignmentExpressionÍ"ïÍ#'¡=[°MemberExpressionÍ"ïÍ"ÿW®ThisExpressionÍ"ïÍ"óNªIdentifierÍ"ôÍ"ÿ«windowWidthÂÂV®CallExpressionÍ#Í#'[°MemberExpressionÍ#Í#V®CallExpressionÍ#Í#[°MemberExpressionÍ#Í#W®ThisExpressionÍ#Í#NªIdentifierÍ#Í#¬getUIContextÂÂÂNªIdentifierÍ#Í#¥px2vpÂÂ‘[°MemberExpressionÍ#Í#&NªIdentifierÍ#Í# ¤sizeNªIdentifierÍ#!Í#&¥widthÂÂÂU³ExpressionStatementÍ#:Í#SV®CallExpressionÍ#:Í#R[°MemberExpressionÍ#:Í#PW®ThisExpressionÍ#:Í#>NªIdentifierÍ#?Í#P±setXComponentSizeÂÂÂÔr_•¤type¥start£end¬declarations¤kind³VariableDeclarationÍ#Í#Ğ‘Ôr`•¤type¥start£end¢id¤init²VariableDeclaratorÍ#¡Í#ÏNªIdentifierÍ#¡Í#­¬displayClassV®CallExpressionÍ#°Í#Ï[°MemberExpressionÍ#°Í#ÍNªIdentifierÍ#°Í#·§displayNªIdentifierÍ#¸Í#ÍµgetDefaultDisplaySyncÂÂÂ£let_³VariableDeclarationÍ#âÍ$‘`²VariableDeclaratorÍ#æÍ$NªIdentifierÍ#æÍ#ñ«orientation[°MemberExpressionÍ#ôÍ$NªIdentifierÍ#ôÍ$ ¬displayClassNªIdentifierÍ$Í$«orientationÂÂ£letX«IfStatementÍ$Í&¤Y±LogicalExpressionÍ$#Í$ŠY°BinaryExpressionÍ$#Í$PNªIdentifierÍ$#Í$.«orientation£===[°MemberExpressionÍ$3Í$P[°MemberExpressionÍ$3Í$FNªIdentifierÍ$3Í$:§displayNªIdentifierÍ$;Í$F«OrientationÂÂNªIdentifierÍ$GÍ$P©LANDSCAPEÂÂ¢||Y°BinaryExpressionÍ$TÍ$ŠNªIdentifierÍ$TÍ$_«orientation£===[°MemberExpressionÍ$dÍ$Š[°MemberExpressionÍ$dÍ$wNªIdentifierÍ$dÍ$k§displayNªIdentifierÍ$lÍ$w«OrientationÂÂNªIdentifierÍ$xÍ$Š²LANDSCAPE_INVERTEDÂÂO®BlockStatementÍ$ŒÍ%‘U³ExpressionStatementÍ$îÍ%Z´AssignmentExpressionÍ$îÍ%¡=[°MemberExpressionÍ$îÍ$şW®ThisExpressionÍ$îÍ$òNªIdentifierÍ$óÍ$ş«isLandscapeÂÂT§LiteralÍ%Í%Ã¤trueO®BlockStatementÍ%0Í&¤‘X«IfStatementÍ%GÍ&‘Y±LogicalExpressionÍ%KÍ%…S¯UnaryExpressionÍ%KÍ%p¡!ÃV®CallExpressionÍ%LÍ%p[°MemberExpressionÍ%LÍ%nNªIdentifierÍ%LÍ%W«WindowUtilsNªIdentifierÍ%XÍ%n¶isExpandedOrHalfFoldedÂÂÂ¢&&S¯UnaryExpressionÍ%tÍ%…¡!Ã[°MemberExpressionÍ%uÍ%…W®ThisExpressionÍ%uÍ%yNªIdentifierÍ%zÍ%…«isVideoLockÂÂO®BlockStatementÍ%‡Í&‘’U³ExpressionStatementÍ&Í&!Z´AssignmentExpressionÍ&Í& ¡=[°MemberExpressionÍ&Í&W®ThisExpressionÍ&Í&NªIdentifierÍ&Í&«isLandscapeÂÂT§LiteralÍ&Í& Â¥falseU³ExpressionStatementÍ&;Í&zV®CallExpressionÍ&;Í&y[°MemberExpressionÍ&;Í&NW®ThisExpressionÍ&;Í&?NªIdentifierÍ&@Í&N®setOrientationÂÂ‘[°MemberExpressionÍ&OÍ&x[°MemberExpressionÍ&OÍ&aNªIdentifierÍ&OÍ&U¦windowNªIdentifierÍ&VÍ&a«OrientationÂÂNªIdentifierÍ&bÍ&x¶USER_ROTATION_PORTRAITÂÂÂÀX«IfStatementÍ'Í'»Y±LogicalExpressionÍ'Í'OY±LogicalExpressionÍ'Í';[°MemberExpressionÍ'Í'!W®ThisExpressionÍ'Í'NªIdentifierÍ'Í'!«isLandscapeÂÂ¢&&V®CallExpressionÍ'%Í';[°MemberExpressionÍ'%Í'9NªIdentifierÍ'%Í'0«WindowUtilsNªIdentifierÍ'1Í'9¨isFoldedÂÂÂ¢&&[°MemberExpressionÍ'?Í'OW®ThisExpressionÍ'?Í'CNªIdentifierÍ'DÍ'O«isVideoLockÂÂO®BlockStatementÍ'QÍ'»‘U³ExpressionStatementÍ'hÍ'¨V®CallExpressionÍ'hÍ'§[°MemberExpressionÍ'hÍ'{W®ThisExpressionÍ'hÍ'lNªIdentifierÍ'mÍ'{®setOrientationÂÂ‘[°MemberExpressionÍ'|Í'¦[°MemberExpressionÍ'|Í'NªIdentifierÍ'|Í'‚¦windowNªIdentifierÍ'ƒÍ'«OrientationÂÂNªIdentifierÍ'Í'¦·AUTO_ROTATION_LANDSCAPEÂÂÂÀX«IfStatementÍ(2Í(ĞY±LogicalExpressionÍ(6Í(n[°MemberExpressionÍ(6Í(FW®ThisExpressionÍ(6Í(:NªIdentifierÍ(;Í(F«isLandscapeÂÂ¢&&V®CallExpressionÍ(JÍ(n[°MemberExpressionÍ(JÍ(lNªIdentifierÍ(JÍ(U«WindowUtilsNªIdentifierÍ(VÍ(l¶isExpandedOrHalfFoldedÂÂÂO®BlockStatementÍ(pÍ(Ğ‘U³ExpressionStatementÍ(‡Í(½V®CallExpressionÍ(‡Í(¼[°MemberExpressionÍ(‡Í(šW®ThisExpressionÍ(‡Í(‹NªIdentifierÍ(ŒÍ(š®setOrientationÂÂ‘[°MemberExpressionÍ(›Í(»[°MemberExpressionÍ(›Í(­NªIdentifierÍ(›Í(¡¦windowNªIdentifierÍ(¢Í(­«OrientationÂÂNªIdentifierÍ(®Í(»­AUTO_ROTATIONÂÂÂÀÂÔra•¤type¥start£end¥param¤body«CatchClauseÍ)íÍ*”NªIdentifierÍ)ôÍ)÷£errO®BlockStatementÍ)ùÍ*”’_³VariableDeclarationÍ*Í*‘`²VariableDeclaratorÍ*Í*NªIdentifierÍ*Í*¥errorNªIdentifierÍ*Í*£err£letU³ExpressionStatementÍ*&Í*‰V®CallExpressionÍ*&Í*ˆ[°MemberExpressionÍ*&Í*2NªIdentifierÍ*&Í*,¦LoggerNªIdentifierÍ*-Í*2¥errorÂÂ’NªIdentifierÍ*3Í*6£TAGÔrb•¤type¥start£end«expressions¦quasis¯TemplateLiteralÍ*8Í*‡’[°MemberExpressionÍ*ZÍ*dNªIdentifierÍ*ZÍ*_¥errorNªIdentifierÍ*`Í*d¤codeÂÂ[°MemberExpressionÍ*xÍ*…NªIdentifierÍ*xÍ*}¥errorNªIdentifierÍ*~Í*…§messageÂÂ“Ôrc•¤type¥start£end¥value¤tail¯TemplateElementÍ*9Í*XÔrd’£raw¦cooked¿aboutToAppear err, error code: ¿aboutToAppear err, error code: Âc¯TemplateElementÍ*eÍ*vd±, error message: ±, error message: Âc¯TemplateElementÍ*†Í*†d  ÃÂÀP°MethodDefinitionÍ*ñÍ+ÊÂÂNªIdentifierÍ*ñÍ+±setXComponentSize¦methodQ²FunctionExpressionÍ+Í+ÊÀÂÂÂO®BlockStatementÍ+Í+Ê“_³VariableDeclarationÍ+Í+_‘`²VariableDeclaratorÍ+Í+^NªIdentifierÍ+Í+©videoSizeV®CallExpressionÍ+ Í+^NªIdentifierÍ+ Í+,¬getVideoSize“[°MemberExpressionÍ+-Í+>W®ThisExpressionÍ+-Í+1NªIdentifierÍ+2Í+>¬windowHeightÂÂ[°MemberExpressionÍ+@Í+PW®ThisExpressionÍ+@Í+DNªIdentifierÍ+EÍ+P«windowWidthÂÂ[°MemberExpressionÍ+RÍ+]W®ThisExpressionÍ+RÍ+VNªIdentifierÍ+WÍ+]¦aspectÂÂÂ£letU³ExpressionStatementÍ+iÍ+’Z´AssignmentExpressionÍ+iÍ+‘¡=[°MemberExpressionÍ+iÍ+~W®ThisExpressionÍ+iÍ+mNªIdentifierÍ+nÍ+~°xComponentHeightÂÂ[°MemberExpressionÍ+Í+‘NªIdentifierÍ+Í+Š©videoSizeNªIdentifierÍ+‹Í+‘¦heightÂÂU³ExpressionStatementÍ+œÍ+ÃZ´AssignmentExpressionÍ+œÍ+Â¡=[°MemberExpressionÍ+œÍ+°W®ThisExpressionÍ+œÍ+ NªIdentifierÍ+¡Í+°¯xComponentWidthÂÂ[°MemberExpressionÍ+³Í+ÂNªIdentifierÍ+³Í+¼©videoSizeNªIdentifierÍ+½Í+Â¥widthÂÂP°MethodDefinitionÍ,Í-ÔÂÂNªIdentifierÍ,Í,#®setOrientation¦methodQ²FunctionExpressionÍ,#Í-ÔÀÂÂÂ‘NªIdentifierÍ,$Í,/«orientationO®BlockStatementÍ,1Í-Ô‘U³ExpressionStatementÍ,{Í-ÍU¯ChainExpressionÍ,{Í-ÌV®CallExpressionÍ,{Í-Ì[°MemberExpressionÍ,{Í-V®CallExpressionÍ,{Í-[°MemberExpressionÍ,{Í,¶V®CallExpressionÍ,{Í,±[°MemberExpressionÍ,{Í,¤[°MemberExpressionÍ,{Í,‹W®ThisExpressionÍ,{Í,NªIdentifierÍ,€Í,‹«windowClassÂÂNªIdentifierÍ,Í,¤·setPreferredOrientationÂÃ‘NªIdentifierÍ,¥Í,°«orientationÂNªIdentifierÍ,²Í,¶¤thenÂÂ‘Q·ArrowFunctionExpressionÍ,·Í-ÀÂÂÂO®BlockStatementÍ,½Í-‘U³ExpressionStatementÍ,ÌÍ-
+V®CallExpressionÍ,ÌÍ-	[°MemberExpressionÍ,ÌÍ,×NªIdentifierÍ,ÌÍ,Ò¦LoggerNªIdentifierÍ,ÓÍ,×¤infoÂÂ‘b¯TemplateLiteralÍ,ØÍ-‘NªIdentifierÍ,ñÍ,ü«orientation’c¯TemplateElementÍ,ÙÍ,ïd¶setWin0dowOrientation ¶setWin0dowOrientation Âc¯TemplateElementÍ,ıÍ-dª Succeededª SucceededÃÂÂNªIdentifierÍ-Í-¥catchÂÂ‘Q·ArrowFunctionExpressionÍ-Í-ËÀÂÂÂ‘NªIdentifierÍ-Í-!£errO®BlockStatementÍ-&Í-Ë’_³VariableDeclarationÍ-5Í-E‘`²VariableDeclaratorÍ-9Í-DNªIdentifierÍ-9Í->¥errorNªIdentifierÍ-AÍ-D£err£letU³ExpressionStatementÍ-SÍ-ÀV®CallExpressionÍ-SÍ-¿[°MemberExpressionÍ-SÍ-_NªIdentifierÍ-SÍ-Y¦LoggerNªIdentifierÍ-ZÍ-_¥errorÂÂ’NªIdentifierÍ-`Í-c£TAGb¯TemplateLiteralÍ-eÍ-¾“NªIdentifierÍ-}Í-ˆ«orientation[°MemberExpressionÍ-—Í-¡NªIdentifierÍ-—Í-œ¥errorNªIdentifierÍ-Í-¡¤codeÂÂ[°MemberExpressionÍ-¯Í-¼NªIdentifierÍ-¯Í-´¥errorNªIdentifierÍ-µÍ-¼§messageÂÂ”c¯TemplateElementÍ-fÍ-{dµsetWindowOrientation µsetWindowOrientation Âc¯TemplateElementÍ-‰Í-•d¬ err, code: ¬ err, code: Âc¯TemplateElementÍ-¢Í-­d«, message: «, message: Âc¯TemplateElementÍ-½Í-½d  ÃÂÂP°MethodDefinitionÍ.Í0ÒÂÂNªIdentifierÍ.Í.·getOrientationLockState¦methodQ²FunctionExpressionÍ.Í0ÒÀÂÂÂO®BlockStatementÍ.Í0Ò’U³ExpressionStatementÍ.QÍ.äZ´AssignmentExpressionÍ.QÍ.ã¡=[°MemberExpressionÍ.QÍ.jW®ThisExpressionÍ.QÍ.UNªIdentifierÍ.VÍ.j´orientationLockStateÂÂV®CallExpressionÍ.mÍ.ã[°MemberExpressionÍ.mÍ.‚NªIdentifierÍ.mÍ.u¨settingsNªIdentifierÍ.vÍ.‚¬getValueSyncÂÂ“[°MemberExpressionÍ.ƒÍ.W®ThisExpressionÍ.ƒÍ.‡NªIdentifierÍ.ˆÍ.§contextÂÂ[°MemberExpressionÍ.‘Í.¿[°MemberExpressionÍ.‘Í.¡NªIdentifierÍ.‘Í.™¨settingsNªIdentifierÍ.šÍ.¡§generalÂÂNªIdentifierÍ.¢Í.¿½ACCELEROMETER_ROTATION_STATUSÂÂ[°MemberExpressionÍ.ÁÍ.â[°MemberExpressionÍ.ÁÍ.ÔNªIdentifierÍ.ÁÍ.É¨settingsNªIdentifierÍ.ÊÍ.ÔªdomainNameÂÂNªIdentifierÍ.ÕÍ.â­DEVICE_SHAREDÂÂÂU³ExpressionStatementÍ/bÍ0¦V®CallExpressionÍ/bÍ0¥[°MemberExpressionÍ/bÍ/~NªIdentifierÍ/bÍ/j¨settingsNªIdentifierÍ/kÍ/~³registerKeyObserverÂÂ”[°MemberExpressionÍ/Í/‹W®ThisExpressionÍ/Í/ƒNªIdentifierÍ/„Í/‹§contextÂÂ[°MemberExpressionÍ/Í/»[°MemberExpressionÍ/Í/NªIdentifierÍ/Í/•¨settingsNªIdentifierÍ/–Í/§generalÂÂNªIdentifierÍ/Í/»½ACCELEROMETER_ROTATION_STATUSÂÂ[°MemberExpressionÍ/½Í/Ş[°MemberExpressionÍ/½Í/ĞNªIdentifierÍ/½Í/Å¨settingsNªIdentifierÍ/ÆÍ/ĞªdomainNameÂÂNªIdentifierÍ/ÑÍ/Ş­DEVICE_SHAREDÂÂQ·ArrowFunctionExpressionÍ/àÍ0¤ÀÂÂÂO®BlockStatementÍ/æÍ0¤‘U³ExpressionStatementÍ/õÍ0™Z´AssignmentExpressionÍ/õÍ0˜¡=[°MemberExpressionÍ/õÍ0W®ThisExpressionÍ/õÍ/ùNªIdentifierÍ/úÍ0´orientationLockStateÂÂV®CallExpressionÍ0"Í0˜[°MemberExpressionÍ0"Í07NªIdentifierÍ0"Í0*¨settingsNªIdentifierÍ0+Í07¬getValueSyncÂÂ“[°MemberExpressionÍ08Í0DW®ThisExpressionÍ08Í0<NªIdentifierÍ0=Í0D§contextÂÂ[°MemberExpressionÍ0FÍ0t[°MemberExpressionÍ0FÍ0VNªIdentifierÍ0FÍ0N¨settingsNªIdentifierÍ0OÍ0V§generalÂÂNªIdentifierÍ0WÍ0t½ACCELEROMETER_ROTATION_STATUSÂÂ[°MemberExpressionÍ0vÍ0—[°MemberExpressionÍ0vÍ0‰NªIdentifierÍ0vÍ0~¨settingsNªIdentifierÍ0Í0‰ªdomainNameÂÂNªIdentifierÍ0ŠÍ0—­DEVICE_SHAREDÂÂÂÂP°MethodDefinitionÍ0ØÍ1ÙÂÂNªIdentifierÍ0ØÍ0è°aboutToDisappear¦methodQ²FunctionExpressionÍ0èÍ1ÙÀÂÂÂO®BlockStatementÍ0ëÍ1Ù“U³ExpressionStatementÍ0öÍ1vV®CallExpressionÍ0öÍ1u[°MemberExpressionÍ0öÍ1NªIdentifierÍ0öÍ0ş¨settingsNªIdentifierÍ0ÿÍ1µunregisterKeyObserverÂÂ“[°MemberExpressionÍ1Í1!W®ThisExpressionÍ1Í1NªIdentifierÍ1Í1!§contextÂÂ[°MemberExpressionÍ1#Í1Q[°MemberExpressionÍ1#Í13NªIdentifierÍ1#Í1+¨settingsNªIdentifierÍ1,Í13§generalÂÂNªIdentifierÍ14Í1Q½ACCELEROMETER_ROTATION_STATUSÂÂ[°MemberExpressionÍ1SÍ1t[°MemberExpressionÍ1SÍ1fNªIdentifierÍ1SÍ1[¨settingsNªIdentifierÍ1\Í1fªdomainNameÂÂNªIdentifierÍ1gÍ1t­DEVICE_SHAREDÂÂÂU³ExpressionStatementÍ1€Í1—U¯ChainExpressionÍ1€Í1–V®CallExpressionÍ1€Í1–[°MemberExpressionÍ1€Í1”[°MemberExpressionÍ1€Í1‹W®ThisExpressionÍ1€Í1„NªIdentifierÍ1…Í1‹¦playerÂÂNªIdentifierÍ1Í1”§releaseÂÃÂU³ExpressionStatementÍ1¡Í1ÒV®CallExpressionÍ1¡Í1Ñ[°MemberExpressionÍ1¡Í1´W®ThisExpressionÍ1¡Í1¥NªIdentifierÍ1¦Í1´®setOrientationÂÂ‘[°MemberExpressionÍ1µÍ1Ğ[°MemberExpressionÍ1µÍ1ÇNªIdentifierÍ1µÍ1»¦windowNªIdentifierÍ1¼Í1Ç«OrientationÂÂNªIdentifierÍ1ÈÍ1Ğ¨PORTRAITÂÂÂP°MethodDefinitionÍ1ßÍ\eÂÂNªIdentifierÍ1ßÍ1ì­initialRender¦methodQ²FunctionExpressionÍ1ìÍ\eÀÂÂÂO®BlockStatementÍ1ïÍ\eU³ExpressionStatementÍ1úÍ4V®CallExpressionÍ1úÍ4[°MemberExpressionÍ1úÍ2W®ThisExpressionÍ1úÍ1şNªIdentifierÍ1ÿÍ2¹observeComponentCreation2ÂÂ’Q·ArrowFunctionExpressionÍ2Í4	ÀÂÂÂ’NªIdentifierÍ2Í2 ¦elmtIdNªIdentifierÍ2"Í21¯isInitialRenderO®BlockStatementÍ26Í4	–U³ExpressionStatementÍ2EÍ2TV®CallExpressionÍ2EÍ2S[°MemberExpressionÍ2EÍ2QNªIdentifierÍ2EÍ2J¥StackNªIdentifierÍ2KÍ2Q¦createÂÂÂU³ExpressionStatementÍ2bÍ2vV®CallExpressionÍ2bÍ2u[°MemberExpressionÍ2bÍ2mNªIdentifierÍ2bÍ2g¥StackNªIdentifierÍ2hÍ2m¥widthÂÂ‘T§LiteralÍ2nÍ2t¤100%¦'100%'ÂU³ExpressionStatementÍ2„Í3V®CallExpressionÍ2„Í3[°MemberExpressionÍ2„Í2™NªIdentifierÍ2„Í2‰¥StackNªIdentifierÍ2ŠÍ2™¯backgroundColorÂÂ‘Ôre”¤type¥start£endªproperties°ObjectExpressionÍ2šÍ3•Ôrf™¤type¥start£end¦method©shorthand¨computed£key¥value¤kind¨PropertyÍ2œÍ2«ÂÂÂT§LiteralÍ2œÍ2 ¢id¤"id"T§LiteralÍ2¢Í2«Î€g©125831015¤initf¨PropertyÍ2­Í2ºÂÂÂT§LiteralÍ2­Í2³¤type¦"type"T§LiteralÍ2µÍ2ºÍ'¥10001¤initf¨PropertyÍ2¼Í2ÆÂÂÂNªIdentifierÍ2¼Í2Â¦paramsÔrg”¤type¥start£end¨elements¯ArrayExpressionÍ2ÄÍ2Æ¤initf¨PropertyÍ2ÈÍ2ûÂÂÂT§LiteralÍ2ÈÍ2ÔªbundleName¬"bundleName"T§LiteralÍ2ÖÍ2ûÙ#com.example.landscapeportraittoggleÙ%"com.example.landscapeportraittoggle"¤initf¨PropertyÍ2ıÍ3ÂÂÂT§LiteralÍ2ıÍ3	ªmoduleName¬"moduleName"T§LiteralÍ3Í3¥entry§"entry"¤initÂU³ExpressionStatementÍ3$Í3{V®CallExpressionÍ3$Í3z[°MemberExpressionÍ3$Í30NªIdentifierÍ3$Í3)¥StackNªIdentifierÍ3*Í30¦heightÂÂ‘XµConditionalExpressionÍ31Í3y[°MemberExpressionÍ31Í3AW®ThisExpressionÍ31Í35NªIdentifierÍ36Í3A«isLandscapeÂÂT§LiteralÍ3DÍ3J¤100%¦'100%'Y°BinaryExpressionÍ3MÍ3y[°MemberExpressionÍ3MÍ3bW®ThisExpressionÍ3MÍ3QNªIdentifierÍ3RÍ3b°xComponentHeightÂÂ¡+[°MemberExpressionÍ3eÍ3yW®ThisExpressionÍ3eÍ3iNªIdentifierÍ3jÍ3y¯statusBarHeightÂÂÂU³ExpressionStatementÍ3‰Í3¬V®CallExpressionÍ3‰Í3«[°MemberExpressionÍ3‰Í3NªIdentifierÍ3‰Í3¥StackNªIdentifierÍ3Í3¯backgroundColorÂÂ‘[°MemberExpressionÍ3ŸÍ3ªNªIdentifierÍ3ŸÍ3¤¥ColorNªIdentifierÍ3¥Í3ª¥BlackÂÂÂU³ExpressionStatementÍ3ºÍ3şV®CallExpressionÍ3ºÍ3ı[°MemberExpressionÍ3ºÍ3ÇNªIdentifierÍ3ºÍ3¿¥StackNªIdentifierÍ3ÀÍ3Ç§paddingÂÂ‘e°ObjectExpressionÍ3ÈÍ3ü‘f¨PropertyÍ3ÊÍ3úÂÂÂNªIdentifierÍ3ÊÍ3Í£topXµConditionalExpressionÍ3ÏÍ3ú[°MemberExpressionÍ3ÏÍ3ßW®ThisExpressionÍ3ÏÍ3ÓNªIdentifierÍ3ÔÍ3ß«isLandscapeÂÂT§LiteralÍ3âÍ3ã ¡0[°MemberExpressionÍ3æÍ3úW®ThisExpressionÍ3æÍ3êNªIdentifierÍ3ëÍ3ú¯statusBarHeightÂÂ¤initÂNªIdentifierÍ4Í4¥StackÂU³ExpressionStatementÍ4Í4ŒV®CallExpressionÍ4Í4‹[°MemberExpressionÍ4Í4:W®ThisExpressionÍ4Í4 NªIdentifierÍ4!Í4:¹observeComponentCreation2ÂÂ’Q·ArrowFunctionExpressionÍ4;Í4‚ÀÂÂÂ’NªIdentifierÍ4<Í4B¦elmtIdNªIdentifierÍ4DÍ4S¯isInitialRenderO®BlockStatementÍ4XÍ4‚‘U³ExpressionStatementÍ4gÍ4wV®CallExpressionÍ4gÍ4v[°MemberExpressionÍ4gÍ4tNªIdentifierÍ4gÍ4m¦ColumnNªIdentifierÍ4nÍ4t¦createÂÂÂNªIdentifierÍ4„Í4Š¦ColumnÂU³ExpressionStatementÍ4–Í:1V®CallExpressionÍ4–Í:0[°MemberExpressionÍ4–Í4´W®ThisExpressionÍ4–Í4šNªIdentifierÍ4›Í4´¹observeComponentCreation2ÂÂ’Q·ArrowFunctionExpressionÍ4µÍ:#ÀÂÂÂ’NªIdentifierÍ4¶Í4¼¦elmtIdNªIdentifierÍ4¾Í4Í¯isInitialRenderO®BlockStatementÍ4ÒÍ:#”U³ExpressionStatementÍ5.Í5ÍV®CallExpressionÍ5.Í5Ì[°MemberExpressionÍ5.Í5?NªIdentifierÍ5.Í58ªXComponentNªIdentifierÍ59Í5?¦createÂÂ’e°ObjectExpressionÍ5@Í5“f¨PropertyÍ5BÍ5WÂÂÂNªIdentifierÍ5BÍ5D¢idT§LiteralÍ5FÍ5W¯video_player_id±'video_player_id'¤initf¨PropertyÍ5YÍ5uÂÂÂNªIdentifierÍ5YÍ5]¤type[°MemberExpressionÍ5_Í5uNªIdentifierÍ5_Í5m®XComponentTypeNªIdentifierÍ5nÍ5u§SURFACEÂÂ¤initf¨PropertyÍ5wÍ5œÂÂÂNªIdentifierÍ5wÍ5ªcontroller[°MemberExpressionÍ5ƒÍ5œW®ThisExpressionÍ5ƒÍ5‡NªIdentifierÍ5ˆÍ5œ´xComponentControllerÂÂ¤initT§LiteralÍ5 Í5ËÙ)com.example.landscapeportraittoggle/entryÙ+"com.example.landscapeportraittoggle/entry"ÂU³ExpressionStatementÍ6(Í9V®CallExpressionÍ6(Í9[°MemberExpressionÍ6(Í69NªIdentifierÍ6(Í62ªXComponentNªIdentifierÍ63Í69¦onLoadÂÂ‘Q·ArrowFunctionExpressionÍ6:Í9ÀÂÂÂO®BlockStatementÍ6@Í9‘^¬TryStatementÍ6‚Í8ÔO®BlockStatementÍ6†Í8“U³ExpressionStatementÍ6Í6ÊZ´AssignmentExpressionÍ6Í6É¡=[°MemberExpressionÍ6Í6¨W®ThisExpressionÍ6Í6¡NªIdentifierÍ6¢Í6¨¦playerÂÂ\­NewExpressionÍ6«Í6ÉNªIdentifierÍ6¯Í6»¬AVPlayerUtil‘[°MemberExpressionÍ6¼Í6ÈW®ThisExpressionÍ6¼Í6ÀNªIdentifierÍ6ÁÍ6È§contextÂÂU³ExpressionStatementÍ6àÍ7-V®CallExpressionÍ6àÍ7,[°MemberExpressionÍ6àÍ6ø[°MemberExpressionÍ6àÍ6ëW®ThisExpressionÍ6àÍ6äNªIdentifierÍ6åÍ6ë¦playerÂÂNªIdentifierÍ6ìÍ6ø¬setSurfaceIdÂÂ‘V®CallExpressionÍ6ùÍ7+[°MemberExpressionÍ6ùÍ7)[°MemberExpressionÍ6ùÍ7W®ThisExpressionÍ6ùÍ6ıNªIdentifierÍ6şÍ7´xComponentControllerÂÂNªIdentifierÍ7Í7)¶getXComponentSurfaceIdÂÂÂÂU³ExpressionStatementÍ7CÍ7óV®CallExpressionÍ7CÍ7ò[°MemberExpressionÍ7CÍ7Y[°MemberExpressionÍ7CÍ7NW®ThisExpressionÍ7CÍ7GNªIdentifierÍ7HÍ7N¦playerÂÂNªIdentifierÍ7OÍ7YªinitPlayerÂÂ’T§LiteralÍ7ZÍ7i­videoTest.mp4¯'videoTest.mp4'Q·ArrowFunctionExpressionÍ7kÍ7ñÀÂÂÂ‘NªIdentifierÍ7lÍ7r¦aspectO®BlockStatementÍ7wÍ7ñ’U³ExpressionStatementÍ7’Í7§Z´AssignmentExpressionÍ7’Í7¦¡=[°MemberExpressionÍ7’Í7W®ThisExpressionÍ7’Í7–NªIdentifierÍ7—Í7¦aspectÂÂNªIdentifierÍ7 Í7¦¦aspectU³ExpressionStatementÍ7ÁÍ7ÚV®CallExpressionÍ7ÁÍ7Ù[°MemberExpressionÍ7ÁÍ7×W®ThisExpressionÍ7ÁÍ7ÅNªIdentifierÍ7ÆÍ7×±setXComponentSizeÂÂÂÂa«CatchClauseÍ8Í8ÔNªIdentifierÍ8Í8"£errO®BlockStatementÍ8$Í8Ô’_³VariableDeclarationÍ8;Í8K‘`²VariableDeclaratorÍ8?Í8JNªIdentifierÍ8?Í8D¥errorNªIdentifierÍ8GÍ8J£err£letU³ExpressionStatementÍ8aÍ8ÁV®CallExpressionÍ8aÍ8À[°MemberExpressionÍ8aÍ8mNªIdentifierÍ8aÍ8g¦LoggerNªIdentifierÍ8hÍ8m¥errorÂÂ’NªIdentifierÍ8nÍ8q£TAGb¯TemplateLiteralÍ8sÍ8¿’[°MemberExpressionÍ8’Í8œNªIdentifierÍ8’Í8—¥errorNªIdentifierÍ8˜Í8œ¤codeÂÂ[°MemberExpressionÍ8°Í8½NªIdentifierÍ8°Í8µ¥errorNªIdentifierÍ8¶Í8½§messageÂÂ“c¯TemplateElementÍ8tÍ8d¼initPlayer err, error code: ¼initPlayer err, error code: Âc¯TemplateElementÍ8Í8®d±, error message: ±, error message: Âc¯TemplateElementÍ8¾Í8¾d  ÃÂÀÂU³ExpressionStatementÍ9mÍ9”V®CallExpressionÍ9mÍ9“[°MemberExpressionÍ9mÍ9}NªIdentifierÍ9mÍ9wªXComponentNªIdentifierÍ9xÍ9}¥widthÂÂ‘[°MemberExpressionÍ9~Í9’W®ThisExpressionÍ9~Í9‚NªIdentifierÍ9ƒÍ9’¯xComponentWidthÂÂÂU³ExpressionStatementÍ9ïÍ:V®CallExpressionÍ9ïÍ:[°MemberExpressionÍ9ïÍ: NªIdentifierÍ9ïÍ9ùªXComponentNªIdentifierÍ9úÍ: ¦heightÂÂ‘[°MemberExpressionÍ:Í:W®ThisExpressionÍ:Í:NªIdentifierÍ:Í:°xComponentHeightÂÂÂNªIdentifierÍ:%Í:/ªXComponentÂU³ExpressionStatementÍ:;Í:HV®CallExpressionÍ:;Í:G[°MemberExpressionÍ:;Í:ENªIdentifierÍ:;Í:A¦ColumnNªIdentifierÍ:BÍ:E£popÂÂÂU³ExpressionStatementÍ:RÍ;5V®CallExpressionÍ:RÍ;4[°MemberExpressionÍ:RÍ:pW®ThisExpressionÍ:RÍ:VNªIdentifierÍ:WÍ:p¹observeComponentCreation2ÂÂ’Q·ArrowFunctionExpressionÍ:qÍ; ÀÂÂÂ’NªIdentifierÍ:rÍ:x¦elmtIdNªIdentifierÍ:zÍ:‰¯isInitialRenderO®BlockStatementÍ:Í; “U³ExpressionStatementÍ:Í:¸V®CallExpressionÍ:Í:·[°MemberExpressionÍ:Í:µNªIdentifierÍ:Í:®±RelativeContainerNªIdentifierÍ:¯Í:µ¦createÂÂÂU³ExpressionStatementÍ:ÆÍ:æV®CallExpressionÍ:ÆÍ:å[°MemberExpressionÍ:ÆÍ:İNªIdentifierÍ:ÆÍ:×±RelativeContainerNªIdentifierÍ:ØÍ:İ¥widthÂÂ‘T§LiteralÍ:ŞÍ:ä¤100%¦'100%'ÂU³ExpressionStatementÍ:ôÍ;V®CallExpressionÍ:ôÍ;[°MemberExpressionÍ:ôÍ;NªIdentifierÍ:ôÍ;±RelativeContainerNªIdentifierÍ;Í;¦heightÂÂ‘T§LiteralÍ;Í;¤100%¦'100%'ÂNªIdentifierÍ;"Í;3±RelativeContainerÂU³ExpressionStatementÍ;?ÍF_V®CallExpressionÍ;?ÍF^[°MemberExpressionÍ;?Í;]W®ThisExpressionÍ;?Í;CNªIdentifierÍ;DÍ;]¹observeComponentCreation2ÂÂ’Q·ArrowFunctionExpressionÍ;^ÍFYÀÂÂÂ’NªIdentifierÍ;_Í;e¦elmtIdNªIdentifierÍ;gÍ;v¯isInitialRenderO®BlockStatementÍ;{ÍFY’U³ExpressionStatementÍ;ŠÍ;–V®CallExpressionÍ;ŠÍ;•[°MemberExpressionÍ;ŠÍ;“NªIdentifierÍ;ŠÍ;Œ¢IfNªIdentifierÍ;Í;“¦createÂÂÂX«IfStatementÍ;¤ÍFNS¯UnaryExpressionÍ;¨Í;¹¡!Ã[°MemberExpressionÍ;©Í;¹W®ThisExpressionÍ;©Í;­NªIdentifierÍ;®Í;¹«isVideoLockÂÂO®BlockStatementÍ;»ÍEÚ‘U³ExpressionStatementÍ;ÎÍEËV®CallExpressionÍ;ÎÍEÊ[°MemberExpressionÍ;ÎÍ;íW®ThisExpressionÍ;ÎÍ;ÒNªIdentifierÍ;ÓÍ;íºifElseBranchUpdateFunctionÂÂ’T§LiteralÍ;îÍ;ï ¡0Q·ArrowFunctionExpressionÍ;ñÍEÉÀÂÂÂO®BlockStatementÍ;÷ÍEÉ“U³ExpressionStatementÍ<ÍBîV®CallExpressionÍ<ÍBí[°MemberExpressionÍ<Í<,W®ThisExpressionÍ<Í<NªIdentifierÍ<Í<,¹observeComponentCreation2ÂÂ’Q·ArrowFunctionExpressionÍ<-ÍBäÀÂÂÂ’NªIdentifierÍ<.Í<4¦elmtIdNªIdentifierÍ<6Í<E¯isInitialRenderO®BlockStatementÍ<JÍBä–U³ExpressionStatementÍ<“Í<ÇV®CallExpressionÍ<“Í<Æ[°MemberExpressionÍ<“Í<©NªIdentifierÍ<“Í<™¦ButtonNªIdentifierÍ<šÍ<©¯createWithChildÂÂ‘e°ObjectExpressionÍ<ªÍ<Å‘f¨PropertyÍ<¬Í<ÃÂÂÂNªIdentifierÍ<¬Í<°¤type[°MemberExpressionÍ<²Í<ÃNªIdentifierÍ<²Í<¼ªButtonTypeNªIdentifierÍ<½Í<Ã¦CircleÂÂ¤initÂU³ExpressionStatementÍ=Í=!V®CallExpressionÍ=Í= [°MemberExpressionÍ=Í=NªIdentifierÍ=Í=¦ButtonNªIdentifierÍ=Í=¦heightÂÂ‘T§LiteralÍ=Í=(¢40ÂU³ExpressionStatementÍ=iÍ=V®CallExpressionÍ=iÍ=~[°MemberExpressionÍ=iÍ={NªIdentifierÍ=iÍ=o¦ButtonNªIdentifierÍ=pÍ={«aspectRatioÂÂ‘T§LiteralÍ=|Í=}¡1ÂU³ExpressionStatementÍ=ÇÍ=ëV®CallExpressionÍ=ÇÍ=ê[°MemberExpressionÍ=ÇÍ=İNªIdentifierÍ=ÇÍ=Í¦ButtonNªIdentifierÍ=ÎÍ=İ¯backgroundColorÂÂ‘T§LiteralÍ=ŞÍ=é©#19FFFFFF«'#19FFFFFF'ÂU³ExpressionStatementÍ>3Í>ÔV®CallExpressionÍ>3Í>Ó[°MemberExpressionÍ>3Í>@NªIdentifierÍ>3Í>9¦ButtonNªIdentifierÍ>:Í>@¦marginÂÂ‘e°ObjectExpressionÍ>AÍ>Ò’f¨PropertyÍ>`Í>hÂÂÂNªIdentifierÍ>`Í>d¤leftT§LiteralÍ>fÍ>h¢16¤initf¨PropertyÍ>‡Í>·ÂÂÂNªIdentifierÍ>‡Í>Š£topXµConditionalExpressionÍ>ŒÍ>·[°MemberExpressionÍ>ŒÍ>œW®ThisExpressionÍ>ŒÍ>NªIdentifierÍ>‘Í>œ«isLandscapeÂÂ[°MemberExpressionÍ>ŸÍ>³W®ThisExpressionÍ>ŸÍ>£NªIdentifierÍ>¤Í>³¯statusBarHeightÂÂT§LiteralÍ>¶Í>·¡8¤initÂU³ExpressionStatementÍ?ÍBÍV®CallExpressionÍ?ÍBÌ[°MemberExpressionÍ?Í?*NªIdentifierÍ?Í?"¦ButtonNªIdentifierÍ?#Í?*§onClickÂÂ‘Q·ArrowFunctionExpressionÍ?+ÍBËÀÂÂÂO®BlockStatementÍ?1ÍBË’X«IfStatementÍ?ŸÍ@6S¯UnaryExpressionÍ?£Í?´¡!Ã[°MemberExpressionÍ?¤Í?´W®ThisExpressionÍ?¤Í?¨NªIdentifierÍ?©Í?´«isLandscapeÂÂO®BlockStatementÍ?¶Í@6’U³ExpressionStatementÍ?ÙÍ?îU¯ChainExpressionÍ?ÙÍ?íV®CallExpressionÍ?ÙÍ?í[°MemberExpressionÍ?ÙÍ?ë[°MemberExpressionÍ?ÙÍ?æW®ThisExpressionÍ?ÙÍ?İNªIdentifierÍ?ŞÍ?æ¨navStackÂÂNªIdentifierÍ?èÍ?ë£popÂÃÂ]¯ReturnStatementÍ@Í@ÀÀX«IfStatementÍ@ÍByV®CallExpressionÍ@‘Í@µ[°MemberExpressionÍ@‘Í@³NªIdentifierÍ@‘Í@œ«WindowUtilsNªIdentifierÍ@Í@³¶isExpandedOrHalfFoldedÂÂÂO®BlockStatementÍ@·ÍA‘U³ExpressionStatementÍ@ÚÍ@óZ´AssignmentExpressionÍ@ÚÍ@ò¡=[°MemberExpressionÍ@ÚÍ@êW®ThisExpressionÍ@ÚÍ@ŞNªIdentifierÍ@ßÍ@ê«isLandscapeÂÂT§LiteralÍ@íÍ@òÂ¥falseO®BlockStatementÍA5ÍBy‘U³ExpressionStatementÍAŞÍBV®CallExpressionÍAŞÍB[°MemberExpressionÍAŞÍAñW®ThisExpressionÍAŞÍAâNªIdentifierÍAãÍAñ®setOrientationÂÂ‘[°MemberExpressionÍAòÍB[°MemberExpressionÍAòÍBNªIdentifierÍAòÍAø¦windowNªIdentifierÍAùÍB«OrientationÂÂNªIdentifierÍBÍB¶USER_ROTATION_PORTRAITÂÂÂÂNªIdentifierÍBæÍBì¦ButtonÂU³ExpressionStatementÍCÍEiV®CallExpressionÍCÍEh[°MemberExpressionÍCÍC"W®ThisExpressionÍCÍCNªIdentifierÍC	ÍC"¹observeComponentCreation2ÂÂ’Q·ArrowFunctionExpressionÍC#ÍEZÀÂÂÂ’NªIdentifierÍC$ÍC*¦elmtIdNªIdentifierÍC,ÍC;¯isInitialRenderO®BlockStatementÍC@ÍEZ“U³ExpressionStatementÍC[ÍCêV®CallExpressionÍC[ÍCé[°MemberExpressionÍC[ÍCmNªIdentifierÍC[ÍCf«SymbolGlyphNªIdentifierÍCgÍCm¦createÂÂ‘e°ObjectExpressionÍCnÍCè•f¨PropertyÍCpÍCÂÂÂT§LiteralÍCpÍCt¢id¤"id"T§LiteralÍCvÍCÎ€>©125833534¤initf¨PropertyÍCÍCÂÂÂT§LiteralÍCÍC‡¤type¦"type"T§LiteralÍC‰ÍCÍœ@¥40000¤initf¨PropertyÍCÍCšÂÂÂNªIdentifierÍCÍC–¦paramsg¯ArrayExpressionÍC˜ÍCš¤initf¨PropertyÍCœÍCÏÂÂÂT§LiteralÍCœÍC¨ªbundleName¬"bundleName"T§LiteralÍCªÍCÏÙ#com.example.landscapeportraittoggleÙ%"com.example.landscapeportraittoggle"¤initf¨PropertyÍCÑÍCæÂÂÂT§LiteralÍCÑÍCİªmoduleName¬"moduleName"T§LiteralÍCßÍCæ¥entry§"entry"¤initÂU³ExpressionStatementÍDÍD˜V®CallExpressionÍDÍD—[°MemberExpressionÍDÍDNªIdentifierÍDÍD«SymbolGlyphNªIdentifierÍDÍD©fontColorÂÂ‘g¯ArrayExpressionÍDÍD–‘e°ObjectExpressionÍDÍD••f¨PropertyÍDÍD,ÂÂÂT§LiteralÍDÍD!¢id¤"id"T§LiteralÍD#ÍD,Î€‘©125831057¤initf¨PropertyÍD.ÍD;ÂÂÂT§LiteralÍD.ÍD4¤type¦"type"T§LiteralÍD6ÍD;Í'¥10001¤initf¨PropertyÍD=ÍDGÂÂÂNªIdentifierÍD=ÍDC¦paramsg¯ArrayExpressionÍDEÍDG¤initf¨PropertyÍDIÍD|ÂÂÂT§LiteralÍDIÍDUªbundleName¬"bundleName"T§LiteralÍDWÍD|Ù#com.example.landscapeportraittoggleÙ%"com.example.landscapeportraittoggle"¤initf¨PropertyÍD~ÍD“ÂÂÂT§LiteralÍD~ÍDŠªmoduleName¬"moduleName"T§LiteralÍDŒÍD“¥entry§"entry"¤initÂU³ExpressionStatementÍD²ÍECV®CallExpressionÍD²ÍEB[°MemberExpressionÍD²ÍDÆNªIdentifierÍD²ÍD½«SymbolGlyphNªIdentifierÍD¾ÍDÆ¨fontSizeÂÂ‘e°ObjectExpressionÍDÇÍEA•f¨PropertyÍDÉÍDØÂÂÂT§LiteralÍDÉÍDÍ¢id¤"id"T§LiteralÍDÏÍDØÎ€5©125830965¤initf¨PropertyÍDÚÍDçÂÂÂT§LiteralÍDÚÍDà¤type¦"type"T§LiteralÍDâÍDçÍ'¥10002¤initf¨PropertyÍDéÍDóÂÂÂNªIdentifierÍDéÍDï¦paramsg¯ArrayExpressionÍDñÍDó¤initf¨PropertyÍDõÍE(ÂÂÂT§LiteralÍDõÍEªbundleName¬"bundleName"T§LiteralÍEÍE(Ù#com.example.landscapeportraittoggleÙ%"com.example.landscapeportraittoggle"¤initf¨PropertyÍE*ÍE?ÂÂÂT§LiteralÍE*ÍE6ªmoduleName¬"moduleName"T§LiteralÍE8ÍE?¥entry§"entry"¤initÂNªIdentifierÍE\ÍEg«SymbolGlyphÂU³ExpressionStatementÍE©ÍE¶V®CallExpressionÍE©ÍEµ[°MemberExpressionÍE©ÍE³NªIdentifierÍE©ÍE¯¦ButtonNªIdentifierÍE°ÍE³£popÂÂÂÂO®BlockStatementÍEíÍFN‘U³ExpressionStatementÍF ÍF?V®CallExpressionÍF ÍF>[°MemberExpressionÍF ÍFW®ThisExpressionÍF ÍFNªIdentifierÍFÍFºifElseBranchUpdateFunctionÂÂ’T§LiteralÍF ÍF!¡1Q·ArrowFunctionExpressionÍF#ÍF=ÀÂÂÂO®BlockStatementÍF)ÍF=ÂNªIdentifierÍF[ÍF]¢IfÂU³ExpressionStatementÍFiÍFrV®CallExpressionÍFiÍFq[°MemberExpressionÍFiÍFoNªIdentifierÍFiÍFk¢IfNªIdentifierÍFlÍFo£popÂÂÂU³ExpressionStatementÍF|ÍRV®CallExpressionÍF|ÍR[°MemberExpressionÍF|ÍFšW®ThisExpressionÍF|ÍF€NªIdentifierÍFÍFš¹observeComponentCreation2ÂÂ’Q·ArrowFunctionExpressionÍF›ÍRˆÀÂÂÂ’NªIdentifierÍFœÍF¢¦elmtIdNªIdentifierÍF¤ÍF³¯isInitialRenderO®BlockStatementÍF¸ÍRˆ’U³ExpressionStatementÍFÇÍFÓV®CallExpressionÍFÇÍFÒ[°MemberExpressionÍFÇÍFĞNªIdentifierÍFÇÍFÉ¢IfNªIdentifierÍFÊÍFĞ¦createÂÂÂX«IfStatementÍFáÍR}[°MemberExpressionÍFåÍFõW®ThisExpressionÍFåÍFéNªIdentifierÍFêÍFõ«isLandscapeÂÂO®BlockStatementÍF÷ÍR	‘U³ExpressionStatementÍG
+ÍQúV®CallExpressionÍG
+ÍQù[°MemberExpressionÍG
+ÍG)W®ThisExpressionÍG
+ÍGNªIdentifierÍGÍG)ºifElseBranchUpdateFunctionÂÂ’T§LiteralÍG*ÍG+ ¡0Q·ArrowFunctionExpressionÍG-ÍQøÀÂÂÂO®BlockStatementÍG3ÍQø‘U³ExpressionStatementÍGJÍQåV®CallExpressionÍGJÍQä[°MemberExpressionÍGJÍGhW®ThisExpressionÍGJÍGNNªIdentifierÍGOÍGh¹observeComponentCreation2ÂÂ’Q·ArrowFunctionExpressionÍGiÍQÜÀÂÂÂ’NªIdentifierÍGjÍGp¦elmtIdNªIdentifierÍGrÍG¯isInitialRenderO®BlockStatementÍG†ÍQÜ˜U³ExpressionStatementÍGÙÍHğV®CallExpressionÍGÙÍHï[°MemberExpressionÍGÙÍGåNªIdentifierÍGÙÍGŞ¥ImageNªIdentifierÍGßÍGå¦createÂÂ‘XµConditionalExpressionÍGæÍHî[°MemberExpressionÍGæÍGöW®ThisExpressionÍGæÍGêNªIdentifierÍGëÍGö«isVideoLockÂÂe°ObjectExpressionÍGùÍHr•f¨PropertyÍGûÍH	ÂÂÂT§LiteralÍGûÍGÿ¢id¤"id"T§LiteralÍHÍH	Î  ¨16777244¤initf¨PropertyÍHÍHÂÂÂT§LiteralÍHÍH¤type¦"type"T§LiteralÍHÍHÍN ¥20000¤initf¨PropertyÍHÍH$ÂÂÂNªIdentifierÍHÍH ¦paramsg¯ArrayExpressionÍH"ÍH$¤initf¨PropertyÍH&ÍHYÂÂÂT§LiteralÍH&ÍH2ªbundleName¬"bundleName"T§LiteralÍH4ÍHYÙ#com.example.landscapeportraittoggleÙ%"com.example.landscapeportraittoggle"¤initf¨PropertyÍH[ÍHpÂÂÂT§LiteralÍH[ÍHgªmoduleName¬"moduleName"T§LiteralÍHiÍHp¥entry§"entry"¤inite°ObjectExpressionÍHuÍHî•f¨PropertyÍHwÍH…ÂÂÂT§LiteralÍHwÍH{¢id¤"id"T§LiteralÍH}ÍH…Î  ¨16777245¤initf¨PropertyÍH‡ÍH”ÂÂÂT§LiteralÍH‡ÍH¤type¦"type"T§LiteralÍHÍH”ÍN ¥20000¤initf¨PropertyÍH–ÍH ÂÂÂNªIdentifierÍH–ÍHœ¦paramsg¯ArrayExpressionÍHÍH ¤initf¨PropertyÍH¢ÍHÕÂÂÂT§LiteralÍH¢ÍH®ªbundleName¬"bundleName"T§LiteralÍH°ÍHÕÙ#com.example.landscapeportraittoggleÙ%"com.example.landscapeportraittoggle"¤initf¨PropertyÍH×ÍHìÂÂÂT§LiteralÍH×ÍHãªmoduleName¬"moduleName"T§LiteralÍHåÍHì¥entry§"entry"¤initÂU³ExpressionStatementÍIBÍISV®CallExpressionÍIBÍIR[°MemberExpressionÍIBÍINNªIdentifierÍIBÍIG¥ImageNªIdentifierÍIHÍIN¦heightÂÂ‘T§LiteralÍIOÍIQ¢24ÂU³ExpressionStatementÍI¥ÍIµV®CallExpressionÍI¥ÍI´[°MemberExpressionÍI¥ÍI°NªIdentifierÍI¥ÍIª¥ImageNªIdentifierÍI«ÍI°¥widthÂÂ‘T§LiteralÍI±ÍI³¢24ÂU³ExpressionStatementÍJÍJ$V®CallExpressionÍJÍJ#[°MemberExpressionÍJÍJNªIdentifierÍJÍJ¥ImageNªIdentifierÍJÍJ©fillColorÂÂ‘[°MemberExpressionÍJÍJ"NªIdentifierÍJÍJ¥ColorNªIdentifierÍJÍJ"¥WhiteÂÂÂU³ExpressionStatementÍJvÍK^V®CallExpressionÍJvÍK][°MemberExpressionÍJvÍJ†NªIdentifierÍJvÍJ{¥ImageNªIdentifierÍJ|ÍJ†ªalignRulesÂÂ‘e°ObjectExpressionÍJ‡ÍK\’f¨PropertyÍJ¦ÍJãÂÂÂNªIdentifierÍJ¦ÍJ©£tope°ObjectExpressionÍJ«ÍJã’f¨PropertyÍJ­ÍJÄÂÂÂNªIdentifierÍJ­ÍJ³¦anchorT§LiteralÍJµÍJÄ­__container__¯'__container__'¤initf¨PropertyÍJÆÍJáÂÂÂNªIdentifierÍJÆÍJË¥align[°MemberExpressionÍJÍÍJáNªIdentifierÍJÍÍJÚ­VerticalAlignNªIdentifierÍJÛÍJá¦CenterÂÂ¤init¤initf¨PropertyÍKÍKAÂÂÂNªIdentifierÍKÍK¤lefte°ObjectExpressionÍKÍKA’f¨PropertyÍK
+ÍK!ÂÂÂNªIdentifierÍK
+ÍK¦anchorT§LiteralÍKÍK!­__container__¯'__container__'¤initf¨PropertyÍK#ÍK?ÂÂÂNªIdentifierÍK#ÍK(¥align[°MemberExpressionÍK*ÍK?NªIdentifierÍK*ÍK9¯HorizontalAlignNªIdentifierÍK:ÍK?¥StartÂÂ¤init¤initÂU³ExpressionStatementÍK°ÍKİV®CallExpressionÍK°ÍKÜ[°MemberExpressionÍK°ÍK¼NªIdentifierÍK°ÍKµ¥ImageNªIdentifierÍK¶ÍK¼¦marginÂÂ‘e°ObjectExpressionÍK½ÍKÛ‘f¨PropertyÍK¿ÍKÙÂÂÂNªIdentifierÍK¿ÍKÃ¤left[°MemberExpressionÍKÅÍKÙW®ThisExpressionÍKÅÍKÉNªIdentifierÍKÊÍKÙ¯statusBarHeightÂÂ¤initÂU³ExpressionStatementÍL/ÍLHV®CallExpressionÍL/ÍLG[°MemberExpressionÍL/ÍL;NªIdentifierÍL/ÍL4¥ImageNªIdentifierÍL5ÍL;¦offsetÂÂ‘e°ObjectExpressionÍL<ÍLF‘f¨PropertyÍL>ÍLDÂÂÂNªIdentifierÍL>ÍL?¡yS¯UnaryExpressionÍLAÍLD¡-ÃT§LiteralÍLBÍLD¢12¤initÂU³ExpressionStatementÍLšÍQÅV®CallExpressionÍLšÍQÄ[°MemberExpressionÍLšÍL§NªIdentifierÍLšÍLŸ¥ImageNªIdentifierÍL ÍL§§onClickÂÂ‘Q·ArrowFunctionExpressionÍL¨ÍQÃÀÂÂÂO®BlockStatementÍL®ÍQÃ“U³ExpressionStatementÍMÍM(Z´AssignmentExpressionÍMÍM'¡=[°MemberExpressionÍMÍMW®ThisExpressionÍMÍMNªIdentifierÍMÍM«isVideoLockÂÂS¯UnaryExpressionÍMÍM'¡!Ã[°MemberExpressionÍMÍM'W®ThisExpressionÍMÍMNªIdentifierÍMÍM'«isVideoLockÂÂX«IfStatementÍNTÍNìY±LogicalExpressionÍNXÍN¡V®CallExpressionÍNXÍN|[°MemberExpressionÍNXÍNzNªIdentifierÍNXÍNc«WindowUtilsNªIdentifierÍNdÍNz¶isExpandedOrHalfFoldedÂÂÂ¢||Y°BinaryExpressionÍN€ÍN¡[°MemberExpressionÍN€ÍN™W®ThisExpressionÍN€ÍN„NªIdentifierÍN…ÍN™´orientationLockStateÂÂ£===T§LiteralÍNÍN¡¡0£'0'O®BlockStatementÍN£ÍNì‘]¯ReturnStatementÍNÆÍNÍÀÀX«IfStatementÍOÍQt[°MemberExpressionÍO…ÍO•W®ThisExpressionÍO…ÍO‰NªIdentifierÍOŠÍO•«isVideoLockÂÂO®BlockStatementÍO—ÍP‘U³ExpressionStatementÍP ÍP`V®CallExpressionÍP ÍP_[°MemberExpressionÍP ÍP3W®ThisExpressionÍP ÍP$NªIdentifierÍP%ÍP3®setOrientationÂÂ‘[°MemberExpressionÍP4ÍP^[°MemberExpressionÍP4ÍPFNªIdentifierÍP4ÍP:¦windowNªIdentifierÍP;ÍPF«OrientationÂÂNªIdentifierÍPGÍP^·AUTO_ROTATION_LANDSCAPEÂÂÂO®BlockStatementÍP¢ÍQt‘U³ExpressionStatementÍQÍQUV®CallExpressionÍQÍQT[°MemberExpressionÍQÍQ2W®ThisExpressionÍQÍQ#NªIdentifierÍQ$ÍQ2®setOrientationÂÂ‘[°MemberExpressionÍQ3ÍQS[°MemberExpressionÍQ3ÍQENªIdentifierÍQ3ÍQ9¦windowNªIdentifierÍQ:ÍQE«OrientationÂÂNªIdentifierÍQFÍQS­AUTO_ROTATIONÂÂÂÂNªIdentifierÍQŞÍQã¥ImageÂÂO®BlockStatementÍRÍR}‘U³ExpressionStatementÍR/ÍRnV®CallExpressionÍR/ÍRm[°MemberExpressionÍR/ÍRNW®ThisExpressionÍR/ÍR3NªIdentifierÍR4ÍRNºifElseBranchUpdateFunctionÂÂ’T§LiteralÍROÍRP¡1Q·ArrowFunctionExpressionÍRRÍRlÀÂÂÂO®BlockStatementÍRXÍRlÂNªIdentifierÍRŠÍRŒ¢IfÂU³ExpressionStatementÍR˜ÍR¡V®CallExpressionÍR˜ÍR [°MemberExpressionÍR˜ÍRNªIdentifierÍR˜ÍRš¢IfNªIdentifierÍR›ÍR£popÂÂÂU³ExpressionStatementÍR«Í\V®CallExpressionÍR«Í\[°MemberExpressionÍR«ÍRÉW®ThisExpressionÍR«ÍR¯NªIdentifierÍR°ÍRÉ¹observeComponentCreation2ÂÂ’Q·ArrowFunctionExpressionÍRÊÍ\ÀÂÂÂ’NªIdentifierÍRËÍRÑ¦elmtIdNªIdentifierÍRÓÍRâ¯isInitialRenderO®BlockStatementÍRçÍ\’U³ExpressionStatementÍRöÍSV®CallExpressionÍRöÍS[°MemberExpressionÍRöÍRÿNªIdentifierÍRöÍRø¢IfNªIdentifierÍRùÍRÿ¦createÂÂÂX«IfStatementÍSÍ\S¯UnaryExpressionÍSÍS%¡!Ã[°MemberExpressionÍSÍS%W®ThisExpressionÍSÍSNªIdentifierÍSÍS%«isLandscapeÂÂO®BlockStatementÍS'Í[‘U³ExpressionStatementÍS:Í[V®CallExpressionÍS:Í[~[°MemberExpressionÍS:ÍSYW®ThisExpressionÍS:ÍS>NªIdentifierÍS?ÍSYºifElseBranchUpdateFunctionÂÂ’T§LiteralÍSZÍS[ ¡0Q·ArrowFunctionExpressionÍS]Í[}ÀÂÂÂO®BlockStatementÍScÍ[}‘U³ExpressionStatementÍSzÍ[jV®CallExpressionÍSzÍ[i[°MemberExpressionÍSzÍS˜W®ThisExpressionÍSzÍS~NªIdentifierÍSÍS˜¹observeComponentCreation2ÂÂ’Q·ArrowFunctionExpressionÍS™Í[[ÀÂÂÂ’NªIdentifierÍSšÍS ¦elmtIdNªIdentifierÍS¢ÍS±¯isInitialRenderO®BlockStatementÍS¶Í[[–U³ExpressionStatementÍTÍT‘V®CallExpressionÍTÍT[°MemberExpressionÍTÍTNªIdentifierÍTÍT«SymbolGlyphNªIdentifierÍTÍT¦createÂÂ‘e°ObjectExpressionÍTÍT•f¨PropertyÍTÍT&ÂÂÂT§LiteralÍTÍT¢id¤"id"T§LiteralÍTÍT&Î€ü©125832700¤initf¨PropertyÍT(ÍT5ÂÂÂT§LiteralÍT(ÍT.¤type¦"type"T§LiteralÍT0ÍT5Íœ@¥40000¤initf¨PropertyÍT7ÍTAÂÂÂNªIdentifierÍT7ÍT=¦paramsg¯ArrayExpressionÍT?ÍTA¤initf¨PropertyÍTCÍTvÂÂÂT§LiteralÍTCÍTOªbundleName¬"bundleName"T§LiteralÍTQÍTvÙ#com.example.landscapeportraittoggleÙ%"com.example.landscapeportraittoggle"¤initf¨PropertyÍTxÍTÂÂÂT§LiteralÍTxÍT„ªmoduleName¬"moduleName"T§LiteralÍT†ÍT¥entry§"entry"¤initÂU³ExpressionStatementÍTÜÍUpV®CallExpressionÍTÜÍUo[°MemberExpressionÍTÜÍTñNªIdentifierÍTÜÍTç«SymbolGlyphNªIdentifierÍTèÍTñ©fontColorÂÂ‘g¯ArrayExpressionÍTòÍUn‘e°ObjectExpressionÍTóÍUm•f¨PropertyÍTõÍUÂÂÂT§LiteralÍTõÍTù¢id¤"id"T§LiteralÍTûÍUÎ€‘©125831057¤initf¨PropertyÍUÍUÂÂÂT§LiteralÍUÍU¤type¦"type"T§LiteralÍUÍUÍ'¥10001¤initf¨PropertyÍUÍUÂÂÂNªIdentifierÍUÍU¦paramsg¯ArrayExpressionÍUÍU¤initf¨PropertyÍU!ÍUTÂÂÂT§LiteralÍU!ÍU-ªbundleName¬"bundleName"T§LiteralÍU/ÍUTÙ#com.example.landscapeportraittoggleÙ%"com.example.landscapeportraittoggle"¤initf¨PropertyÍUVÍUkÂÂÂT§LiteralÍUVÍUbªmoduleName¬"moduleName"T§LiteralÍUdÍUk¥entry§"entry"¤initÂU³ExpressionStatementÍU»ÍUÔV®CallExpressionÍU»ÍUÓ[°MemberExpressionÍU»ÍUÏNªIdentifierÍU»ÍUÆ«SymbolGlyphNªIdentifierÍUÇÍUÏ¨fontSizeÂÂ‘T§LiteralÍUĞÍUÒ¢24ÂU³ExpressionStatementÍVÍWV®CallExpressionÍVÍW[°MemberExpressionÍVÍV5NªIdentifierÍVÍV*«SymbolGlyphNªIdentifierÍV+ÍV5ªalignRulesÂÂ‘e°ObjectExpressionÍV6ÍW’f¨PropertyÍVUÍV•ÂÂÂNªIdentifierÍVUÍV[¦bottome°ObjectExpressionÍV]ÍV•’f¨PropertyÍV_ÍVvÂÂÂNªIdentifierÍV_ÍVe¦anchorT§LiteralÍVgÍVv­__container__¯'__container__'¤initf¨PropertyÍVxÍV“ÂÂÂNªIdentifierÍVxÍV}¥align[°MemberExpressionÍVÍV“NªIdentifierÍVÍVŒ­VerticalAlignNªIdentifierÍVÍV“¦BottomÂÂ¤init¤initf¨PropertyÍV´ÍVòÂÂÂNªIdentifierÍV´ÍV¹¥righte°ObjectExpressionÍV»ÍVò’f¨PropertyÍV½ÍVÔÂÂÂNªIdentifierÍV½ÍVÃ¦anchorT§LiteralÍVÅÍVÔ­__container__¯'__container__'¤initf¨PropertyÍVÖÍVğÂÂÂNªIdentifierÍVÖÍVÛ¥align[°MemberExpressionÍVİÍVğNªIdentifierÍVİÍVì¯HorizontalAlignNªIdentifierÍVíÍVğ£EndÂÂ¤init¤initÂU³ExpressionStatementÍWZÍWÚV®CallExpressionÍWZÍWÙ[°MemberExpressionÍWZÍWlNªIdentifierÍWZÍWe«SymbolGlyphNªIdentifierÍWfÍWl¦marginÂÂ‘e°ObjectExpressionÍWmÍWØ’f¨PropertyÍWŒÍW•ÂÂÂNªIdentifierÍWŒÍW‘¥rightT§LiteralÍW“ÍW•¢16¤initf¨PropertyÍW´ÍW½ÂÂÂNªIdentifierÍW´ÍWº¦bottomT§LiteralÍW¼ÍW½¡8¤initÂU³ExpressionStatementÍX%Í[DV®CallExpressionÍX%Í[C[°MemberExpressionÍX%ÍX8NªIdentifierÍX%ÍX0«SymbolGlyphNªIdentifierÍX1ÍX8§onClickÂÂ‘Q·ArrowFunctionExpressionÍX9Í[BÀÂÂÂO®BlockStatementÍX?Í[B‘X«IfStatementÍX^Í['V®CallExpressionÍXbÍX†[°MemberExpressionÍXbÍX„NªIdentifierÍXbÍXm«WindowUtilsNªIdentifierÍXnÍX„¶isExpandedOrHalfFoldedÂÂÂO®BlockStatementÍXˆÍZ’U³ExpressionStatementÍYxÍYZ´AssignmentExpressionÍYxÍY¡=[°MemberExpressionÍYxÍYˆW®ThisExpressionÍYxÍY|NªIdentifierÍY}ÍYˆ«isLandscapeÂÂT§LiteralÍY‹ÍYÃ¤trueU³ExpressionStatementÍY²ÍYèV®CallExpressionÍY²ÍYç[°MemberExpressionÍY²ÍYÅW®ThisExpressionÍY²ÍY¶NªIdentifierÍY·ÍYÅ®setOrientationÂÂ‘[°MemberExpressionÍYÆÍYæ[°MemberExpressionÍYÆÍYØNªIdentifierÍYÆÍYÌ¦windowNªIdentifierÍYÍÍYØ«OrientationÂÂNªIdentifierÍYÙÍYæ­AUTO_ROTATIONÂÂÂO®BlockStatementÍZ*Í['‘U³ExpressionStatementÍZÈÍ[V®CallExpressionÍZÈÍ[[°MemberExpressionÍZÈÍZÛW®ThisExpressionÍZÈÍZÌNªIdentifierÍZÍÍZÛ®setOrientationÂÂ‘[°MemberExpressionÍZÜÍ[[°MemberExpressionÍZÜÍZîNªIdentifierÍZÜÍZâ¦windowNªIdentifierÍZãÍZî«OrientationÂÂNªIdentifierÍZïÍ[·USER_ROTATION_LANDSCAPEÂÂÂÂNªIdentifierÍ[]Í[h«SymbolGlyphÂÂO®BlockStatementÍ[¡Í\‘U³ExpressionStatementÍ[´Í[óV®CallExpressionÍ[´Í[ò[°MemberExpressionÍ[´Í[ÓW®ThisExpressionÍ[´Í[¸NªIdentifierÍ[¹Í[ÓºifElseBranchUpdateFunctionÂÂ’T§LiteralÍ[ÔÍ[Õ¡1Q·ArrowFunctionExpressionÍ[×Í[ñÀÂÂÂO®BlockStatementÍ[İÍ[ñÂNªIdentifierÍ\Í\¢IfÂU³ExpressionStatementÍ\Í\&V®CallExpressionÍ\Í\%[°MemberExpressionÍ\Í\#NªIdentifierÍ\Í\¢IfNªIdentifierÍ\ Í\#£popÂÂÂU³ExpressionStatementÍ\0Í\HV®CallExpressionÍ\0Í\G[°MemberExpressionÍ\0Í\ENªIdentifierÍ\0Í\A±RelativeContainerNªIdentifierÍ\BÍ\E£popÂÂÂU³ExpressionStatementÍ\RÍ\^V®CallExpressionÍ\RÍ\][°MemberExpressionÍ\RÍ\[NªIdentifierÍ\RÍ\W¥StackNªIdentifierÍ\XÍ\[£popÂÂÂP°MethodDefinitionÍ\kÍ\£ÂÂNªIdentifierÍ\kÍ\s¨rerender¦methodQ²FunctionExpressionÍ\sÍ\£ÀÂÂÂO®BlockStatementÍ\vÍ\£‘U³ExpressionStatementÍ\Í\œV®CallExpressionÍ\Í\›[°MemberExpressionÍ\Í\™W®ThisExpressionÍ\Í\…NªIdentifierÍ\†Í\™³updateDirtyElementsÂÂÂÀ—Ôrh•¤type¥start£endªspecifiers¦source±ImportDeclarationÍîÍ‘Ôri”¤type¥start£end¥local¶ImportDefaultSpecifierÍõÍüNªIdentifierÍõÍü§displayT§LiteralÍÍ­@ohos.display¯"@ohos.display"h±ImportDeclarationÍ‚Í¤‘i¶ImportDefaultSpecifierÍ‰ÍNªIdentifierÍ‰Í¦windowT§LiteralÍ•Í£¬@ohos.window®"@ohos.window"h±ImportDeclarationÍ¦ÍÌ‘i¶ImportDefaultSpecifierÍ­ÍµNªIdentifierÍ­Íµ¨settingsT§LiteralÍ»ÍË®@ohos.settings°"@ohos.settings"h±ImportDeclarationÍÎÍ‘Ôrj•¤type¥start£end¨imported¥local¯ImportSpecifierÍ×ÍãNªIdentifierÍ×Íã¬AVPlayerUtilNªIdentifierÍ×Íã¬AVPlayerUtilT§LiteralÍëÍµ../utils/AVPlayerUtil·'../utils/AVPlayerUtil'h±ImportDeclarationÍÍ+‘i¶ImportDefaultSpecifierÍÍNªIdentifierÍÍ¦LoggerT§LiteralÍÍ*°../common/Logger²'../common/Logger'h±ImportDeclarationÍ-Í`‘j¯ImportSpecifierÍ6ÍANªIdentifierÍ6ÍA«WindowUtilsNªIdentifierÍ6ÍA«WindowUtilsT§LiteralÍIÍ_´../utils/WindowUtils¶'../utils/WindowUtils'h±ImportDeclarationÍbÍ—‘j¯ImportSpecifierÍkÍwNªIdentifierÍkÍw¬getVideoSizeNªIdentifierÍkÍw¬getVideoSizeT§LiteralÍÍ–µ../common/CommonUtils·'../common/CommonUtils'

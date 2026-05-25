@@ -1,0 +1,49 @@
+{
+  "modulePathMap": {
+    "entry": "C:\\LandscapePortraitToggle-master\\entry"
+  },
+  "compileMode": "esmodule",
+  "projectRootPath": "C:\\LandscapePortraitToggle-master",
+  "nodeModulesPath": "C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\loader_out\\default\\node_modules",
+  "byteCodeHarInfo": {},
+  "declarationEntry": [],
+  "moduleName": "entry",
+  "hspNameOhmMap": {},
+  "harNameOhmMap": {},
+  "packageManagerType": "ohpm",
+  "compileEntry": [
+    "C:\\LandscapePortraitToggle-master\\entry\\src\\main\\ets\\transitioninpage\\VideoDetail.ets",
+    "C:\\LandscapePortraitToggle-master\\entry\\src\\main\\ets\\transitionbetweenpage\\DetailPlay.ets",
+    "C:\\LandscapePortraitToggle-master\\entry\\src\\main\\ets\\transitionbetweenpage\\LandscapePlay.ets"
+  ],
+  "otherCompileFiles": [],
+  "dynamicImportLibInfo": {},
+  "routerMap": [
+    {
+      "ohmurl": "@bundle:com.example.landscapeportraittoggle/entry/ets/transitioninpage/VideoDetail",
+      "name": "VideoDetail",
+      "pageSourceFile": "C:\\LandscapePortraitToggle-master\\entry\\src\\main\\ets\\transitioninpage\\VideoDetail.ets",
+      "buildFunction": "VideoDetailBuilder"
+    },
+    {
+      "ohmurl": "@bundle:com.example.landscapeportraittoggle/entry/ets/transitionbetweenpage/DetailPlay",
+      "name": "DetailPlay",
+      "pageSourceFile": "C:\\LandscapePortraitToggle-master\\entry\\src\\main\\ets\\transitionbetweenpage\\DetailPlay.ets",
+      "buildFunction": "DetailPlayBuilder"
+    },
+    {
+      "ohmurl": "@bundle:com.example.landscapeportraittoggle/entry/ets/transitionbetweenpage/LandscapePlay",
+      "name": "LandscapePlay",
+      "pageSourceFile": "C:\\LandscapePortraitToggle-master\\entry\\src\\main\\ets\\transitionbetweenpage\\LandscapePlay.ets",
+      "buildFunction": "LandscapePlayBuilder"
+    }
+  ],
+  "hspResourcesMap": {},
+  "updateVersionInfo": {},
+  "customizedHar": false,
+  "anBuildOutPut": "C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\loader_out\\default\\an\\arm64-v8a",
+  "anBuildMode": "type",
+  "patchConfig": {
+    "changedFileList": "C:\\LandscapePortraitToggle-master\\entry\\build\\default\\intermediates\\patch\\default\\changedFileList.json"
+  }
+}

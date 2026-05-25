@@ -1,0 +1,19 @@
+{
+  "routerMap": [
+    {
+      "name": "VideoDetail",
+      "pageSourceFile": "src/main/ets/transitioninpage/VideoDetail.ets",
+      "buildFunction": "VideoDetailBuilder"
+    },
+    {
+      "name": "DetailPlay",
+      "pageSourceFile": "src/main/ets/transitionbetweenpage/DetailPlay.ets",
+      "buildFunction": "DetailPlayBuilder"
+    },
+    {
+      "name": "LandscapePlay",
+      "pageSourceFile": "src/main/ets/transitionbetweenpage/LandscapePlay.ets",
+      "buildFunction": "LandscapePlayBuilder"
+    }
+  ]
+}
