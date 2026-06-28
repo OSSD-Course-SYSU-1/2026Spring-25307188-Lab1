@@ -31,6 +31,8 @@ struct VideoDetail {
   @Provide navStack: NavPathStack | null = null;
   @StorageLink('isLandscape') isLandscape: boolean = false;
   @StorageLink('isVideoLock') isVideoLock: boolean = false;
+  @StorageLink('currentVolume') currentVolume: number = 50;
+  @StorageLink('currentBrightness') currentBrightness: number = 50;
 
   build() {
     NavDestination() {

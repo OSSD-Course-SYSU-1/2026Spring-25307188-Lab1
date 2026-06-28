@@ -117,4 +117,33 @@ export class WindowUtils {
       Logger.error(TAG, `setWindowOrientation ${orientation} err, code: ${error.code}, message: ${error.message}`);
     })
   }
+
+  /**
+   * Check if device is tablet based on screen diagonal size
+   * @returns true if tablet, false if phone
+   */
+  static isTablet(): boolean {
+    try {
+      let displayClass: display.Display = display.getDefaultDisplaySync();
+      let width = displayClass.width;
+      let height = displayClass.height;
+      let densityPixels = displayClass.densityDPI / 160;
+      let widthInches = width / densityPixels;
+      let heightInches = height / densityPixels;
+      let diagonalInches = Math.sqrt(widthInches * widthInches + heightInches * heightInches);
+      return diagonalInches >= 7;
+    } catch (err) {
+      let error = err as BusinessError;
+      Logger.error(TAG, `isTablet err, error code: ${error.code}, error message: ${error.message}`);
+      return false;
+    }
+  }
+
+  /**
+   * Get device type scaling factor
+   * @returns scaling factor (1.0 for phone, 1.3 for tablet)
+   */
+  static getDeviceScale(): number {
+    return WindowUtils.isTablet() ? 1.3 : 1.0;
+  }
 }

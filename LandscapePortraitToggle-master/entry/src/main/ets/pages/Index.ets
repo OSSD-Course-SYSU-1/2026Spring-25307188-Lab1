@@ -32,6 +32,8 @@ function isCustomTransitionEnable(from: string, to: string): boolean {
 struct Index {
   @StorageLink('statusBarHeight') statusBarHeight: number = 0;
   @StorageLink('navBarHeight') navBarHeight: number = 0;
+  @State isTablet: boolean = false;
+  @State deviceScale: number = 1.0;
   private pageStack: NavPathStack = new NavPathStack();
 
   customTransition(from: NavContentInfo, to: NavContentInfo,
@@ -96,6 +98,8 @@ struct Index {
   aboutToAppear(): void {
     // Remove window size listener
     WindowUtils.windowClass.off('windowSizeChange');
+    this.isTablet = WindowUtils.isTablet();
+    this.deviceScale = WindowUtils.getDeviceScale();
   }
   // [End off_window_size_change]
 
@@ -103,17 +107,19 @@ struct Index {
   build() {
     Navigation(this.pageStack) {
       // [StartExclude bind_transition_animation]
-      Column({ space: 12 }) {
+      Column({ space: 12 * this.deviceScale }) {
         Button($r('app.string.transition_in_page'), { buttonStyle: ButtonStyleMode.NORMAL })
           .width('100%')
-          .height(40)
+          .height(40 * this.deviceScale)
+          .fontSize(16 * this.deviceScale)
           .onClick(() => {
             this.pageStack.pushPath({ name: 'VideoDetail' })
           })
 
         Button($r('app.string.transition_between_page'), { buttonStyle: ButtonStyleMode.NORMAL })
           .width('100%')
-          .height(40)
+          .height(40 * this.deviceScale)
+          .fontSize(16 * this.deviceScale)
           .onClick(() => {
             this.pageStack.pushPath({ name: 'DetailPlay' });
           })
@@ -122,9 +128,9 @@ struct Index {
       .height('100%')
       .width('100%')
       .padding({
-        left: 16,
-        right: 16,
-        bottom: 16
+        left: 16 * this.deviceScale,
+        right: 16 * this.deviceScale,
+        bottom: 16 * this.deviceScale
       })
       // [EndExclude bind_transition_animation]
     }

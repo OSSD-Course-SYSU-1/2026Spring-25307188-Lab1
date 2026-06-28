@@ -8,6 +8,11 @@ const TAG = 'VideoPlayTag';
 @Component
 struct VideoNode {
   @State videoRatio: number = 16 / 9;
+  @State currentTime: number = 0;
+  @State duration: number = 0;
+  @State isSeeking: boolean = false;
+  @StorageLink('seekTime') @Watch('onSeekTimeChange') seekTime: number = 0;
+  @StorageLink('isSeekingGlobal') isSeekingGlobal: boolean = false;
   // Create XComponentController object.
   private xComponentController: XComponentController = new XComponentController();
   private player?: AVPlayerUtil;
@@ -20,6 +25,25 @@ struct VideoNode {
   aboutToDisappear(): void {
     Logger.info(TAG, 'VideoNode aboutToDisappear');
     this.player?.release();
+  }
+
+  onSeekTimeChange(time: number) {
+    if (time > 0 && this.player) {
+      this.isSeeking = true;
+      this.currentTime = time;
+      this.player.seek(time);
+      setTimeout(() => {
+        this.isSeeking = false;
+        AppStorage.setOrCreate('seekTime', 0);
+      }, 100);
+    }
+  }
+
+  formatTime(ms: number): string {
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
   // [EndExclude create_video_component]
   build() {
@@ -35,6 +59,16 @@ struct VideoNode {
             // Set the video width/height ratio to the global state
             AppStorage.setOrCreate('videoRatio', ratio);
           })
+          this.player.setTimeUpdateCallback((time: number) => {
+            if (!this.isSeeking && !this.isSeekingGlobal) {
+              this.currentTime = time;
+              AppStorage.setOrCreate('currentTime', time);
+            }
+          });
+          this.player.setDurationCallback((duration: number) => {
+            this.duration = duration;
+            AppStorage.setOrCreate('duration', duration);
+          });
         } catch (err) {
           let error = err as BusinessError;
           Logger.error(TAG, `initPlayer err, error code: ${error.code}, error message: ${error.message}`);

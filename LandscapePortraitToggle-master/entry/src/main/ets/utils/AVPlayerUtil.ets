@@ -25,9 +25,13 @@ export class AVPlayerUtil {
   private avPlayer: media.AVPlayer | undefined = undefined;
   private fileName: string = '';
   private context: common.UIAbilityContext;
-  // Method to get video resource aspect ratio callback
   private callBack: Function = () => {
   };
+  private timeUpdateCallback: Function = () => {
+  };
+  private durationCallback: Function = () => {
+  };
+
 
   constructor(uiAbilityContext: common.UIAbilityContext) {
     this.context = uiAbilityContext
@@ -55,6 +59,9 @@ export class AVPlayerUtil {
           break;
         case 'prepared':
           Logger.info(TAG, 'AVPlayer state prepared called.');
+          if (avPlayer.duration) {
+            this.durationCallback(avPlayer.duration);
+          }
           avPlayer.play().catch((error: BusinessError) => {
             Logger.error(TAG, `avPlayer play err, error code: ${error.code}, error message: ${error.message}`);
           });
@@ -90,6 +97,11 @@ export class AVPlayerUtil {
       Logger.info('videoSizeChange called,and width is:' + width + ', height is :' + height);
       this.callBack(width / height);
     })
+
+    avPlayer.on('timeUpdate', (time: number) => {
+      this.timeUpdateCallback(time);
+    })
+
   }
 
   async initPlayer(fileName: string, callBack: (ratio: number) => void = () => {
@@ -131,5 +143,54 @@ export class AVPlayerUtil {
       let error = err as BusinessError;
       Logger.error(TAG, `release exception, error code: ${error.code}, error message: ${error.message}`);
     }
+  }
+
+  setTimeUpdateCallback(callback: (time: number) => void) {
+    this.timeUpdateCallback = callback;
+  }
+
+  setDurationCallback(callback: (duration: number) => void) {
+    this.durationCallback = callback;
+  }
+
+  async seek(timeMs: number): Promise<void> {
+    if (this.avPlayer) {
+      try {
+        await this.avPlayer.seek(timeMs);
+      } catch (error) {
+        let err = error as BusinessError;
+        Logger.error(TAG, `seek failed, error code: ${err.code}, error message: ${err.message}`);
+      }
+    }
+  }
+
+  async pause(): Promise<void> {
+    if (this.avPlayer) {
+      try {
+        await this.avPlayer.pause();
+      } catch (error) {
+        let err = error as BusinessError;
+        Logger.error(TAG, `pause failed, error code: ${err.code}, error message: ${err.message}`);
+      }
+    }
+  }
+
+  async play(): Promise<void> {
+    if (this.avPlayer) {
+      try {
+        await this.avPlayer.play();
+      } catch (error) {
+        let err = error as BusinessError;
+        Logger.error(TAG, `play failed, error code: ${err.code}, error message: ${err.message}`);
+      }
+    }
+  }
+
+  getCurrentTime(): number {
+    return this.avPlayer?.currentTime || 0;
+  }
+
+  getDuration(): number {
+    return this.avPlayer?.duration || 0;
   }
 }

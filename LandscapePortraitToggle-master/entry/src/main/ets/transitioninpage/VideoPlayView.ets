@@ -40,6 +40,16 @@ export struct VideoPlayView {
   @State orientationLockState: string = '1'; // control center switch rotation ,value 1:enable 0：disable
   private xComponentController: XComponentController = new XComponentController();
   private player?: AVPlayerUtil;
+  @StorageLink('currentVolume') currentVolume: number = 50;
+  @State volumeSliderVisible: boolean = false;
+  @StorageLink('currentBrightness') currentBrightness: number = 50;
+  @State brightnessSliderVisible: boolean = false;
+  @State currentTime: number = 0;
+  @State duration: number = 0;
+  @State isSeeking: boolean = false;
+  @State progressVisible: boolean = true;
+  @State isTablet: boolean = false;
+  @State deviceScale: number = 1.0;
   // [EndExclude set_orientation]
   private windowClass: window.Window | undefined;
   private context = this.getUIContext().getHostContext() as common.UIAbilityContext;
@@ -52,6 +62,8 @@ export struct VideoPlayView {
     // [StartExclude set_orientation]
     // Status bar rotation lock switch status
     this.getOrientationLockState();
+    this.isTablet = WindowUtils.isTablet();
+    this.deviceScale = WindowUtils.getDeviceScale();
     try {
     // [EndExclude set_orientation]
       this.windowClass = this.context.windowStage.getMainWindowSync();  // Obtains the window instance
@@ -147,141 +159,243 @@ export struct VideoPlayView {
     this.setOrientation(window.Orientation.PORTRAIT);
   }
 
+  formatTime(ms: number): string {
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
   build() {
-    Stack() {
-      Column() {
-        // [Start X_component]
-        // [Start X_component_size]
-        XComponent({ id: 'video_player_id', type: XComponentType.SURFACE, controller: this.xComponentController })
-          // [Start X_component_size]
-          .onLoad(() => {
-            // [StartExclude X_component]
-            try {
-              this.player = new AVPlayerUtil(this.context);
-              this.player.setSurfaceId(this.xComponentController.getXComponentSurfaceId());
-              this.player.initPlayer('videoTest.mp4', (aspect: number) => {
-                this.aspect = aspect;
-                this.setXComponentSize();
-              });
-            } catch (err) {
-              let error = err as BusinessError;
-              Logger.error(TAG, `initPlayer err, error code: ${error.code}, error message: ${error.message}`);
-            }
-            // [EndExclude X_component]
-          })
-          // [End X_component_size]
-          // Bind the width and height state variables to the XComponent.
-          .width(this.xComponentWidth)
-          .height(this.xComponentHeight)
-        // [End X_component]
-        // [End X_component_size]
+    Stack({ alignContent: Alignment.BottomStart }) {
+      Stack({ alignContent: Alignment.Center }) {
+        Column() {
+          XComponent({ id: 'video_player_id', type: XComponentType.SURFACE, controller: this.xComponentController })
+            .onLoad(() => {
+              try {
+                this.player = new AVPlayerUtil(this.context);
+                this.player.setSurfaceId(this.xComponentController.getXComponentSurfaceId());
+                this.player.initPlayer('videoTest.mp4', (aspect: number) => {
+                  this.aspect = aspect;
+                  this.setXComponentSize();
+                });
+                this.player.setTimeUpdateCallback((time: number) => {
+                  if (!this.isSeeking) {
+                    this.currentTime = time;
+                  }
+                });
+                this.player.setDurationCallback((duration: number) => {
+                  this.duration = duration;
+                });
+              } catch (err) {
+                let error = err as BusinessError;
+                Logger.error(TAG, `initPlayer err, error code: ${error.code}, error message: ${error.message}`);
+              }
+            })
+            .width(this.xComponentWidth)
+            .height(this.xComponentHeight)
+        }
+        .width('100%')
+        .height('100%')
+
+        if (this.volumeSliderVisible) {
+          Column() {
+            SymbolGlyph($r('sys.symbol.speaker_wave_2_fill'))
+              .fontSize(24 * this.deviceScale)
+              .fontColor([Color.White])
+              .margin({ bottom: 8 * this.deviceScale })
+            Slider({
+              value: this.currentVolume,
+              min: 0,
+              max: 100,
+              style: SliderStyle.OutSet
+            })
+              .blockColor(Color.White)
+              .trackColor('#80FFFFFF')
+              .selectedColor('#FFFFFF')
+              .width(120 * this.deviceScale)
+              .height(4 * this.deviceScale)
+              .trackThickness(4 * this.deviceScale)
+              .onChange((value: number) => {
+                this.currentVolume = value;
+              })
+          }
+          .width(48 * this.deviceScale)
+          .padding(12 * this.deviceScale)
+          .borderRadius(16 * this.deviceScale)
+          .backgroundColor('#80182431')
+        }
+
+        if (this.brightnessSliderVisible) {
+          Column() {
+            SymbolGlyph($r('sys.symbol.sun_max_fill'))
+              .fontSize(24 * this.deviceScale)
+              .fontColor([Color.White])
+              .margin({ bottom: 8 * this.deviceScale })
+            Slider({
+              value: this.currentBrightness,
+              min: 0,
+              max: 100,
+              style: SliderStyle.OutSet
+            })
+              .blockColor(Color.White)
+              .trackColor('#80FFFFFF')
+              .selectedColor('#FFFFFF')
+              .width(120 * this.deviceScale)
+              .height(4 * this.deviceScale)
+              .trackThickness(4 * this.deviceScale)
+              .onChange((value: number) => {
+                this.currentBrightness = value;
+              })
+          }
+          .width(48 * this.deviceScale)
+          .padding(12 * this.deviceScale)
+          .borderRadius(16 * this.deviceScale)
+          .backgroundColor('#80182431')
+        }
       }
+      .width('100%')
+      .height('100%')
 
       RelativeContainer() {
         if (!this.isVideoLock) {
-          // [Start icon_back]
           Button({ type: ButtonType.Circle }) {
             SymbolGlyph($r('sys.symbol.chevron_backward'))
               .fontColor([$r('sys.color.icon_on_primary')])
               .fontSize($r('sys.float.Title_M'))
           }
-          // [StartExclude icon_back]
-          .height(40)
+          .height(40 * this.deviceScale)
           .aspectRatio(1)
           .backgroundColor('#19FFFFFF')
           .margin({
-            left: 16,
-            top: this.isLandscape ? this.statusBarHeight : 8
+            left: 16 * this.deviceScale,
+            top: this.isLandscape ? this.statusBarHeight : 8 * this.deviceScale
           })
-          // [EndExclude icon_back]
           .onClick(() => {
-            // Exit the current page if not in landscape mode
             if (!this.isLandscape) {
               this.navStack?.pop();
               return;
             }
-            // [StartExclude icon_back]
             if (WindowUtils.isExpandedOrHalfFolded()) {
-              this.isLandscape = false;
+              // Do nothing for expanded state
             } else {
-              // [EndExclude icon_back]
-              // Set the window orientation to portrait
               this.setOrientation(window.Orientation.USER_ROTATION_PORTRAIT);
-              // [StartExclude icon_back]
             }
-            // [EndExclude icon_back]
           })
-          // [End icon_back]
         }
 
         if (this.isLandscape) {
-          // [Start is_video_lock_image]
           Image(this.isVideoLock ? $r('app.media.icon_lock') : $r('app.media.icon_lock_open'))
-          // [StartExclude is_video_lock_image]
-            .height(24)
-            .width(24)
+            .height(24 * this.deviceScale)
+            .width(24 * this.deviceScale)
             .fillColor(Color.White)
             .alignRules({
               top: { anchor: '__container__', align: VerticalAlign.Center },
               left: { anchor: '__container__', align: HorizontalAlign.Start }
             })
             .margin({ left: this.statusBarHeight })
-            .offset({ y: -12 })
-            // [EndExclude is_video_lock_image]
+            .offset({ y: -12 * this.deviceScale })
             .onClick(() => {
-              // Set video lock status
               this.isVideoLock = !this.isVideoLock;
-              // [StartExclude is_video_lock_image]
-              // If the device is in an expanded state or the rotation lock in the status bar is turned on,
-              // the window rotation policy will not be changed.
               if (WindowUtils.isExpandedOrHalfFolded() || this.orientationLockState === '0') {
                 return;
               }
-              // [EndExclude is_video_lock_image]
-              // [Start is_video_lock]
               if (this.isVideoLock) {
-                // If landscape mode is locked, then set to AUTO_ROTATION_LANDSCAPE.
                 this.setOrientation(window.Orientation.AUTO_ROTATION_LANDSCAPE);
               } else {
-                // Otherwise, set the window orientation to auto-rotate.
                 this.setOrientation(window.Orientation.AUTO_ROTATION);
               }
-              // [End is_video_lock]
             })
-          // [End is_video_lock_image]
         }
 
-        if (!this.isLandscape) {
-          // [Start icon_zoom_in]
-          SymbolGlyph($r('sys.symbol.arrow_up_left_and_arrow_down_right'))
-          // [StartExclude icon_zoom_in]
-            .fontColor([$r('sys.color.icon_on_primary')])
-            .fontSize(24)
-            .alignRules({
-              bottom: { anchor: '__container__', align: VerticalAlign.Bottom },
-              right: { anchor: '__container__', align: HorizontalAlign.End }
-            })
-            .margin({
-              right: 16,
-              bottom: 8
-            })
-            // [EndExclude icon_zoom_in]
-            .onClick(() => {
-              if (WindowUtils.isExpandedOrHalfFolded()) {
-                // When the device is folded or half-folded,
-                // the playback mode is set to landscape mode, and the window rotation is set to auto-rotate.
-                this.isLandscape = true;
-                this.setOrientation(window.Orientation.AUTO_ROTATION);
-              } else {
-                // In a non-expanded state, such as when folded, set the window orientation to landscape.
-                this.setOrientation(window.Orientation.USER_ROTATION_LANDSCAPE);
-              }
-            })
-          // [End icon_zoom_in]
-        }
       }
       .width('100%')
       .height('100%')
+
+      if (this.progressVisible) {
+        Row() {
+          Text(this.formatTime(this.currentTime))
+            .fontSize(12 * this.deviceScale)
+            .fontColor(Color.White)
+            .margin({ right: 8 * this.deviceScale })
+
+          Slider({
+            value: this.currentTime,
+            min: 0,
+            max: this.duration > 0 ? this.duration : 100,
+            style: SliderStyle.OutSet
+          })
+            .blockColor(Color.White)
+            .trackColor('#80FFFFFF')
+            .selectedColor('#FFFFFF')
+            .layoutWeight(1)
+            .height(4 * this.deviceScale)
+            .trackThickness(4 * this.deviceScale)
+            .onChange((value: number) => {
+              this.currentTime = value;
+            })
+            .onTouch((event: TouchEvent) => {
+              if (event.type === TouchType.Down) {
+                this.isSeeking = true;
+              } else if (event.type === TouchType.Up) {
+                this.player?.seek(this.currentTime);
+                this.isSeeking = false;
+              }
+            })
+
+          Text(this.formatTime(this.duration))
+            .fontSize(12 * this.deviceScale)
+            .fontColor(Color.White)
+            .margin({ left: 8 * this.deviceScale, right: 8 * this.deviceScale })
+
+          Button({ type: ButtonType.Circle }) {
+            SymbolGlyph($r('sys.symbol.sun_max_fill'))
+              .fontColor([$r('sys.color.icon_on_primary')])
+              .fontSize(16 * this.deviceScale)
+          }
+          .height(28 * this.deviceScale)
+          .aspectRatio(1)
+          .backgroundColor('#19FFFFFF')
+          .onClick(() => {
+            this.brightnessSliderVisible = !this.brightnessSliderVisible;
+          })
+
+          Button({ type: ButtonType.Circle }) {
+            SymbolGlyph($r('sys.symbol.speaker_wave_2_fill'))
+              .fontColor([$r('sys.color.icon_on_primary')])
+              .fontSize(16 * this.deviceScale)
+          }
+          .height(28 * this.deviceScale)
+          .aspectRatio(1)
+          .backgroundColor('#19FFFFFF')
+          .margin({ left: 8 * this.deviceScale })
+          .onClick(() => {
+            this.volumeSliderVisible = !this.volumeSliderVisible;
+          })
+
+          if (!this.isLandscape) {
+            SymbolGlyph($r('sys.symbol.arrow_up_left_and_arrow_down_right'))
+              .fontColor([$r('sys.color.icon_on_primary')])
+              .fontSize(20 * this.deviceScale)
+              .margin({ left: 8 * this.deviceScale })
+              .onClick(() => {
+                Logger.info(TAG, 'Switch to landscape clicked');
+                if (WindowUtils.isExpandedOrHalfFolded()) {
+                  this.setOrientation(window.Orientation.AUTO_ROTATION);
+                } else {
+                  this.setOrientation(window.Orientation.USER_ROTATION_LANDSCAPE);
+                }
+              })
+          }
+        }
+        .width('100%')
+        .height(48 * this.deviceScale)
+        .justifyContent(FlexAlign.Start)
+        .alignItems(VerticalAlign.Center)
+        .padding({ left: 16 * this.deviceScale, right: 16 * this.deviceScale })
+        .margin({ bottom: this.isLandscape ? 16 * this.deviceScale : 8 * this.deviceScale })
+      }
+
     }
     .width('100%')
     .backgroundColor($r('sys.color.comp_background_focus'))
